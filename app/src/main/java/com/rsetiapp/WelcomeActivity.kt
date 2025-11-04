@@ -40,8 +40,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(
             }*/
             if (isDeviceRooted()) {
             showSecurityWarning()
-            }
-            else {
+            }else {
                 navigate()
             }
         }
