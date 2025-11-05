@@ -1,5 +1,6 @@
 package com.rsetiapp.core.util
 import com.rsetiapp.BuildConfig
+import com.rsetiapp.security.SecurityUtils
 
 
 object AppConstant {
@@ -32,7 +33,9 @@ object AppConstant {
         const val WADH_KEY = "sgydIC09zzy6f8Lb3xaAqzKquKe9lFcNR9uTvYxFp+A="
         var LANGUAGE = "en"
         var ENVIRONMENT_TAG = "P"
-        var ENCRYPT_IV_KEY = BuildConfig.ENCRYPT_IV_KEY;
+       // var ENCRYPT_IV_KEY = BuildConfig.ENCRYPT_IV_KEY;
+        var ENCRYPT_IV_KEY = SecurityUtils.getEncryptIvKey();
+
         var ENCRYPT_KEY = BuildConfig.ENCRYPT_KEY;
 
 
