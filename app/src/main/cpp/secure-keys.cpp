@@ -4,32 +4,32 @@
 extern "C" {
 
 JNIEXPORT jstring JNICALL
-Java_com_rsetiapp_security_SecureConfig_getEncryptIvKey(JNIEnv* env, jobject /* this */) {
+Java_com_rsetiapp_security_SecureConfig_getEncryptIvKeyNative(JNIEnv* env, jobject) {
     return env->NewStringUTF("$10A80$10A80$10A");
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_rsetiapp_security_SecureConfig_getEncryptKey(JNIEnv* env, jobject /* this */) {
+Java_com_rsetiapp_security_SecureConfig_getEncryptKeyNative(JNIEnv* env, jobject) {
     return env->NewStringUTF("$10A80$10A80$10A");
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_rsetiapp_security_SecureConfig_getCryptLibAes(JNIEnv* env, jobject /* this */) {
+Java_com_rsetiapp_security_SecureConfig_getCryptLibAesNative(JNIEnv* env, jobject) {
     return env->NewStringUTF("AES/CBC/PKCS5PADDING");
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_rsetiapp_security_SecureConfig_getCryptId(JNIEnv* env, jobject /* this */) {
+Java_com_rsetiapp_security_SecureConfig_getCryptIdNative(JNIEnv* env, jobject) {
     return env->NewStringUTF("8080808080808080");
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_rsetiapp_security_SecureConfig_getCryptIv(JNIEnv* env, jobject /* this */) {
+Java_com_rsetiapp_security_SecureConfig_getCryptIvNative(JNIEnv* env, jobject) {
     return env->NewStringUTF("8080808080808080");
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_rsetiapp_security_SecureConfig_getKeyByName(JNIEnv* env, jobject /* this */, jstring keyName) {
+Java_com_rsetiapp_security_SecureConfig_getKeyByNameNative(JNIEnv* env, jobject, jstring keyName) {
     const char *nativeKeyName = env->GetStringUTFChars(keyName, nullptr);
 
     std::string result;

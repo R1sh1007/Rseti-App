@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.18.1)
 
 
-project("securekeys")
+project("secure-keys")
 
 add_library(
         secure-keys
