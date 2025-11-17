@@ -29,10 +29,16 @@ android {
                 cppFlags += "-std=c++17"
             }
         }
-        ndk {
-            abiFilters.addAll(listOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64"))
-        }
 
+        ndk {
+            abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+        }
     }
 
     // ✅ Prevent Google Play from splitting languages (needed for in-app switching)
@@ -42,17 +48,15 @@ android {
         }
     }
 
+
+
+
+
+
     buildTypes {
         release {
             isMinifyEnabled = true
             isShrinkResources =true
-
-            buildConfigField("String", "ENCRYPT_IV_KEY", "\"$10A80$10A80$10A\"")  // ✅ Example BuildConfig variable
-            buildConfigField("String", "ENCRYPT_KEY", "\"$10A80$10A80$10A\"")  // ✅ Example BuildConfig variable
-            buildConfigField("String", "CRYPLIBAES", "\"AES/CBC/PKCS5PADDING\"")  // ✅ Example BuildConfig variable
-            buildConfigField("String", "CRYPT_ID", "\"8080808080808080\"")  // ✅ Example BuildConfig variable
-            buildConfigField("String", "CRYPT_IV", "\"8080808080808080\"")  // ✅ Example BuildConfig variable
-
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -60,21 +64,13 @@ android {
         }
         debug {
             isMinifyEnabled = false
-            buildConfigField("String", "API_KEY", "\"DEBUG_API_KEY\"")
-            buildConfigField("String", "ENCRYPT_IV_KEY", "\"$10A80$10A80$10A\"")
-            buildConfigField("String", "ENCRYPT_KEY", "\"$10A80$10A80$10A\"")
-            buildConfigField("String", "CRYPLIBAES", "\"AES/CBC/PKCS5PADDING\"")
-            buildConfigField("String", "CRYPT_ID", "\"8080808080808080\"")
-            buildConfigField("String", "CRYPT_IV", "\"8080808080808080\"")
-
-
         }
     }
 
     buildFeatures {
         viewBinding = true
-        buildConfig = true  // ✅ Ensure BuildConfig is enabled
-        compose = true
+        buildConfig = true  // Ensure BuildConfig is enabled
+       // compose = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.10"
@@ -104,12 +100,12 @@ android {
             buildConfigField("String", "BASE_URL", "\"https://staging.example.com/\"")
         }
     }
-/*
-    sourceSets {
-        getByName("main") {
-            jniLibs.srcDirs("libs")
-        }
-    }*/
+    /*
+        sourceSets {
+            getByName("main") {
+                jniLibs.srcDirs("libs")
+            }
+        }*/
 }
 
 dependencies {
@@ -130,6 +126,8 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
 
     implementation(libs.androidx.room.runtime)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
     kapt(libs.androidx.room.compiler)
 
     implementation(libs.androidx.datastore.preferences)
@@ -242,5 +240,3 @@ dependencies {
 kapt {
     correctErrorTypes = true
 }
-
-

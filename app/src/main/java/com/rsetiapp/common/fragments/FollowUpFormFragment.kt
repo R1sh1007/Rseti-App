@@ -457,10 +457,6 @@ class FollowUpFormFragment :
             }
 
 
-
-
-
-
          private fun collectFollowTypeResponse() {
             lifecycleScope.launch {
                 collectLatestLifecycleFlow(commonViewModel.getFollowTypeList) {

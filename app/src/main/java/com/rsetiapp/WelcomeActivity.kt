@@ -43,6 +43,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(
             }else {
                 navigate()
             }
+
         }
     }
 

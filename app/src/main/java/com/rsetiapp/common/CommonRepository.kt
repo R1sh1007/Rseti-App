@@ -240,7 +240,8 @@ class CommonRepository @Inject constructor(
        attendanceInsertReq: AttendanceInsertReq
     ): Flow<Resource<out AttendanceInsertRes>> {
         return networkBoundResourceWithoutDb {
-            appLevelApi.getInsertAttendance(header,attendanceInsertReq)
+            appLevelApi.getInsertAttendance(
+                header,attendanceInsertReq)
         }
     }
 

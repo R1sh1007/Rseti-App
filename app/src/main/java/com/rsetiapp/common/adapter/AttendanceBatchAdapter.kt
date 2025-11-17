@@ -36,8 +36,6 @@ class AttendanceBatchAdapter ( private val batchList: List<AttendanceBatch>
             binding.root.setOnClickListener {
                 val data = batchList[adapterPosition]
 
-
-
                 val action =
                     AttendanceBatchFragmentDirections.actionAttendanceBatchFragmentToAttendanceCandidateFragment(
                         (data.batchCode ?: "0").toString(), data.batchName ?: "Batch Name"

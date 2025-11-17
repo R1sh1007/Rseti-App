@@ -27,6 +27,24 @@ JNIEXPORT jstring JNICALL
 Java_com_rsetiapp_security_SecureConfig_getCryptIvNative(JNIEnv* env, jobject) {
     return env->NewStringUTF("8080808080808080");
 }
+  
+JNIEXPORT jstring JNICALL
+Java_com_rsetiapp_security_SecureConfig_nativeRefreshTokenUrl(JNIEnv *env, jobject) {
+    return env->NewStringUTF("jhbheugcy2373y379y37gydygdy");
+}
+
+
+JNIEXPORT jstring JNICALL
+Java_com_rsetiapp_security_SecureConfig_nativeClientSecretKey(JNIEnv *env, jobject) {
+    return env->NewStringUTF("dgtbncbehkcbjebccnkec78yf37bc");
+}
+
+
+JNIEXPORT jstring JNICALL
+Java_com_rsetiapp_security_SecureConfig_nativeWadhKey(JNIEnv *env, jobject) {
+    return env->NewStringUTF("sgydIC09zzy6f8Lb3xaAqzKquKe9lFcNR9uTvYxFp+A=");
+}
+
 
 JNIEXPORT jstring JNICALL
 Java_com_rsetiapp_security_SecureConfig_getKeyByNameNative(JNIEnv* env, jobject, jstring keyName) {
@@ -48,7 +66,6 @@ Java_com_rsetiapp_security_SecureConfig_getKeyByNameNative(JNIEnv* env, jobject,
     } else {
         result = "";
     }
-
     env->ReleaseStringUTFChars(keyName, nativeKeyName);
     return env->NewStringUTF(result.c_str());
 }

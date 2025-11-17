@@ -77,8 +77,17 @@
 -keep class org.simpleframework.* { *; }
 -keepclasseswithmembers class org.simpleframework.** { *; }
 
+-keepclasseswithmembers class * {
+    native <methods>;
+}
 
+-keep class com.rsetiapp.security.SecureConfig {
+   *;
+}
 
+-keepclassmembers class * {
+    public static void loadLibrary(java.lang.String);
+}
 
 
 

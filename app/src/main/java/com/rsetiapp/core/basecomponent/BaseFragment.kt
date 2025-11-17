@@ -21,6 +21,7 @@ import com.rsetiapp.core.util.AppUtil
 import com.rsetiapp.core.util.UserPreferences
 import com.rsetiapp.core.util.log
 import com.rsetiapp.R
+import com.rsetiapp.security.SecurityUtils
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import java.io.ByteArrayOutputStream
@@ -60,6 +61,7 @@ abstract class BaseFragment<VB : ViewBinding>(private val bindingInflater: (infl
              WindowManager.LayoutParams.FLAG_SECURE,
              WindowManager.LayoutParams.FLAG_SECURE
          )*/
+      //  SecurityUtils.keyLogsTest()
         return binding.root
     }
 
@@ -67,8 +69,8 @@ abstract class BaseFragment<VB : ViewBinding>(private val bindingInflater: (infl
         super.onAttach(context)
         this.baseActivity = activity as BaseActivity<VB>
     }
-/*
-    fun showProgressBar() {
+
+    /*fun showProgressBar() {
         progress?.show()
     }
 

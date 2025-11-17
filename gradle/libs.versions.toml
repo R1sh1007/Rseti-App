@@ -63,6 +63,10 @@ converter-scalars = "2.9.0"
 chucker-version = "4.0.0"
 playServicesLocation = "21.3.0"
 viewpager2 = "1.1.0"
+retrofit = "2.9.0"
+navigationFragmentKtxVersion = "2.9.6"
+navigationUiKtxVersion = "2.9.6"
+
 
 
 [libraries]
@@ -125,6 +129,8 @@ androidx-datastore-preferences = { module = "androidx.datastore:datastore-prefer
 sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
 simple-xml = { module = "org.simpleframework:simple-xml", version.ref = "simpleXml" }
 ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sspAndroid" }
+navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtxVersion" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtxVersion" }
 
 
 

@@ -35,7 +35,6 @@ LanguageChangeFragment : BaseFragment<FragmentLanguageChangeBinding>(FragmentLan
 
 
         if (AppUtil.getSavedLanguagePreference(requireContext()).contains("en")){
-
             binding.checkEnglishIcon.visible()
             binding.checkIconHindi.gone()
             binding.checkTamilIcon.gone()
@@ -49,10 +48,6 @@ LanguageChangeFragment : BaseFragment<FragmentLanguageChangeBinding>(FragmentLan
             binding.checkPunjabiIcon.gone()
             binding.checkTeluguIcon.gone()
             binding.checkUrduIcon.gone()
-
-
-
-
         }
         else if (AppUtil.getSavedLanguagePreference(requireContext()).contains("hi")){
             binding.checkIconHindi.visible()
@@ -102,9 +97,6 @@ LanguageChangeFragment : BaseFragment<FragmentLanguageChangeBinding>(FragmentLan
             binding.checkPunjabiIcon.gone()
             binding.checkTeluguIcon.gone()
             binding.checkUrduIcon.gone()
-
-
-
         }
         else if (AppUtil.getSavedLanguagePreference(requireContext()).contains("gu")){
             binding.checkGujaratiIcon.visible()
@@ -120,9 +112,6 @@ LanguageChangeFragment : BaseFragment<FragmentLanguageChangeBinding>(FragmentLan
             binding.checkPunjabiIcon.gone()
             binding.checkTeluguIcon.gone()
             binding.checkUrduIcon.gone()
-
-
-
         }
         else if (AppUtil.getSavedLanguagePreference(requireContext()).contains("kn")){
             binding.checkGujaratiIcon.gone()
@@ -138,9 +127,6 @@ LanguageChangeFragment : BaseFragment<FragmentLanguageChangeBinding>(FragmentLan
             binding.checkPunjabiIcon.gone()
             binding.checkTeluguIcon.gone()
             binding.checkUrduIcon.gone()
-
-
-
         }
         else if (AppUtil.getSavedLanguagePreference(requireContext()).contains("ml")){
             binding.checkGujaratiIcon.gone()
@@ -156,9 +142,6 @@ LanguageChangeFragment : BaseFragment<FragmentLanguageChangeBinding>(FragmentLan
             binding.checkPunjabiIcon.gone()
             binding.checkTeluguIcon.gone()
             binding.checkUrduIcon.gone()
-
-
-
         }
         else if (AppUtil.getSavedLanguagePreference(requireContext()).contains("or")){
             binding.checkGujaratiIcon.gone()
@@ -174,9 +157,6 @@ LanguageChangeFragment : BaseFragment<FragmentLanguageChangeBinding>(FragmentLan
             binding.checkPunjabiIcon.gone()
             binding.checkTeluguIcon.gone()
             binding.checkUrduIcon.gone()
-
-
-
         }
         else if (AppUtil.getSavedLanguagePreference(requireContext()).contains("mr")){
             binding.checkGujaratiIcon.gone()
@@ -192,9 +172,6 @@ LanguageChangeFragment : BaseFragment<FragmentLanguageChangeBinding>(FragmentLan
             binding.checkPunjabiIcon.gone()
             binding.checkTeluguIcon.gone()
             binding.checkUrduIcon.gone()
-
-
-
         }
         else if (AppUtil.getSavedLanguagePreference(requireContext()).contains("pa")){
             binding.checkGujaratiIcon.gone()
@@ -210,9 +187,6 @@ LanguageChangeFragment : BaseFragment<FragmentLanguageChangeBinding>(FragmentLan
             binding.checkPunjabiIcon.visible()
             binding.checkTeluguIcon.gone()
             binding.checkUrduIcon.gone()
-
-
-
         }
         else if (AppUtil.getSavedLanguagePreference(requireContext()).contains("te")){
             binding.checkGujaratiIcon.gone()

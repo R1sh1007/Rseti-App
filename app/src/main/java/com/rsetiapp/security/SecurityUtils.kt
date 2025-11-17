@@ -1,5 +1,7 @@
 package com.rsetiapp.security
 
+import android.util.Log
+
 /**
  * Created by Rishi Porwal
  */
@@ -17,9 +19,21 @@ object SecurityUtils {
 
     fun getEncryptIvKey(): String = SecureConfig.encryptIvKey
     fun getEncryptKey(): String = SecureConfig.encryptKey
+    @JvmStatic
     fun getCryptLibAes(): String = SecureConfig.cryptLibAes
+    @JvmStatic
     fun getCryptId(): String = SecureConfig.cryptId
+    @JvmStatic
     fun getCryptIv(): String = SecureConfig.cryptIv
 
+    fun getRefreshTokenUrl(): String = SecureConfig.REFRESH_TOKEN_URL
+
+    fun getClientSecretKey(): String = SecureConfig.CLIENT_SECRET_KEY
+
+    fun getWadhKey(): String = SecureConfig.WADH_KEY
+
     fun getSecureValue(keyName: String): String = SecureConfig.getKey(keyName)
+
+
+
 }

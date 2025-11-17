@@ -139,8 +139,6 @@
             <argument
                 android:name="stateNme"
                 app:argType="string" />
-
-
             <argument
                 android:name="stateCode"
                 app:argType="string" />

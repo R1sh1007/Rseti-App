@@ -41,12 +41,10 @@ class SdrListFragment : BaseFragment<FragmentSdrListBinding>(FragmentSdrListBind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         userPreferences = UserPreferences(requireContext())
         formName = arguments?.getString("formName").toString()
         geofenceHelper = GeofenceHelper(requireContext())
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
         checkLocationPermission()
         init()
     }
@@ -57,6 +55,7 @@ class SdrListFragment : BaseFragment<FragmentSdrListBinding>(FragmentSdrListBind
             SdrListReq(
                 BuildConfig.VERSION_NAME,
                 AppUtil.getAndroidId(requireContext()),
+
                 userPreferences.getUseID()
             )
         )

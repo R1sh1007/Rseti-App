@@ -66,6 +66,7 @@ import com.rsetiapp.core.util.AppUtil
 import com.rsetiapp.core.util.UserPreferences
 import com.rsetiapp.core.util.copyToClipboard
 import com.rsetiapp.core.util.gone
+import com.rsetiapp.security.SecurityUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -163,15 +164,7 @@ class AttendanceFragment : BaseFragment<FragmentVerifyUserAttendanceBinding>(
 
         loadBase64Image(candidateDp, binding.circleImageView)
 
-
-//Hi
-
-
         init()
-
-
-
-
 
     }
     private fun startClock() {
@@ -189,14 +182,11 @@ class AttendanceFragment : BaseFragment<FragmentVerifyUserAttendanceBinding>(
         initEKYC()
 
         binding.btnCheckIn.setOnClickListener {
-
-
-
                 if (attendanceFlag=="checkin"){
                     //for audit
                     showProgressBar()
-                   invokeCaptureIntent()
-                 /*   val currentDate = LocalDate.now()
+                 //  invokeCaptureIntent()
+                    val currentDate = LocalDate.now()
                     val formattedDate = currentDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
                     val currentTime = LocalTime.now()
                     val formattedTime = currentTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"))  // ✅ 24-hour format\
@@ -207,29 +197,20 @@ class AttendanceFragment : BaseFragment<FragmentVerifyUserAttendanceBinding>(
                         BuildConfig.VERSION_NAME,batchId,candidateId,
                         currentDate.toString(),"checkin",
                         formattedTime,"","",candidateName,AppUtil.getSavedEntityPreference(requireContext()),AppUtil.getSavedOrgIdPreference(requireContext()),AppUtil.getSavedHRIdPreference(requireContext())))
-                        collectAttendanceInsertResponse()*/
-
-
+                        collectAttendanceInsertResponse()
 
                 }
             else showSnackBar("Checkin Already marked")
-
-
-
-
-
         }
 
         binding.btnCheckOut.setOnClickListener {
-
-
                 if (attendanceFlag=="checkout"){
 
                     //for audit
                       showProgressBar()
-                       invokeCaptureIntent()
+                     //  invokeCaptureIntent()
 
-                   /* val currentDate = LocalDate.now()
+                    val currentDate = LocalDate.now()
                     val formattedDate = currentDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
                     val currentTime = LocalTime.now()
 
@@ -250,7 +231,7 @@ class AttendanceFragment : BaseFragment<FragmentVerifyUserAttendanceBinding>(
                         currentDate.toString(),"checkout",
                         "",formattedTime,totalHoursValue,candidateName,AppUtil.getSavedEntityPreference(requireContext()),AppUtil.getSavedOrgIdPreference(requireContext()),AppUtil.getSavedHRIdPreference(requireContext())))
 
-                    collectAttendanceInsertResponse()*/
+                    collectAttendanceInsertResponse()
 
 
                 }
@@ -376,7 +357,9 @@ class AttendanceFragment : BaseFragment<FragmentVerifyUserAttendanceBinding>(
     }
 
     private fun createPidOptions(txnId: String, purpose: String): String {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<PidOptions ver=\"1.0\" env=\"${PRODUCTION}\">\n" + "   <Opts fCount=\"\" fType=\"\" iCount=\"\" iType=\"\" pCount=\"\" pType=\"\" format=\"\" pidVer=\"2.0\" timeout=\"\" otp=\"\" wadh=\"${AppConstant.Constants.WADH_KEY}\" posh=\"\" />\n" + "   <CustOpts>\n" + "      <Param name=\"txnId\" value=\"${txnId}\"/>\n" + "      <Param name=\"purpose\" value=\"$purpose\"/>\n" + "      <Param name=\"language\" value=\"$LANGUAGE}\"/>\n" + "   </CustOpts>\n" + "</PidOptions>"
+        //return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<PidOptions ver=\"1.0\" env=\"${PRODUCTION}\">\n" + "   <Opts fCount=\"\" fType=\"\" iCount=\"\" iType=\"\" pCount=\"\" pType=\"\" format=\"\" pidVer=\"2.0\" timeout=\"\" otp=\"\" wadh=\"${AppConstant.Constants.WADH_KEY}\" posh=\"\" />\n" + "   <CustOpts>\n" + "      <Param name=\"txnId\" value=\"${txnId}\"/>\n" + "      <Param name=\"purpose\" value=\"$purpose\"/>\n" + "      <Param name=\"language\" value=\"$LANGUAGE}\"/>\n" + "   </CustOpts>\n" + "</PidOptions>"
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<PidOptions ver=\"1.0\" env=\"${PRODUCTION}\">\n" + "   <Opts fCount=\"\" fType=\"\" iCount=\"\" iType=\"\" pCount=\"\" pType=\"\" format=\"\" pidVer=\"2.0\" timeout=\"\" otp=\"\" wadh=\"${SecurityUtils.getWadhKey()}\" posh=\"\" />\n" + "   <CustOpts>\n" + "      <Param name=\"txnId\" value=\"${txnId}\"/>\n" + "      <Param name=\"purpose\" value=\"$purpose\"/>\n" + "      <Param name=\"language\" value=\"$LANGUAGE}\"/>\n" + "   </CustOpts>\n" + "</PidOptions>"
+
     }
 
 
@@ -743,9 +726,9 @@ class AttendanceFragment : BaseFragment<FragmentVerifyUserAttendanceBinding>(
                             }   else if (getInsertAttendance.responseCode==401){
                                 AppUtil.showSessionExpiredDialog(findNavController(),requireContext())
                             }
-                            else {
-                                toastLong(getInsertAttendance.responseDesc)
-                            }
+//                            else {
+//                                toastLong(getInsertAttendance.responseDesc)
+//                            }
                         }
                     }
 

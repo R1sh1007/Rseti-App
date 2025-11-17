@@ -95,6 +95,7 @@ class EAPAwarnessFormFragment  : BaseFragment<FragmentEapAwarnessBinding>(Fragme
 
 
     private var selectedDate=""
+
     private var selectedTotalParticipants=""
     private var selectedNameOfNGO=""
     private var selectedNoOfAppExpectedNextMonth=""
@@ -189,7 +190,6 @@ class EAPAwarnessFormFragment  : BaseFragment<FragmentEapAwarnessBinding>(Fragme
         fun updateCandidateCount(count: Int) {
             candidateCountTextView?.text = "Candidates: "+count.toString()
             counts=count.toString()
-
         }
 
         if (recyclerView != null) {
