@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="12dp"
+    android:backgroundTint="@android:color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Batch Reg -->
+        <TextView
+            android:id="@+id/tvBatchReg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Batch Reg No"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvBatchRegValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BR12345"
+            android:textSize="14dp"
+            app:layout_constraintStart_toEndOf="@id/tvBatchReg"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@id/tvBatchReg" />
+
+        <!-- Institute Name -->
+        <TextView
+            android:id="@+id/tvInstitute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Institute Name"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            app:layout_constraintTop_toBottomOf="@id/tvBatchReg"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvInstituteValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="ABC Institute"
+            android:textSize="14dp"
+            app:layout_constraintStart_toEndOf="@id/tvInstitute"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@id/tvInstitute"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Dst Name -->
+        <TextView
+            android:id="@+id/tvDstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dst / Deemed DST"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvInstituteValue" />
+
+        <TextView
+            android:id="@+id/tvDstNameValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="XYZ District"
+            android:textSize="14sp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/tvDstName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvDstName" />
+
+        <TextView
+            android:id="@+id/tvCourseName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Course Name"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDstName" />
+
+        <TextView
+            android:id="@+id/tvCourseNameValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Computer Training"
+            android:textSize="14sp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/tvCourseName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvCourseName" />
+        <TextView
+            android:id="@+id/tvDays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No. of Days"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCourseName" />
+
+        <TextView
+            android:id="@+id/tvDaysValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15 Days"
+            android:textSize="14sp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/tvDays"
+            app:layout_constraintTop_toTopOf="@id/tvDays" />
+
+
+        <TextView
+            android:id="@+id/tvBatchStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Batch Status"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDays" />
+
+        <TextView
+            android:id="@+id/tvBatchStatusValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Running"
+            android:textSize="14sp"
+            android:textColor="@color/teal_700"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/tvBatchStatus"
+            app:layout_constraintTop_toTopOf="@id/tvBatchStatus" />
+        <!-- Dates Row -->
+        <TextView
+            android:id="@+id/tvStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start Date:"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            app:layout_constraintTop_toBottomOf="@id/tvBatchStatus"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvStartValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10/11/2025"
+            android:textSize="14dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/tvStart"
+            app:layout_constraintTop_toTopOf="@+id/tvStart" />
+
+        <TextView
+            android:id="@+id/tvEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="End Date:"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            app:layout_constraintTop_toBottomOf="@id/tvStart"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvEndValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="24/11/2025"
+            android:textSize="14dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/tvEnd"
+            app:layout_constraintTop_toTopOf="@id/tvEnd" />
+
+        <!-- Status Button -->
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_8"
+            android:background="#DDDDDD"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvEndValue"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:id="@+id/btnApprove"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/card_background"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:text="Approve"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView
+                android:id="@+id/btnReject"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/backgroung_overlay"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:text="Disapprove"
+                android:textColor="@color/light_color"
+                android:textSize="@dimen/sp_16" />
+
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

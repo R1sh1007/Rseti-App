@@ -6,6 +6,8 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.AnimationUtils
+import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
 import com.rsetiapp.core.basecomponent.BaseActivity
@@ -25,16 +27,18 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        enableEdgeToEdge()
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window.attributes.layoutInDisplayCutoutMode =
             WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 
         AppUtil.changeAppLanguage(this, userPreferences.getLanguage())
+        val shake = AnimationUtils.loadAnimation(this@WelcomeActivity, R.anim.zoom_in_out)
 
         lifecycleScope.launch {
-            delay(2000)
-
+            binding.ivRSETI.startAnimation(shake)
+            delay(4000)
             /*if (isDeviceRooted() || isRunningOnEmulator()) {
                 showSecurityWarning()
             }*/

@@ -9,17 +9,18 @@
     <item name="colorPrimaryVariant">@color/color_green</item>
     <item name="colorOnPrimary">@color/color_green</item>
     <item name="android:statusBarColor">@android:color/transparent</item>
-    <item name="android:windowSplashScreenBackground">@color/white</item>
-    <item name="android:windowSplashScreenIconBackgroundColor">@color/white</item>
+    <item name="android:windowBackground">@drawable/bg_gradient</item>
+
+
 
 </style>
 
-<style name="Theme.Splash" parent="Base.Theme.RsetiApp">
-    <item name="windowSplashScreenBackground">@color/white</item>
-    <item name="windowSplashScreenAnimatedIcon">@drawable/gradiant_splash</item>
-    <item name="windowSplashScreenAnimationDuration">1000</item> <!-- Animation duration in ms -->
-    <item name="postSplashScreenTheme">@style/Base.Theme.RsetiApp</item> <!-- Main theme -->
-</style>
+<!--<style name="Theme.Splash" parent="Base.Theme.RsetiApp">-->
+<!--    <item name="windowSplashScreenBackground">@drawable/bg_gradient</item>-->
+<!--    <item name="windowSplashScreenAnimatedIcon">@drawable/bg_gradient</item>-->
+<!--    <item name="windowSplashScreenAnimationDuration">1000</item> &lt;!&ndash; Animation duration in ms &ndash;&gt;-->
+<!--    <item name="postSplashScreenTheme">@style/Base.Theme.RsetiApp</item> &lt;!&ndash; Main theme &ndash;&gt;-->
+<!--</style>-->
 
 
 <style name="CircleImageView" parent="">

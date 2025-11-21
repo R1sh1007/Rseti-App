@@ -84,7 +84,6 @@ class ForgotPasswordFragment :
 
             resendOTPTimer()
         }
-
         binding.progressButton.centerButton.setOnClickListener {
             mobileNo = binding.etPhone.text.toString()
             userId = binding.etId.text.toString()
@@ -136,6 +135,7 @@ class ForgotPasswordFragment :
                                         toastShort(mobileVerifyRes.responseDesc)
                                         binding.clForgotOTP.visible()
                                         binding.tvVerify.visible()
+                                        binding.llFields.gone()
                                         binding.etPhone.gone()
                                         binding.progressButton.root.gone()
                                     }

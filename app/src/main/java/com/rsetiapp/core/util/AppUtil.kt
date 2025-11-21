@@ -226,7 +226,6 @@ object AppUtil {
             .create()
     }
 
-
     fun changeAppLanguage(context: Context, languageCode: String) {
         val locale = Locale(languageCode) // For example, "en" for English, "es" for Spanish, etc.
         Locale.setDefault(locale)

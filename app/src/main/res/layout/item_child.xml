@@ -1,34 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginTop="@dimen/dp_10"
-android:padding="@dimen/dp_5"
-android:id="@+id/container"
-android:elevation="@dimen/dp_1"
-android:layout_marginHorizontal="@dimen/dp_20"
-android:background="@color/light_color"
-    >
-
-<TextView
-    android:id="@+id/tvFormName"
-    android:layout_width="@dimen/dp_0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/dp_10"
     android:layout_marginHorizontal="@dimen/dp_20"
-    android:fontFamily="@font/avenir_next_bold"
-    android:textColor="@color/white"
-    android:textSize="@dimen/sp_14"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    />
+    android:layout_marginTop="@dimen/dp_12"
+    android:padding="@dimen/dp_12"
+    android:elevation="@dimen/dp_2"
+    android:background="@drawable/bg_form_card">
 
-
-
-
-
+    <TextView
+        android:id="@+id/tvFormName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="@dimen/dp_10"
+        android:layout_marginHorizontal="@dimen/dp_10"
+        android:fontFamily="@font/avenir_next_bold"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_15"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,4 @@
 package com.rsetiapp.common.model.response
-
 data class EapListResponse(
     val wrappedList: List<EapList>,
     val responseCode: Int,
@@ -7,7 +6,6 @@ data class EapListResponse(
     val responseMsg: String?,
     val appCode: String?
 )
-
 data class EapList(
     val blockCode: String,
     val districtCode: String,

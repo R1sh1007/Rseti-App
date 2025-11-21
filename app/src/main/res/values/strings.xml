@@ -196,5 +196,7 @@
     <string name="course_list">Course List</string>
     <string name="course_list_man">Select Course List</string>
     <string name="loginId">Login Id</string>
+    <string name="no_data_title">No Data Found</string>
+    <string name="no_data_description">Nothing to show right now. Please check back later.</string>
 
 </resources>

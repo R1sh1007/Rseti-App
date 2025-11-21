@@ -19,14 +19,11 @@ class AttendanceCandidateAdapter(
     private val candidateList: List<Candidate>
 ) : RecyclerView.Adapter<AttendanceCandidateAdapter.CandidateViewHolder>() {
 
-
-
     var candidateId=""
     var rollNo=""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CandidateViewHolder {
-        val binding =
-            AttendanceCandidateListAyoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = AttendanceCandidateListAyoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CandidateViewHolder(binding)
     }
 
@@ -71,29 +68,23 @@ class AttendanceCandidateAdapter(
             binding.tvRollNumberValue.text = candidate.rollNo.toString() ?: "N/A"
             binding.tvContactNumber.text = candidate.mobileNo ?: "N/A"
             binding.tvDate.text= AppUtil.getCurrentDateForAttendance()
-           candidateId= candidate.candidateId
-           rollNo= candidate.rollNo.toString()
-          var aadhhaarNo= candidate.adhaarNo
-
-
+            candidateId= candidate.candidateId
+            rollNo= candidate.rollNo.toString()
+            var aadhhaarNo= candidate.adhaarNo
 
             // Handle Click Navigation (Ensure safe `adapterPosition`)
             binding.btnMarkAttendance.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION && position < candidateList.size) {
-
                     val profilePicSafe = candidate.candidateProfilePic ?: ""
-
                     val action = AttendanceCandidateFragmentDirections
                         .actionAttendanceCandidateFragmentToAttendanceFragment(candidate.candidateId,candidate.candidateName,candidate.mobileNo,candidate.emailId
                         ,candidate.gender,candidate.dateOfBirth,profilePicSafe,
                             candidate.batchId.toString(),candidate.rollNo.toString(),aadhhaarNo
                         )
-
                     binding.root.findNavController().navigate(action)
                 }
             }
-
         }
     }
 }

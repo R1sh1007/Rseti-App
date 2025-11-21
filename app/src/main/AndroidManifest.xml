@@ -56,7 +56,9 @@
         <!-- Welcome Activity -->
         <activity
             android:name=".WelcomeActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Base.Theme.RsetiApp"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -66,7 +68,8 @@
         <!-- Common Activity -->
         <activity
             android:name=".common.CommonActivity"
-            android:exported="false" />
+            android:exported="false"
+            />
 
     </application>
 

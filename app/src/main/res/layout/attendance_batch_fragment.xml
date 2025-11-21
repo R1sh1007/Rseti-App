@@ -1,54 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
+
+    <!-- Modern Material Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_100"
-
+        android:layout_height="@dimen/dp_90"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:background="@drawable/top_home"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:elevation="8dp"
+        android:gravity="center_vertical"
+        android:theme="@style/ThemeOverlay.Material3.Dark"
+        app:titleTextColor="@color/white">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/backButton"
-            android:layout_marginStart="@dimen/dp_20"
-            android:padding="@dimen/dp_5"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_arrow_back_ios_new"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/batchList"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_16"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="150dp"
-            android:layout_height="@dimen/dp_60"
-            android:layout_marginStart="@dimen/dp_100"
-            android:background="@color/white"
-            android:padding="@dimen/dp_5"
-            android:scaleType="fitCenter"
+            <!-- Back Button -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/backButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_arrow_back_ios_new"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Small" />
 
-            android:src="@drawable/ic_rseti"
-            app:shapeAppearanceOverlay="@style/CustomRectangleShape" />
+            <!-- Title -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="12dp"
+                android:text="@string/batchList"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold"
+                android:fontFamily="@font/avenir_next_bold" />
 
+            <!-- App Logo -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:padding="8dp"
+                android:layout_marginStart="8dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_rseti"
+                android:visibility="gone"
+                app:shapeAppearanceOverlay="@style/CustomRectangleShape" />
 
+        </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewBatches"
+    <!-- Main Content -->
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="2dp"
+        android:padding="1dp"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewBatches"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="20dp"
+            android:clipToPadding="false"
+            tools:listitem="@layout/attendance_batch_layout"
+            />
+
+    </FrameLayout>
 
 </LinearLayout>

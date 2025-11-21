@@ -1,55 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginTop="@dimen/dp_10"
-android:padding="@dimen/dp_10"
-android:id="@+id/container"
-android:elevation="@dimen/dp_1"
-android:layout_marginHorizontal="@dimen/dp_20"
-android:background="@color/color_background_light_grey"
-    >
-
-<TextView
-    android:id="@+id/tvModuleName"
-    android:layout_width="@dimen/dp_0"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/dp_10"
-    android:layout_marginHorizontal="@dimen/dp_20"
-    android:fontFamily="@font/avenir_next_bold"
-    android:textColor="@color/color_dark_green"
-    android:textSize="@dimen/sp_14"
-    app:drawableEndCompat="@drawable/baseline_expand_more_24"
-    app:layout_constraintEnd_toStartOf="@+id/ivSelected"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    />
-
-<ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="@dimen/dp_0"
-    android:id="@+id/ivSelected"
-    android:visibility="gone"
-    android:layout_marginEnd="@dimen/dp_12"
-    android:src="@drawable/ic_tick_green"
-    app:layout_constraintEnd_toEndOf="@+id/container"
-    app:layout_constraintStart_toEndOf="@+id/tvModuleName"
-    app:layout_constraintTop_toTopOf="@+id/tvModuleName"
-    app:layout_constraintBottom_toBottomOf="@+id/tvModuleName"/>
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/rvChild"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:nestedScrollingEnabled="false"
-    android:visibility="gone"
-    android:paddingTop="8dp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/tvModuleName"/>
+    android:layout_marginHorizontal="@dimen/dp_20"
+    android:layout_marginTop="@dimen/dp_12"
+    android:padding="@dimen/dp_16"
+    android:elevation="@dimen/dp_3"
+    android:background="@drawable/bg_module_card">
 
+    <!-- Main Title -->
+    <TextView
+        android:id="@+id/tvModuleName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="12dp"
+        android:layout_marginStart="@dimen/dp_4"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:fontFamily="@font/avenir_next_bold"
+        android:textColor="@color/color_dark_green"
+        android:textSize="@dimen/sp_15"
+        app:drawableEndCompat="@drawable/baseline_expand_more_24"
+        android:drawablePadding="@dimen/dp_10"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivSelected" />
 
+    <!-- Selected Tick Icon -->
+    <ImageView
+        android:id="@+id/ivSelected"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:visibility="gone"
+        android:layout_marginEnd="@dimen/dp_6"
+        android:src="@drawable/ic_tick_green"
+        app:layout_constraintTop_toTopOf="@id/tvModuleName"
+        app:layout_constraintBottom_toBottomOf="@id/tvModuleName"
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Child RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvChild"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:nestedScrollingEnabled="false"
+        android:paddingTop="@dimen/dp_12"
+        android:paddingBottom="@dimen/dp_4"
+        app:layout_constraintTop_toBottomOf="@id/tvModuleName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

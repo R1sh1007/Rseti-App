@@ -31,5 +31,6 @@
 
     <color name="grey_400">#BDBDBD</color>
     <color name="yellow">#E6E62D</color>
+    <color name="loaderTint">#1F675D</color>
 
 </resources>
