@@ -24,8 +24,6 @@ import com.rsetiapp.databinding.AttendanceBatchFragmentBinding
 import com.rsetiapp.databinding.AttendanceBatchLayoutBinding
 import kotlinx.coroutines.launch
 
-
-//AttendanceBatchFragment
 class AttendanceBatchFragment :
     BaseFragment<AttendanceBatchFragmentBinding>(AttendanceBatchFragmentBinding::inflate) {
 
