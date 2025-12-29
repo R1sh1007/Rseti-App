@@ -6,7 +6,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-parcelize") // Add this line
 }
-
+// testing
 android {
     namespace = "com.rsetiapp"  // ✅ Ensure this matches your package name
     compileSdk = 35
@@ -235,6 +235,11 @@ dependencies {
 
 
 
+}
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 kapt {

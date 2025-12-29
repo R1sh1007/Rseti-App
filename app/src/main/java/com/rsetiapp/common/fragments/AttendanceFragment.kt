@@ -663,7 +663,10 @@ class AttendanceFragment : BaseFragment<FragmentVerifyUserAttendanceBinding>(
                                     getCurrentLocation { location ->
                                         if (location != null) {
                                             val isInside = isUserInsideGeofence(location, latitude, longitude, radius)
-                                           // val isInside = isUserInsideGeofence(location, 26.2153, 84.3588, radius)
+//                                            val isInside = isUserInsideGeofence(location, 26.2153, 84.3588, radius)
+
+//                                            Jeevan Bharti Bulding LatLong
+//                                            val isInside = isUserInsideGeofence(location, 26.629692, 77.218878, radius)
                                             if (isInside) {
 
 

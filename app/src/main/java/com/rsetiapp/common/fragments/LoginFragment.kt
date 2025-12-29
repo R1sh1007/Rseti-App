@@ -219,7 +219,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>(LoginFragmentBinding ::
                                         userPreferences.saveUserName(getLoginResponse.wrappedList[0].userName)
                                         AppUtil.saveLoginStatus(requireContext(), true)  // true means user is logged in
                                         AppUtil.saveEntityPreference(requireContext(),getLoginResponse.wrappedList[0].entityCode)
-                                        AppUtil.saveHRIdPreference(requireContext(),getLoginResponse.wrappedList[0].hrId)
+//                                        AppUtil.saveHRIdPreference(requireContext(),getLoginResponse.wrappedList[0].hrId)
                                         AppUtil.saveOrgIdPreference(requireContext(),getLoginResponse.wrappedList[0].orgId)
 
                                          isFaceRegistered = getLoginResponse.wrappedList[0].faceRegistered

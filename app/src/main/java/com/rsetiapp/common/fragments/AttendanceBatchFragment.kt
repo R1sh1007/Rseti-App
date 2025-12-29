@@ -24,6 +24,8 @@ import com.rsetiapp.databinding.AttendanceBatchFragmentBinding
 import com.rsetiapp.databinding.AttendanceBatchLayoutBinding
 import kotlinx.coroutines.launch
 
+//Code Commit in use 24.12.2025.18.40PM
+
 class AttendanceBatchFragment :
     BaseFragment<AttendanceBatchFragmentBinding>(AttendanceBatchFragmentBinding::inflate) {
 

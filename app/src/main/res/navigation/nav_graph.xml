@@ -45,6 +45,21 @@
                 android:name="formName"
                 app:argType="string" />
         </action>
+
+<!--        <action-->
+<!--            android:id="@+id/action_SettlementVeryficationBatchFragment_to_Settlemt"-->
+<!--            app:destination="@id/Settlemt">-->
+<!--            <argument-->
+<!--                android:name="batchId"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="batchName"-->
+<!--                app:argType="string" />-->
+
+<!--        </action>-->
+
+
+
         <action
             android:id="@+id/action_homeFrahment_to_attendanceBatchFragment"
             app:destination="@id/attendanceBatchFragment" >
@@ -63,16 +78,31 @@
         </action>
 
 
-        <!--        action_homeFrahment_to_settlementFragment-->
+        <!--        action_homeFrahment_to_settlementFragment--><!--        18/Decmber/2025-->
 
         <action
-            android:id="@+id/action_homeFrahment_to_settlementFragment"
+            android:id="@+id/action_homeFrahment_to_settlementFragment_Veryfication"
             app:destination="@id/Settlemt" >
             <argument
                 android:name="formName"
                 app:argType="string" />
 
         </action>
+
+        <action
+            android:id="@+id/actionSettlementVeryficationBatchFragment"
+            app:destination="@id/SettlementVeryficationBatchFragment">
+            <argument
+                android:name="candidate"
+                app:argType="java.io.Serializable" />
+        </action>
+
+
+
+
+
+
+
 
 
     </fragment>
@@ -132,6 +162,75 @@
         android:name="com.rsetiapp.common.fragments.FollowUpFormFragment"
         android:label="FollowUpFormFragment"
         tools:layout="@layout/fragment_follow_up" />
+
+<!--    Settlement Veryfication-->
+
+    <fragment
+        android:id="@+id/SettlementVeryficationBatchFragment"
+        android:name="com.rsetiapp.common.fragments.SettlementVeryficationFragment"
+        android:label="SettlementVeryficationBatchFormFragment"
+        tools:layout="@layout/fragment_settlement_veryfication" >
+
+
+        <action
+            android:id="@+id/action_SettlementVeryficationBatchFragment_to_Settlemt"
+            app:destination="@id/Settlemt">
+            <argument
+                android:name="batchId"
+                app:argType="string" />
+            <argument
+                android:name="batchName"
+                app:argType="string" />
+        </action>
+
+
+
+
+<!--        <action-->
+<!--            android:id="@+id/action_SettlementVeryficationBatchCandidateFragment"-->
+<!--            app:destination="@id/Settlemt">-->
+
+<!--            <argument-->
+<!--                android:name="formName"-->
+<!--                app:argType="string" />-->
+<!--        </action>-->
+
+<!--  <action
+            android:id="@+id/action_FollowUpBatchFragment_to_FollowUpCandidateFragment"
+            app:destination="@id/FollowUpCandidateFragment">
+            <argument
+                android:name="batchId"
+                app:argType="string" />
+            <argument
+                android:name="batchName"
+                app:argType="string" />
+        </action>-->
+
+
+<!--        <action-->
+<!--            android:id="@+id/action_SettlementVeryficationBatchCandidateFragment"-->
+<!--            app:destination="@id/Settlemt">-->
+<!--            <argument-->
+<!--                android:name="batchId"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="batchName"-->
+<!--                app:argType="string" />-->
+<!--        </action>-->
+
+
+    </fragment>
+
+
+<!--    <fragment-->
+<!--        android:id="@+id/SettlementVeryficationFormFragment"-->
+<!--        android:name="com.rsetiapp.common.fragments.SettlementVeryficationFormFragment"-->
+<!--        android:label="SettlementVeryficationFormFragment"-->
+<!--        tools:layout="@layout/fragment_settlement_veryfication_form" >-->
+
+
+
+<!--    </fragment>-->
 
     <fragment
         android:id="@+id/eapListFragment"
@@ -272,9 +371,21 @@
 
     <fragment
         android:id="@+id/Settlemt"
-        android:name="com.rsetiapp.common.fragments.SettlementBatchFragment"
+        android:name="com.rsetiapp.common.fragments.SettlementVeryficationBatchCandidateFragment"
         android:label="Settlemt"
-        tools:layout="@layout/fragment_settlement_batch"/>
+        tools:layout="@layout/fragment_settlement_veryfication_batch_candidate">
+
+
+
+<!--        <action-->
+<!--            android:id="@+id/action_SettlementFollowUpFormFragment"-->
+<!--            app:destination="@id/SettlementVeryficationFormFragment">-->
+<!--            <argument-->
+<!--                android:name="SettlementVeryficationBatch"-->
+<!--                app:argType="java.io.Serializable" />-->
+<!--        </action>-->
+
+    </fragment>
 
 
     <fragment
