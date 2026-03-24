@@ -196,5 +196,14 @@
     <string name="course_list">Course List</string>
     <string name="course_list_man">Select Course List</string>
     <string name="loginId">Login Id</string>
+    <string name="no_data_title">No Data Found</string>
+    <string name="no_data_description">Nothing to show right now. Please check back later.</string>
+    <!--    <string name="settlement_veryfication_form">Settlement Veryfication Form</string>-->
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="candidate_id">Candidate Id</string>
+    <string name="settlement_veryfication_form">Settlement Veryfication Form</string>
+    <string name="select_institute">Select Institute</string>
+    <string name="settlement_percentage">Settlement Percentage</string>
 
 </resources>

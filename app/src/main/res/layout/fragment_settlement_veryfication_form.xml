@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_100"
+            android:background="@drawable/top_home"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:padding="@dimen/dp_5"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_arrow_back_ios_new" />
+
+            <TextView
+                android:id="@+id/tvTitleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settlement_veryfication_form"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/candidateImage"
+            android:layout_width="@dimen/dp_135"
+            android:layout_height="@dimen/dp_135"
+            android:layout_margin="@dimen/dp_10"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:shapeAppearanceOverlay="@style/CustomCircleShape"
+            app:strokeColor="@color/color_dark_green"
+            app:strokeWidth="@dimen/dp_1" />
+
+        <ImageView
+            android:id="@+id/nameImage"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_20"
+            android:src="@drawable/baseline_person_24"
+            app:layout_constraintStart_toEndOf="@+id/candidateImage"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:tint="@color/color_dark_green"
+            tools:ignore="ContentDescription,LabelFor" />
+
+        <TextView
+            android:id="@+id/tvCandidate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:text="@string/name"
+            android:textColor="@color/color_dark_green"
+            app:layout_constraintBottom_toBottomOf="@+id/nameImage"
+            app:layout_constraintStart_toEndOf="@+id/nameImage"
+            app:layout_constraintTop_toTopOf="@+id/nameImage" />
+
+        <TextView
+            android:id="@+id/tvCandidateName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenir_next_regular"
+            android:padding="@dimen/dp_4"
+            android:text="@string/candidate_name"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintStart_toStartOf="@+id/nameImage"
+            app:layout_constraintTop_toBottomOf="@+id/tvCandidate" />
+
+        <ImageView
+            android:id="@+id/contactImage"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_10"
+            android:src="@drawable/ic_phone"
+            app:layout_constraintStart_toEndOf="@+id/candidateImage"
+            app:layout_constraintTop_toBottomOf="@+id/tvCandidateName"
+            app:tint="@color/color_dark_green"
+            tools:ignore="ContentDescription,LabelFor" />
+
+        <TextView
+            android:id="@+id/tvContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:text="@string/contact_number"
+            android:textColor="@color/color_dark_green"
+            app:layout_constraintBottom_toBottomOf="@+id/contactImage"
+            app:layout_constraintStart_toEndOf="@+id/contactImage"
+            app:layout_constraintTop_toTopOf="@+id/contactImage" />
+
+        <TextView
+            android:id="@+id/tvContactName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenir_next_regular"
+            android:padding="@dimen/dp_4"
+            android:text="@string/contact_number"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintStart_toStartOf="@+id/contactImage"
+            app:layout_constraintTop_toBottomOf="@+id/tvContact" />
+
+        <ImageView
+            android:id="@+id/careOfImage"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_25"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10"
+            android:src="@drawable/baseline_people_outline_24"
+            app:layout_constraintEnd_toStartOf="@+id/tvCareOf"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/candidateImage"
+            tools:ignore="ContentDescription,LabelFor" />
+
+        <TextView
+            android:id="@+id/tvCareOf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:text="@string/care_of"
+            android:textColor="@color/color_dark_green"
+            app:layout_constraintBottom_toBottomOf="@+id/careOfImage"
+            app:layout_constraintStart_toEndOf="@+id/careOfImage"
+            app:layout_constraintTop_toTopOf="@+id/careOfImage" />
+
+        <TextView
+            android:id="@+id/tvCareOfName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenir_next_regular"
+            android:padding="@dimen/dp_4"
+            android:text="@string/care_of"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintStart_toStartOf="@+id/careOfImage"
+            app:layout_constraintTop_toBottomOf="@+id/tvCareOf" />
+
+        <TextView
+            android:id="@+id/tvFollowType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:text="@string/follow_type"
+            android:textColor="@color/color_dark_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCareOfName" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiFollowType"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:hint="@string/select_follow_type"
+            android:padding="1dp"
+            android:textColorHint="@color/color_dark_green"
+            app:boxStrokeColor="@color/color_dark_green"
+            app:layout_constraintStart_toStartOf="@+id/tvFollowType"
+            app:layout_constraintTop_toBottomOf="@+id/tvFollowType">
+
+            <AutoCompleteTextView
+                android:id="@+id/spinnerFollowType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="none"
+                android:textColor="@color/color_dark_green"
+                android:textSize="15sp"
+                tools:ignore="LabelFor" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvSelectDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:text="@string/date_nm"
+            android:textColor="@color/color_dark_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tiFollowType" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            style="@style/EditText"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/select_date"
+            android:inputType="none"
+            android:textColor="@color/color_dark_green"
+            android:textSize="15sp"
+            app:drawableEndCompat="@drawable/dobb"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSelectDate"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:text="@string/status"
+            android:textColor="@color/color_dark_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiStatus"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:hint="@string/select_status"
+            android:padding="1dp"
+            android:textColorHint="@color/color_dark_green"
+            app:boxStrokeColor="@color/color_dark_green"
+            app:layout_constraintStart_toStartOf="@+id/tvStatus"
+            app:layout_constraintTop_toBottomOf="@+id/tvStatus">
+
+            <AutoCompleteTextView
+                android:id="@+id/spinnerStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="none"
+                android:textColor="@color/color_dark_green"
+                android:textSize="15sp"
+                tools:ignore="LabelFor" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvReason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:text="@string/reason"
+            android:textColor="@color/color_dark_green"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tiStatus" />
+
+        <EditText
+            android:id="@+id/etReason"
+            style="@style/EditText"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:hint="@string/enter_reason"
+            android:imeOptions="actionNext"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/tvReason"
+            app:layout_constraintTop_toBottomOf="@+id/tvReason"
+            tools:ignore="Autofill,TextFields" />
+
+        <TextView
+            android:id="@+id/tvDoneBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:text="@string/follow_up_done_by"
+            android:textColor="@color/color_dark_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etReason" />
+
+        <TextView
+            android:id="@+id/etDoneBy"
+            style="@style/EditText"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="none"
+            android:text="@string/follow_up_done_by"
+            android:textColor="@color/color_dark_green"
+            android:textSize="15sp"
+            app:drawableEndCompat="@drawable/baseline_person_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDoneBy" />
+
+        <TextView
+            android:id="@+id/tvCaptureImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10"
+            android:fontFamily="@font/avenir_next_demi_bold"
+            android:text="@string/capture_image"
+            android:textColor="@color/color_dark_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etDoneBy" />
+
+        <LinearLayout
+            android:id="@+id/llCaptureImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCaptureImage">
+
+            <ImageView
+                android:id="@+id/image1"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@drawable/captureimage"
+                android:padding="@dimen/dp_5"
+                android:scaleType="centerCrop"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lllatLang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llCaptureImage">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:fontFamily="@font/avenir_next_demi_bold"
+                android:padding="@dimen/dp_4"
+                android:text="@string/location"
+                android:textColor="@color/color_dark_green" />
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:fontFamily="@font/avenir_next_medium"
+                android:padding="@dimen/dp_4"
+                android:textColor="@color/color_dark_green" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llAdress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lllatLang">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:fontFamily="@font/avenir_next_demi_bold"
+                android:padding="@dimen/dp_4"
+                android:text="@string/address"
+                android:textColor="@color/color_dark_green" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:fontFamily="@font/avenir_next_medium"
+                android:padding="@dimen/dp_4"
+                android:textColor="@color/color_dark_green" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnSubmit"
+            style="@style/Button"
+            android:layout_marginTop="@dimen/dp_30"
+            android:drawablePadding="@dimen/dp_20"
+            android:text="@string/submit"
+            android:textSize="15sp"
+            app:drawableEndCompat="@drawable/ic_right_arrow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llAdress" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

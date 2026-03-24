@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/bottom_sheet_background"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
@@ -18,7 +18,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:fillViewport="true"
-            android:background="@drawable/bottom_sheet_background">
+            android:background="@drawable/bottom_sheet_background"
+            android:padding="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -26,326 +27,508 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Header Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/add_candidate"
-                    android:textSize="25sp"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:fontFamily="@font/avenir_next_demi_bold"
-                    android:padding="@dimen/dp_4"
-                    android:text="@string/search_candidate_via_kaushal_panjee"/>
-                <androidx.cardview.widget.CardView
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_candidate"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorPrimary"
+                        android:fontFamily="@font/avenir_next_bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/avenir_next_demi_bold"
+                        android:text="@string/search_candidate_via_kaushal_panjee"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Search Card -->
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/search_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_4"
-                    android:layout_marginEnd="@dimen/dp_4"
-                    android:elevation="@dimen/dp_4"
-                    android:padding="@dimen/dp_50"
-                    app:cardCornerRadius="@dimen/dp_10"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ivDDGKY">
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp"
+                    >
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:padding="@dimen/dp_10"
-                        >
+                        android:padding="10dp">
 
                         <!-- Search Icon -->
                         <ImageView
                             android:id="@+id/iv_search_icon"
-                            android:layout_width="@dimen/dp_25"
-                            android:layout_height="@dimen/dp_25"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:src="@drawable/baseline_search_24" />
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/baseline_search_24"
+                           />
 
                         <!-- Search EditText -->
-                        <EditText
-                            android:id="@+id/etSearch"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:background="@android:color/transparent"
-                            android:drawablePadding="8dp"
-                            android:hint="@string/enter_kaushal_panjee_id"
-                            android:padding="0dp"
-                            android:singleLine="true"
-                            android:textColor="@android:color/black"
-                            android:textColorHint="@android:color/darker_gray" />
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxCornerRadiusBottomStart="8dp"
+                            app:boxCornerRadiusTopEnd="8dp"
+                            app:boxCornerRadiusTopStart="8dp"
+                            app:hintTextColor="?attr/colorPrimary">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etSearch"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/enter_kaushal_panjee_id"
+                                android:singleLine="true"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textColorHint="?attr/colorOnSurfaceVariant"
+                                android:textSize="14sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-                </androidx.cardview.widget.CardView>
+                <!-- Search Result -->
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:orientation="horizontal"
                     android:id="@+id/llSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:orientation="horizontal"
                     android:visibility="gone"
-                    android:layout_marginTop="@dimen/dp_15">
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/card_background"
+                    android:padding="16dp"
+                    app:cardCornerRadius="12dp">
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/candidatePicSearch"
-                        android:layout_width="@dimen/dp_50"
-                        android:layout_height="@dimen/dp_50"
-                        android:layout_marginStart="@dimen/dp_10"
-                        android:layout_gravity="center"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="16dp"
                         android:scaleType="centerCrop"
                         app:shapeAppearanceOverlay="@style/CustomCircleShape"
                         app:strokeColor="@color/color_dark_green"
                         app:strokeWidth="1dp" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:id="@+id/candidateNameSearch"
-                        android:layout_marginStart="@dimen/dp_20"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:fontFamily="@font/avenir_next_demi_bold"
-                        android:padding="@dimen/dp_4"
                         android:text="@string/candidate_name"
-                        android:textColor="@color/color_dark_green" />
-                    <TextView
-                        style="@style/smallButton1"
-                        android:textSize="@dimen/dp_12"
-                        android:text="Add Candidate"
+                        android:textColor="@color/color_dark_green"
+                        android:textSize="16sp"
+                        android:maxLines="2"
+                        android:ellipsize="end" />
+
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnAddCandidate"
-                        android:layout_marginStart="@dimen/dp_40"
-                        android:layout_marginTop="@dimen/dp_10"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:text="Add Candidate"
+                        android:textSize="12sp"
+                        android:backgroundTint="?attr/colorPrimary"
+                        app:cornerRadius="18dp"
+                        android:elevation="2dp" />
 
                 </LinearLayout>
 
-
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:fontFamily="@font/avenir_next_demi_bold"
-                    android:padding="@dimen/dp_4"
-                    android:text="@string/candidate_name_up"
-                    android:textColor="@color/color_dark_green" />
-                <EditText
-                    android:id="@+id/etCandidateName"
-                    style="@style/EditText"
-                    android:autofillHints=""
-                    android:hint="@string/candidate_name"
-                    android:imeOptions="actionNext"
-                    android:drawableEnd="@drawable/baseline_person_24"
-                    android:paddingHorizontal="@dimen/dp_20" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:fontFamily="@font/avenir_next_demi_bold"
-                    android:padding="@dimen/dp_4"
-                    android:text="@string/mobile_number_man"
-                    android:textColor="@color/color_dark_green"/>
-                <EditText
-                    android:id="@+id/etMobileNo"
-                    style="@style/EditText"
-                    android:hint="@string/mobile_number"
-                    android:imeOptions="actionNext"
-                    android:drawableEnd="@drawable/baseline_phone_enabled_24"
-                    android:inputType="number"
-                    android:maxLength="10"
-                    android:paddingHorizontal="@dimen/dp_20" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:fontFamily="@font/avenir_next_demi_bold"
-                    android:padding="@dimen/dp_4"
-                    android:text="@string/dob_man"
-                    android:textColor="@color/color_dark_green" />
-                <TextView
-                    android:id="@+id/etDob"
-                    style="@style/EditText"
-                    android:hint="@string/dob"
-                    android:imeOptions="actionNext"
-                    android:drawableEnd="@drawable/dobb"
-                    android:paddingHorizontal="@dimen/dp_20" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:fontFamily="@font/avenir_next_demi_bold"
-                    android:padding="@dimen/dp_4"
-                    android:text="@string/gender_man"
-                    android:textColor="@color/color_dark_green" />
-                <EditText
-                    android:id="@+id/etGender"
-                    style="@style/EditText"
-                    android:hint="@string/gender"
-                    android:visibility="gone"
-                    android:imeOptions="actionNext"
-                    android:paddingHorizontal="@dimen/dp_20" />
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                <!-- Form Section -->
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:id="@+id/genderHiding"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/avenir_next_demi_bold"
-                    android:hint="@string/gender"
-                    android:padding="1dp"
-                    android:textColorHint="@color/color_dark_green"
-                    app:boxStrokeColor="@color/color_dark_green">
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainerLow">
 
-                    <AutoCompleteTextView
-                        android:id="@+id/spinnerGender"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:inputType="none"
-                        android:textColor="@color/color_dark_green"
-                        android:textSize="15sp"
-                        tools:ignore="LabelFor" />
+                        android:orientation="vertical"
+                        android:padding="20dp">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <!-- Candidate Name -->
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/candidate_name_up"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/avenir_next_demi_bold"
+                            android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:fontFamily="@font/avenir_next_demi_bold"
-                    android:padding="@dimen/dp_4"
-                    android:text="@string/guardian_name"
-                    android:textColor="@color/color_dark_green" />
-                <EditText
-                    android:id="@+id/etGuardianName"
-                    style="@style/EditText"
-                    android:hint="@string/guardian_name1"
-                    android:imeOptions="actionNext"
-                    android:drawableEnd="@drawable/baseline_person_24"
-                    android:paddingHorizontal="@dimen/dp_20" />
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="12dp"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxCornerRadiusBottomStart="8dp"
+                            app:boxCornerRadiusTopEnd="8dp"
+                            app:boxCornerRadiusTopStart="8dp"
+                            app:endIconDrawable="@drawable/baseline_person_24"
+                            app:endIconMode="custom"
+                            app:hintTextColor="?attr/colorPrimary">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:fontFamily="@font/avenir_next_demi_bold"
-                    android:padding="@dimen/dp_4"
-                    android:text="@string/guardian_Mobile_man"
-                    android:textColor="@color/color_dark_green" />
-                <EditText
-                    android:id="@+id/etGuardianMobile"
-                    style="@style/EditText"
-                    android:hint="@string/guardian_Mobile"
-                    android:imeOptions="actionNext"
-                    android:drawableEnd="@drawable/baseline_phone_enabled_24"
-                    android:inputType="number"
-                    android:maxLength="10"
-                    android:paddingHorizontal="@dimen/dp_20" />
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:layout_gravity="center"/>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etCandidateName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/candidate_name"
+                                android:imeOptions="actionNext"
+                                android:textSize="14sp" />
 
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:fontFamily="@font/avenir_next_demi_bold"
-                    android:padding="@dimen/dp_4"
-                    android:text="@string/full_address_man"
-                    android:textColor="@color/color_dark_green" />
-                <EditText
-                    android:id="@+id/etAddress"
-                    style="@style/EditText"
-                    android:hint="@string/full_address"
-                    android:imeOptions="actionNext"
-                    android:paddingHorizontal="@dimen/dp_20" />
+                        <!-- Mobile Number -->
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/mobile_number_man"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/avenir_next_demi_bold"
+                            android:textStyle="bold" />
 
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="12dp"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxCornerRadiusBottomStart="8dp"
+                            app:boxCornerRadiusTopEnd="8dp"
+                            app:boxCornerRadiusTopStart="8dp"
+                            app:endIconDrawable="@drawable/baseline_phone_enabled_24"
+                            app:endIconMode="custom"
+                            app:hintTextColor="?attr/colorPrimary">
 
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etMobileNo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/mobile_number"
+                                android:imeOptions="actionNext"
+                                android:inputType="number"
+                                android:maxLength="10"
+                                android:textSize="14sp" />
 
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="@dimen/dp_16"
-                        android:fontFamily="@font/avenir_next_demi_bold"
-                        android:padding="@dimen/dp_4"
-                        android:text="@string/course_list"
-                        android:textColor="@color/color_dark_green" />
+                        <!-- Date of Birth -->
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dob_man"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/avenir_next_demi_bold"
+                            android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/etCourse"
-                    style="@style/EditText"
-                    android:hint="@string/course_list_man"
-                    android:imeOptions="actionNext"
-                    android:drawableEnd="@drawable/course_lists"
-                    android:paddingHorizontal="@dimen/dp_20" />
-                <ImageView
-                    android:id="@+id/notIntresCandImage"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:scaleType="centerCrop"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/captureimage"
-                    android:layout_marginEnd="@dimen/dp_10"
-                    android:padding="@dimen/dp_5"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="12dp"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxCornerRadiusBottomStart="8dp"
+                            app:boxCornerRadiusTopEnd="8dp"
+                            app:boxCornerRadiusTopStart="8dp"
+                            app:endIconDrawable="@drawable/dobb"
+                            app:endIconMode="custom"
+                            app:hintTextColor="?attr/colorPrimary">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etDob"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/dob"
+                                android:imeOptions="actionNext"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:textSize="14sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Gender -->
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/gender_man"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/avenir_next_demi_bold"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/etGender"
+                            style="@style/EditText"
+                            android:hint="@string/gender"
+                            android:visibility="gone"
+                            android:imeOptions="actionNext"
+                            android:paddingHorizontal="@dimen/dp_20" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/genderHiding"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="12dp"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxCornerRadiusBottomStart="8dp"
+                            app:boxCornerRadiusTopEnd="8dp"
+                            app:boxCornerRadiusTopStart="8dp"
+                            app:hintTextColor="?attr/colorPrimary"
+                            app:boxStrokeColor="?attr/colorPrimary">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/spinnerGender"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/gender"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:inputType="none"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textSize="14sp"
+                                tools:ignore="LabelFor" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Guardian Name -->
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/guardian_name"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/avenir_next_demi_bold"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="12dp"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxCornerRadiusBottomStart="8dp"
+                            app:boxCornerRadiusTopEnd="8dp"
+                            app:boxCornerRadiusTopStart="8dp"
+                            app:endIconDrawable="@drawable/baseline_person_24"
+                            app:endIconMode="custom"
+                            app:hintTextColor="?attr/colorPrimary">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etGuardianName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/guardian_name1"
+                                android:imeOptions="actionNext"
+                                android:textSize="14sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Guardian Mobile -->
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/guardian_Mobile_man"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/avenir_next_demi_bold"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="12dp"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxCornerRadiusBottomStart="8dp"
+                            app:boxCornerRadiusTopEnd="8dp"
+                            app:boxCornerRadiusTopStart="8dp"
+                            app:endIconDrawable="@drawable/baseline_phone_enabled_24"
+                            app:endIconMode="custom"
+                            app:hintTextColor="?attr/colorPrimary">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etGuardianMobile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/guardian_Mobile"
+                                android:imeOptions="actionNext"
+                                android:inputType="number"
+                                android:maxLength="10"
+                                android:textSize="14sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Progress Bar -->
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginVertical="8dp"
+                            android:visibility="gone" />
+
+                        <!-- Address -->
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/full_address_man"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/avenir_next_demi_bold"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="12dp"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxCornerRadiusBottomStart="8dp"
+                            app:boxCornerRadiusTopEnd="8dp"
+                            app:boxCornerRadiusTopStart="8dp"
+                            app:hintTextColor="?attr/colorPrimary">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etAddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/full_address"
+                                android:imeOptions="actionNext"
+                                android:textSize="14sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Course List -->
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/course_list"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/avenir_next_demi_bold"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="16dp"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            app:boxCornerRadiusBottomEnd="8dp"
+                            app:boxCornerRadiusBottomStart="8dp"
+                            app:boxCornerRadiusTopEnd="8dp"
+                            app:boxCornerRadiusTopStart="8dp"
+                            app:endIconDrawable="@drawable/course_lists"
+                            app:endIconMode="custom"
+                            app:hintTextColor="?attr/colorPrimary">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etCourse"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/course_list_man"
+                                android:imeOptions="actionNext"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:textSize="14sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Candidate Image -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="4dp">
+
+                            <ImageView
+                                android:id="@+id/notIntresCandImage"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:adjustViewBounds="true"
+                                android:background="@drawable/captureimage"
+                                android:scaleType="centerCrop" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
+        <!-- Action Buttons -->
         <LinearLayout
+            android:id="@+id/llBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2"
-            android:id="@+id/llBtn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMinority">
+            android:padding="16dp"
+            android:backgroundTint="?attr/colorSecondary"
+            >
 
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="@string/add"
-                android:gravity="center"
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAdd"
-                android:textColor="@color/white"
-                android:elevation="4dp"
-                android:textSize="@dimen/sp_16"
-                android:background="@drawable/card_background"
-                android:layout_margin="8dp" />
-
-            <TextView
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:backgroundTint="?attr/colorPrimary"
+                android:elevation="4dp"
+                android:text="@string/add"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:cornerRadius="8dp" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnClose"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
                 android:elevation="4dp"
                 android:text="@string/close"
-                android:textColor="@color/light_color"
-                android:textSize="@dimen/sp_16"
-                android:background="@drawable/backgroung_overlay"
-                android:layout_margin="8dp" />
-        </LinearLayout>
+                android:backgroundTint="?attr/colorSecondary"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:cornerRadius="8dp" />
 
+        </LinearLayout>
 
     </LinearLayout>
 </FrameLayout>

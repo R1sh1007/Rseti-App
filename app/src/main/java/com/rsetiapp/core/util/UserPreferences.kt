@@ -136,7 +136,6 @@ class UserPreferences @Inject constructor(@ApplicationContext context: Context) 
         appContext.dataStore.edit {
             it[key] = dataAsString
         }
-
     }
 
     inline fun <reified T> getObjectDataToStore(key: String): T {

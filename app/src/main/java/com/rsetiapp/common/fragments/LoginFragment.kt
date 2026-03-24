@@ -34,6 +34,7 @@ import com.rsetiapp.core.util.onRightDrawableClicked
 import com.rsetiapp.core.util.setRightDrawablePassword
 import com.rsetiapp.core.util.toastShort
 import com.rsetiapp.databinding.LoginFragmentBinding
+import com.rsetiapp.security.SecurityUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -77,6 +78,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>(LoginFragmentBinding ::
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userPreferences = UserPreferences(requireContext())
+        //SecurityUtils.keyLogsTest()
         init()
         handleBackPress()
     }
@@ -115,14 +117,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>(LoginFragmentBinding ::
 
 
         binding.tvForgotPass.setOnClickListener {
-
-
-
-
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment())
-
-
-
 
         }
         binding.etPassword.onRightDrawableClicked {
@@ -224,7 +219,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>(LoginFragmentBinding ::
                                         userPreferences.saveUserName(getLoginResponse.wrappedList[0].userName)
                                         AppUtil.saveLoginStatus(requireContext(), true)  // true means user is logged in
                                         AppUtil.saveEntityPreference(requireContext(),getLoginResponse.wrappedList[0].entityCode)
-                                        AppUtil.saveHRIdPreference(requireContext(),getLoginResponse.wrappedList[0].hrId)
+//                                        AppUtil.saveHRIdPreference(requireContext(),getLoginResponse.wrappedList[0].hrId)
                                         AppUtil.saveOrgIdPreference(requireContext(),getLoginResponse.wrappedList[0].orgId)
 
                                          isFaceRegistered = getLoginResponse.wrappedList[0].faceRegistered
@@ -381,7 +376,6 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>(LoginFragmentBinding ::
         builder.setNegativeButton("Try later") { dialog, _ ->
             dialog.dismiss()
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFrahment())
-
         }
 
         val dialog = builder.create()
@@ -391,7 +385,7 @@ class LoginFragment : BaseFragment<LoginFragmentBinding>(LoginFragmentBinding ::
     }
     private fun startAuthentication(callType: String, userId: String,userName: String) {
         val intent = Intent(requireContext(), AuthenticationActivity::class.java)
-        intent.putExtra(AppConstant.Constants.EXTRA_CLIENT_ID, AppConstant.Constants. YOUR_CLIENT_ID)
+        intent.putExtra(AppConstant.Constants.EXTRA_CLIENT_ID, AppConstant.Constants.YOUR_CLIENT_ID)
         intent.putExtra(AppConstant.Constants.EXTRA_CALL_TYPE, callType)
         intent.putExtra(AppConstant.Constants.EXTRA_USER_ID, userId)
         if (callType == AppConstant.Constants.CALL_TYPE_REGISTRATION) {

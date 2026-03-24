@@ -44,7 +44,7 @@ class AttendanceCandidateFragment  :
         listener()
     }
 
-
+//hjfjd ghhhr
 
     private fun listener(){
 

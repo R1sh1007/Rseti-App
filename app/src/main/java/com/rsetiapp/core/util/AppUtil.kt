@@ -30,7 +30,9 @@ import java.util.GregorianCalendar
 import java.util.Locale
 import java.util.TimeZone
 import android.content.res.Configuration
+import android.location.Location
 import android.provider.Settings
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
@@ -225,7 +227,6 @@ object AppUtil {
             .setCancelable(false)
             .create()
     }
-
 
     fun changeAppLanguage(context: Context, languageCode: String) {
         val locale = Locale(languageCode) // For example, "en" for English, "es" for Spanish, etc.
@@ -435,9 +436,6 @@ object AppUtil {
     }
 
 
-
-
-
     fun getCurrentYear(): Int {
         return LocalDate.now().year
     }
@@ -514,4 +512,42 @@ object AppUtil {
 
     }
 
+    fun isLocationAccurate(
+        previousLat: Double,
+        previousLng: Double,
+        currentLat: Double,
+        currentLng: Double
+    ): Boolean {
+
+        val allowedRadius = 100f        // base radius (meters)
+        val maxAllowedDistance = allowedRadius * 0.20f // 20%
+
+        val distance = calculateDistanceMeters(
+            previousLat,
+            previousLng,
+            currentLat,
+            currentLng
+        )
+        Log.d("LOCATION_CHECK", "Distance = $distance meters")
+
+        return distance <= maxAllowedDistance
+    }
+
 }
+
+
+
+        fun calculateDistanceMeters(
+            prevLat: Double,
+            prevLng: Double,
+            currLat: Double,
+            currLng: Double
+         ): Float {
+        val result = FloatArray(1)
+            Location.distanceBetween(
+        prevLat, prevLng,
+        currLat, currLng,
+        result
+          )
+          return result[0] // meters
+         }

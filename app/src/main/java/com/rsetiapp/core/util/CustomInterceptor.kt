@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.rsetiapp.BuildConfig
 import com.rsetiapp.core.domain.model.response.RefreshTokenResponse
 import com.rsetiapp.core.util.AppUtil.getTimeZone
+import com.rsetiapp.security.SecurityUtils
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
@@ -56,8 +57,12 @@ class CustomInterceptor @Inject constructor(
                     "user-agent",
                     "App/${BuildConfig.VERSION_NAME} (Android ${Build.VERSION.RELEASE})"
                 )
-                requestBuilder.addHeader("client_secret", AppConstant.Constants.CLIENT_SECRET_KEY)
-                requestBuilder.url(AppConstant.Constants.REFRESH_TOKEN_URL)
+              //  requestBuilder.addHeader("client_secret", AppConstant.Constants.CLIENT_SECRET_KEY)
+                //requestBuilder.url(AppConstant.Constants.REFRESH_TOKEN_URL)
+                requestBuilder.url(SecurityUtils.getRefreshTokenUrl())
+                requestBuilder.addHeader("client_secret",SecurityUtils.getClientSecretKey() )
+
+
                 requestBuilder.post(
                     RequestBody.create(
                         "application/json".toMediaTypeOrNull(),
@@ -134,7 +139,9 @@ class CustomInterceptor @Inject constructor(
         if (isPostLogin) {
             reqBuilder.addHeader("authorization", userPreferences.getAccessToken())
         } else {
-            reqBuilder.addHeader("client_secret", AppConstant.Constants.CLIENT_SECRET_KEY)
+           // reqBuilder.addHeader("client_secret", AppConstant.Constants.CLIENT_SECRET_KEY)
+            reqBuilder.addHeader("client_secret", SecurityUtils.getClientSecretKey())
+
         }
 
     /*    if (method == "GET") {

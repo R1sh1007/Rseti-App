@@ -130,7 +130,6 @@ class MySattelementBottomSheet : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         return inflater.inflate(R.layout.settlement_bottomsheet_layout, container, false)
     }
 

@@ -1,77 +1,159 @@
-<LinearLayout
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="12dp"
-    android:layout_marginStart="@dimen/dp_20"
-    android:layout_marginEnd="@dimen/dp_20"
-    android:layout_marginTop="@dimen/dp_5"
-    android:background="@drawable/item_background"
-    android:elevation="4dp">
+    android:layout_marginStart="@dimen/dp_1"
+    android:layout_marginEnd="@dimen/dp_1"
+    android:layout_marginTop="@dimen/dp_1"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="10dp"
+    app:cardUseCompatPadding="true"
+    app:strokeWidth="0.2dp"
+    app:strokeColor="@color/black"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:divider="@color/grey_400"
+        android:background="@color/white"
+        android:showDividers="middle">
 
-
-        <ImageView
-            android:layout_width="@dimen/dp_25"
-            android:layout_height="@dimen/dp_25"
-            android:layout_marginTop="@dimen/dp_5"
-            android:src="@drawable/organization"
-            />
-
-
-        <TextView
-            android:id="@+id/tvEapName"
+        <!-- EAP Name Row -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_15"
-            android:text="EAP Name"
-            android:textColor="@color/color_dark_green"
-            android:fontFamily="@font/avenir_next_demi_bold"
-            android:textSize="@dimen/sp_18"
-            android:padding="@dimen/dp_4"
-            android:textStyle="bold"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_5sdp"
+            >
 
-    </LinearLayout>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/organization"
+                android:tint="@color/color_dark_green" />
+
+            <TextView
+                android:id="@+id/tvEapName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="EAP"
+                android:textColor="@color/color_dark_green"
+                android:textSize="@dimen/sp_18"
+                android:fontFamily="@font/avenir_next_semi_bold"
+                android:letterSpacing="0.02"
+                android:paddingVertical="4dp" />
+        </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_5"
-        android:orientation="horizontal">
+        <!-- Month / Year Row -->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:padding="@dimen/_5sdp"-->
+
+<!--            >-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="24dp"-->
+<!--                android:layout_height="24dp"-->
+<!--                android:src="@drawable/dobb"-->
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvMonthYear"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="12dp"-->
+<!--                android:text="Month/Year"-->
+<!--                android:textSize="@dimen/sp_16"-->
+<!--                android:fontFamily="@font/avenir_next_medium"-->
+<!--                android:textColor="@color/color_text"-->
+<!--                android:paddingVertical="4dp" />-->
+<!--        </LinearLayout>-->
 
 
-        <ImageView
-            android:layout_width="@dimen/dp_25"
-            android:layout_height="@dimen/dp_25"
-            android:src="@drawable/dobb"
-            android:layout_marginTop="@dimen/dp_5"
-            />
-
-
-        <TextView
-            android:id="@+id/tvMonthYear"
+        <!-- Month/Year + Status in one horizontal row -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_15"
-            android:text="Month/Year"
-            android:fontFamily="@font/avenir_next_semi_bold"
-            android:textSize="@dimen/sp_16"
-            android:padding="@dimen/dp_4"/>
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp"
+            android:gravity="center_vertical">
 
-    </LinearLayout>
+            <!-- Month/Year block -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_weight="1.2">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_5"
-        android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/dobb" />
 
+                <TextView
+                    android:id="@+id/tvMonthYear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Month/Year"
+                    android:textSize="@dimen/sp_16"
+                    android:fontFamily="@font/avenir_next_medium"
+                    android:textColor="@color/color_text"
+                    android:paddingVertical="4dp" />
+
+            </LinearLayout>
+
+            <!-- Status block -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_weight="0.8">
+
+                <ImageView
+                    android:id="@+id/statusImage"
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="@dimen/dp_25"
+                    android:src="@drawable/ic_tick_green"
+
+                    />
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:fontFamily="@font/avenir_next_medium"
+                    android:textSize="@dimen/sp_16"
+                    android:text="Completed"
+                    android:textStyle="bold"
+                    android:padding="4dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!-- Address Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_5sdp"
+
+            >
 
         <ImageView
             android:layout_width="@dimen/dp_25"
@@ -85,45 +167,19 @@
             android:id="@+id/tvEapAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_15"
+            android:layout_marginStart="@dimen/dp_12"
             android:text="EAP Address"
-            android:fontFamily="@font/avenir_next_semi_bold"
+            android:fontFamily="@font/avenir_next_medium"
             android:textSize="@dimen/sp_16"
             android:padding="@dimen/dp_4"
-            android:maxLines="2"
+            android:maxLines="3"
             android:ellipsize="end"/>
 
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_5"
-        android:orientation="horizontal">
-
-
-        <ImageView
-            android:layout_width="@dimen/dp_25"
-            android:layout_height="@dimen/dp_25"
-            android:id="@+id/statusImage"
-            android:layout_marginTop="@dimen/dp_5"
-            android:src="@drawable/ic_tick_green"/>
-
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_15"
-            android:fontFamily="@font/avenir_next_semi_bold"
-            android:textSize="@dimen/sp_16"
-            android:text="Completed"
-            android:textStyle="bold"
-            android:padding="4dp"/>
 
 
     </LinearLayout>
 
-
-
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
     tools:context=".WelcomeActivity">
 
     <LinearLayout
@@ -15,18 +16,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/bg_gradient"
+
+        >
 
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivRSETI"
-            android:layout_width="@dimen/dp_200"
+            android:layout_width="@dimen/dp_142"
             android:layout_height="@dimen/dp_200"
             android:layout_marginStart="@dimen/dp_20"
             android:src="@drawable/ic_rseti" />
 
     </LinearLayout>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

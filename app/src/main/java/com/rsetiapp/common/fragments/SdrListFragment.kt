@@ -14,28 +14,31 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.rsetiapp.BuildConfig
+import com.rsetiapp.R
 import com.rsetiapp.common.CommonViewModel
-import com.rsetiapp.common.adapter.SdrAdapter
 import com.rsetiapp.common.model.request.SdrListReq
 import com.rsetiapp.common.model.response.VisitData
 import com.rsetiapp.core.basecomponent.BaseFragment
+import com.rsetiapp.core.basecomponent.BaseRecyclerAdapter
 import com.rsetiapp.core.geoFancing.GeofenceHelper
 import com.rsetiapp.core.util.AppUtil
 import com.rsetiapp.core.util.Resource
 import com.rsetiapp.core.util.UserPreferences
 import com.rsetiapp.core.util.toastLong
 import com.rsetiapp.databinding.FragmentSdrListBinding
+import com.rsetiapp.databinding.ItemSdrDataBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SdrListFragment : BaseFragment<FragmentSdrListBinding>(FragmentSdrListBinding::inflate) {
 
-    private val commonViewModel: CommonViewModel by activityViewModels()
+    private val viewModel: CommonViewModel by activityViewModels()
+
     private lateinit var geofenceHelper: GeofenceHelper
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    private lateinit var sdrAdapter: SdrAdapter
+    private lateinit var adapter: BaseRecyclerAdapter<VisitData, ItemSdrDataBinding>
     private var sdrList: MutableList<VisitData> = mutableListOf()
     private var formName = ""
 
@@ -43,16 +46,60 @@ class SdrListFragment : BaseFragment<FragmentSdrListBinding>(FragmentSdrListBind
         super.onViewCreated(view, savedInstanceState)
 
         userPreferences = UserPreferences(requireContext())
-        formName = arguments?.getString("formName").toString()
+        formName = arguments?.getString("formName").orEmpty()
+
         geofenceHelper = GeofenceHelper(requireContext())
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         checkLocationPermission()
-        init()
+        setupRecycler()
+        setupListeners()
+        getSdrList()
+        collectSdrListResponse()
     }
 
-    private fun init() {
-        commonViewModel.getSdrListApi(
+    private fun setupRecycler() {
+        adapter = BaseRecyclerAdapter(
+            items = sdrList,
+            bindingInflater = ItemSdrDataBinding::inflate,
+            diffChecker  = {old, new -> old.instituteId == new.instituteId},
+            onBind = { item, binding, _ ->
+                binding.apply {
+                    tvInstituteName.text = item.instituteName
+                    tvFinYear.text = context?.getString(R.string.fin_year) + "  ${item.finYear}"
+                    tvMonth.text = context?.getString(R.string.month) + "  ${getMonthName(item.month)}"
+                    tvStatus.text = item.sdrVisitStatus ?: "Not Available"
+                    statusImage.setImageResource(
+                        if (item.sdrVisitStatus.equals("Completed", ignoreCase = true))
+                            com.rsetiapp.R.drawable.ic_verified
+                        else
+                            com.rsetiapp.R.drawable.baseline_pending_24
+                    )
+                }
+            },
+            onItemClick = { item, _ ->
+                handleItemClick(item)
+            }
+        )
+
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter =adapter
+        }
+
+    }
+
+    private fun setupListeners() {
+          binding.apply {
+              formText.text = formName
+              backButton.setOnClickListener {
+                  findNavController().navigateUp()
+              }
+          }
+    }
+
+    private fun getSdrList() {
+        viewModel.getSdrListApi(
             AppUtil.getSavedTokenPreference(requireContext()),
             SdrListReq(
                 BuildConfig.VERSION_NAME,
@@ -60,94 +107,68 @@ class SdrListFragment : BaseFragment<FragmentSdrListBinding>(FragmentSdrListBind
                 userPreferences.getUseID()
             )
         )
-        collectSdrListResponse()
-        setupListeners()
-    }
-
-    private fun setupListeners() {
-        binding.formText.text = formName
-        binding.backButton.setOnClickListener {
-            findNavController().navigateUp()
-        }
-
-        sdrAdapter = SdrAdapter(sdrList) { selectedItem ->
-            val lat = selectedItem.lattitude.toDoubleOrNull() ?: return@SdrAdapter
-            val lng = selectedItem.longitude.toDoubleOrNull() ?: return@SdrAdapter
-            val radius = selectedItem.radius.toFloat()
-            val instituteName = selectedItem.instituteName
-            val finYear = selectedItem.finYear
-            val instituteId = selectedItem.instituteId.toString()
-            val monthCode = selectedItem.month
-
-            getCurrentLocation { location ->
-                if (location != null) {
-                    val isInside = isUserInsideGeofence(location, lat, lng, radius)
-                    // val isInside = isUserInsideGeofence(location, 26.2153, 84.3588, radius)
-
-
-                    if (isInside) {
-
-                        findNavController().navigate(SdrListFragmentDirections.actionSdrListFragmentToSdrVisitReport(formName,instituteName,finYear,instituteId,
-                            monthCode.toString()
-                        ))
-                    } else {
-                        toastLong("❌ You are outside the institute area")
-                    }
-                } else {
-                    toastLong("❌ Failed to retrieve current location")
-                }
-            }
-        }
-
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = sdrAdapter
-        }
     }
 
     private fun collectSdrListResponse() {
         lifecycleScope.launch {
-            collectLatestLifecycleFlow(commonViewModel.getSdrListApi) {
+            collectLatestLifecycleFlow(viewModel.getSdrListApi) {
                 when (it) {
                     is Resource.Loading -> showProgressBar()
+
                     is Resource.Error -> {
                         hideProgressBar()
                         showSnackBar("Internal Server Error")
                     }
+
                     is Resource.Success -> {
                         hideProgressBar()
-                        it.data?.let { response ->
-                            if (response.responseCode == 200) {
+                        val response = it.data ?: return@collectLatestLifecycleFlow
+                        when (response.responseCode) {
+                            200 -> {
                                 sdrList.clear()
                                 sdrList.addAll(response.wrappedList)
-                                sdrAdapter.notifyDataSetChanged()
-                            } else if (response.responseCode == 401) {
-                                AppUtil.showSessionExpiredDialog(findNavController(), requireContext())
-                            } else {
-                                toastLong(response.responseDesc)
+                                adapter.update(response.wrappedList)
+                              //  adapter.notifyDataSetChanged()
                             }
-                        } ?: showSnackBar("Internal Server Error")
+                            401 -> {
+                                AppUtil.showSessionExpiredDialog(findNavController(), requireContext())
+                            }
+                            else -> toastLong(response.responseDesc)
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                1001
-            )
+    private fun handleItemClick(item: VisitData) {
+        val lat = item.lattitude.toDoubleOrNull() ?: return
+        val lng = item.longitude.toDoubleOrNull() ?: return
+        val radius = item.radius.toFloat()
+        getCurrentLocation { location ->
+            if (location != null) {
+                val isInside = isUserInsideGeofence(location, lat, lng, radius)
+                if (isInside) {
+                    findNavController().navigate(
+                        SdrListFragmentDirections.actionSdrListFragmentToSdrVisitReport(
+                            formName = formName,
+                            rsetiInstituteName = item.instituteName,
+                            finYear = item.finYear,
+                            rsetiInstituteId = item.instituteId.toString(),
+                            monthCode = item.month.toString()
+                        )
+                    )
+                } else {
+                    toastLong("❌ You are outside the institute area")
+                }
+
+            } else {
+                toastLong("❌ Unable to fetch current location")
+            }
         }
     }
 
-    private fun getCurrentLocation(onLocationResult: (Location?) -> Unit) {
+    private fun getCurrentLocation(callback: (Location?) -> Unit) {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -157,11 +178,9 @@ class SdrListFragment : BaseFragment<FragmentSdrListBinding>(FragmentSdrListBind
             return
         }
 
-        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-            onLocationResult(location)
-        }.addOnFailureListener {
-            onLocationResult(null)
-        }
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { callback(it) }
+            .addOnFailureListener { callback(null) }
     }
 
     private fun isUserInsideGeofence(
@@ -170,11 +189,41 @@ class SdrListFragment : BaseFragment<FragmentSdrListBinding>(FragmentSdrListBind
         lng: Double,
         radius: Float
     ): Boolean {
-        val targetLocation = Location("").apply {
+        val target = Location("").apply {
             latitude = lat
             longitude = lng
         }
-        val distance = currentLocation.distanceTo(targetLocation)
-        return distance <= radius
+        return currentLocation.distanceTo(target) <= radius
+    }
+
+    private fun checkLocationPermission() {
+        val granted = ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (!granted) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                1001
+            )
+        }
+    }
+
+    private fun getMonthName(month: Int): String = when (month) {
+        1 -> "January"
+        2 -> "February"
+        3 -> "March"
+        4 -> "April"
+        5 -> "May"
+        6 -> "June"
+        7 -> "July"
+        8 -> "August"
+        9 -> "September"
+        10 -> "October"
+        11 -> "November"
+        12 -> "December"
+        else -> "Unknown"
     }
 }

@@ -76,6 +76,8 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
             notificationManager.createNotificationChannel(channel)
         }
 
+
+
         val notification = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(android.R.drawable.ic_dialog_map)
             .setContentTitle("Geofence Alert")

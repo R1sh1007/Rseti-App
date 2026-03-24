@@ -45,6 +45,21 @@
                 android:name="formName"
                 app:argType="string" />
         </action>
+
+<!--        <action-->
+<!--            android:id="@+id/action_SettlementVeryficationBatchFragment_to_Settlemt"-->
+<!--            app:destination="@id/Settlemt">-->
+<!--            <argument-->
+<!--                android:name="batchId"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="batchName"-->
+<!--                app:argType="string" />-->
+
+<!--        </action>-->
+
+
+
         <action
             android:id="@+id/action_homeFrahment_to_attendanceBatchFragment"
             app:destination="@id/attendanceBatchFragment" >
@@ -61,6 +76,33 @@
                 app:argType="string" />
 
         </action>
+
+
+        <!--        action_homeFrahment_to_settlementFragment--><!--        18/Decmber/2025-->
+
+        <action
+            android:id="@+id/action_homeFrahment_to_settlementFragment_Veryfication"
+            app:destination="@id/Settlemt" >
+            <argument
+                android:name="formName"
+                app:argType="string" />
+
+        </action>
+
+        <action
+            android:id="@+id/actionSettlementVeryficationBatchFragment"
+            app:destination="@id/SettlementVeryficationBatchFragment">
+            <argument
+                android:name="candidate"
+                app:argType="java.io.Serializable" />
+        </action>
+
+
+
+
+
+
+
 
 
     </fragment>
@@ -121,6 +163,75 @@
         android:label="FollowUpFormFragment"
         tools:layout="@layout/fragment_follow_up" />
 
+<!--    Settlement Veryfication-->
+
+    <fragment
+        android:id="@+id/SettlementVeryficationBatchFragment"
+        android:name="com.rsetiapp.common.fragments.SettlementVeryficationFragment"
+        android:label="SettlementVeryficationBatchFormFragment"
+        tools:layout="@layout/fragment_settlement_veryfication" >
+
+
+        <action
+            android:id="@+id/action_SettlementVeryficationBatchFragment_to_Settlemt"
+            app:destination="@id/Settlemt">
+            <argument
+                android:name="batchId"
+                app:argType="string" />
+            <argument
+                android:name="batchName"
+                app:argType="string" />
+        </action>
+
+
+
+
+<!--        <action-->
+<!--            android:id="@+id/action_SettlementVeryficationBatchCandidateFragment"-->
+<!--            app:destination="@id/Settlemt">-->
+
+<!--            <argument-->
+<!--                android:name="formName"-->
+<!--                app:argType="string" />-->
+<!--        </action>-->
+
+<!--  <action
+            android:id="@+id/action_FollowUpBatchFragment_to_FollowUpCandidateFragment"
+            app:destination="@id/FollowUpCandidateFragment">
+            <argument
+                android:name="batchId"
+                app:argType="string" />
+            <argument
+                android:name="batchName"
+                app:argType="string" />
+        </action>-->
+
+
+<!--        <action-->
+<!--            android:id="@+id/action_SettlementVeryficationBatchCandidateFragment"-->
+<!--            app:destination="@id/Settlemt">-->
+<!--            <argument-->
+<!--                android:name="batchId"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="batchName"-->
+<!--                app:argType="string" />-->
+<!--        </action>-->
+
+
+    </fragment>
+
+
+<!--    <fragment-->
+<!--        android:id="@+id/SettlementVeryficationFormFragment"-->
+<!--        android:name="com.rsetiapp.common.fragments.SettlementVeryficationFormFragment"-->
+<!--        android:label="SettlementVeryficationFormFragment"-->
+<!--        tools:layout="@layout/fragment_settlement_veryfication_form" >-->
+
+
+
+<!--    </fragment>-->
+
     <fragment
         android:id="@+id/eapListFragment"
         android:name="com.rsetiapp.common.fragments.EapListFragment"
@@ -139,8 +250,6 @@
             <argument
                 android:name="stateNme"
                 app:argType="string" />
-
-
             <argument
                 android:name="stateCode"
                 app:argType="string" />
@@ -188,8 +297,8 @@
             android:id="@+id/action_attendanceBatchFragment_to_attendanceCandidateFragment"
             app:destination="@id/attendanceCandidateFragment">
             <argument
-            android:name="batchId"
-            app:argType="string" />
+                android:name="batchId"
+                app:argType="string" />
             <argument
                 android:name="batchName"
                 app:argType="string" />
@@ -257,6 +366,28 @@
         android:name="com.rsetiapp.common.fragments.SdrVisitReport"
         android:label="SdrVisitReport"
         tools:layout="@layout/fragment_sdr_visit_report"/>
+
+    <!--   Create Page Ajit Ranjan 26/11/2025-->
+
+    <fragment
+        android:id="@+id/Settlemt"
+        android:name="com.rsetiapp.common.fragments.SettlementVeryficationBatchCandidateFragment"
+        android:label="Settlemt"
+        tools:layout="@layout/fragment_settlement_veryfication_batch_candidate">
+
+
+
+<!--        <action-->
+<!--            android:id="@+id/action_SettlementFollowUpFormFragment"-->
+<!--            app:destination="@id/SettlementVeryficationFormFragment">-->
+<!--            <argument-->
+<!--                android:name="SettlementVeryficationBatch"-->
+<!--                app:argType="java.io.Serializable" />-->
+<!--        </action>-->
+
+    </fragment>
+
+
     <fragment
         android:id="@+id/sdrListFragment"
         android:name="com.rsetiapp.common.fragments.SdrListFragment"
@@ -293,3 +424,309 @@
         android:label="FacultyAttendance"
         tools:layout="@layout/faculty_attendance_fragment"/>
 </navigation>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<navigation xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:id="@+id/nav_graph"-->
+<!--    app:startDestination="@id/loginFragment">-->
+
+
+<!--    <fragment-->
+<!--        android:id="@+id/loginFragment"-->
+<!--        android:name="com.rsetiapp.common.fragments.LoginFragment"-->
+<!--        android:label="LoginFragment"-->
+<!--        tools:layout="@layout/login_fragment">-->
+<!--        <action-->
+<!--            android:id="@+id/action_loginFragment_to_homeFrahment"-->
+<!--            app:destination="@id/homeFrahment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"-->
+<!--            app:destination="@id/forgotPasswordFragment" />-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/homeFrahment"-->
+<!--        android:name="com.rsetiapp.common.fragments.HomeFragment"-->
+<!--        android:label="HomeFrahment"-->
+<!--        tools:layout="@layout/fragment_home">-->
+
+<!--        <action-->
+<!--            android:id="@+id/action_homeFrahment_to_loginFragment2"-->
+<!--            app:destination="@id/loginFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_homeFrahment_to_languageChangeFragment"-->
+<!--            app:destination="@id/languageChangeFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_homeFrahment_to_eapListFragment"-->
+<!--            app:destination="@id/eapListFragment" >-->
+<!--            <argument-->
+<!--                android:name="formName"-->
+<!--                app:argType="string" />-->
+<!--        </action>-->
+
+<!--        <action-->
+<!--            android:id="@+id/action_homeFragment_to_FollowUpBatchFragment"-->
+<!--            app:destination="@id/FollowUpBatchFragment">-->
+<!--            <argument-->
+<!--                android:name="formName"-->
+<!--                app:argType="string" />-->
+<!--        </action>-->
+<!--        <action-->
+<!--            android:id="@+id/action_homeFrahment_to_attendanceBatchFragment"-->
+<!--            app:destination="@id/attendanceBatchFragment" >-->
+<!--            <argument-->
+<!--                android:name="formName"-->
+<!--                app:argType="string" />-->
+<!--        </action>-->
+
+<!--        <action-->
+<!--            android:id="@+id/action_homeFrahment_to_sdrListFragment"-->
+<!--            app:destination="@id/sdrListFragment" >-->
+<!--            <argument-->
+<!--                android:name="formName"-->
+<!--                app:argType="string" />-->
+
+<!--        </action>-->
+
+
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/EAPAwarnessFormFragment"-->
+<!--        android:name="com.rsetiapp.common.fragments.EAPAwarnessFormFragment"-->
+<!--        android:label="EAPAwarnessFormFragment"-->
+<!--        tools:layout="@layout/fragment_eap_awarness" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_EAPAwarnessFormFragment_to_eapListFragment"-->
+<!--            app:destination="@id/eapListFragment" />-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/forgotPasswordFragment"-->
+<!--        android:name="com.rsetiapp.common.fragments.ForgotPasswordFragment"-->
+<!--        android:label="ForgotPasswordFragment"-->
+<!--        tools:layout="@layout/fragment_forgot_password"/>-->
+<!--    <fragment-->
+<!--        android:id="@+id/languageChangeFragment"-->
+<!--        android:name="com.rsetiapp.common.fragments.LanguageChangeFragment"-->
+<!--        android:label="LanguageChangeFragment"-->
+<!--        tools:layout="@layout/fragment_language_change"/>-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/FollowUpBatchFragment"-->
+<!--        android:name="com.rsetiapp.common.fragments.FollowUpBatchFragment"-->
+<!--        android:label="FollowUpBatchFragment"-->
+<!--        tools:layout="@layout/fragment_follow_up_batch">-->
+<!--        <action-->
+<!--            android:id="@+id/action_FollowUpBatchFragment_to_FollowUpCandidateFragment"-->
+<!--            app:destination="@id/FollowUpCandidateFragment">-->
+<!--            <argument-->
+<!--                android:name="batchId"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="batchName"-->
+<!--                app:argType="string" />-->
+<!--        </action>-->
+<!--    </fragment>-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/FollowUpCandidateFragment"-->
+<!--        android:name="com.rsetiapp.common.fragments.FollowUpCandidateFragment"-->
+<!--        android:label="FollowUpCandidateFragment"-->
+<!--        tools:layout="@layout/fragment_follow_up_candidate">-->
+<!--        <action-->
+<!--            android:id="@+id/action_FollowUpCandidateFragment_to_FollowUpFormFragment"-->
+<!--            app:destination="@id/FollowUpFormFragment">-->
+<!--            <argument-->
+<!--                android:name="candidate"-->
+<!--                app:argType="java.io.Serializable" />-->
+<!--        </action>-->
+<!--    </fragment>-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/FollowUpFormFragment"-->
+<!--        android:name="com.rsetiapp.common.fragments.FollowUpFormFragment"-->
+<!--        android:label="FollowUpFormFragment"-->
+<!--        tools:layout="@layout/fragment_follow_up" />-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/eapListFragment"-->
+<!--        android:name="com.rsetiapp.common.fragments.EapListFragment"-->
+<!--        android:label="EapListFragment"-->
+<!--        tools:layout="@layout/eap_list_fragment">-->
+<!--        <action-->
+<!--            android:id="@+id/action_eapListFragment_to_EAPAwarnessFormFragment"-->
+<!--            app:destination="@id/EAPAwarnessFormFragment" >-->
+<!--            <argument-->
+<!--                android:name="formName"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="eapId"-->
+<!--                app:argType="string" />-->
+
+<!--            <argument-->
+<!--                android:name="stateNme"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="stateCode"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="districtCode"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="districtName"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="blockName"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="blockCode"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="gpName"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="gpCode"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="villageName"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="villageCode"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="eapName"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="programCode"-->
+<!--                app:argType="string" />-->
+
+
+
+<!--        </action>-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/attendanceBatchFragment"-->
+<!--        android:name="com.rsetiapp.common.fragments.AttendanceBatchFragment"-->
+<!--        android:label="AttendanceBatchFragment"-->
+<!--        tools:layout="@layout/attendance_batch_fragment">-->
+<!--        <action-->
+<!--            android:id="@+id/action_attendanceBatchFragment_to_attendanceCandidateFragment"-->
+<!--            app:destination="@id/attendanceCandidateFragment">-->
+<!--            <argument-->
+<!--            android:name="batchId"-->
+<!--            app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="batchName"-->
+<!--                app:argType="string" />-->
+<!--        </action>-->
+<!--        <action-->
+<!--            android:id="@+id/action_attendanceBatchFragment_to_facultyAttendance"-->
+<!--            app:destination="@id/facultyAttendance" >-->
+<!--            <argument-->
+<!--                android:name="batchId"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="batchName"-->
+<!--                app:argType="string" />-->
+<!--        </action>-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/attendanceCandidateFragment"-->
+<!--        android:name="com.rsetiapp.common.fragments.AttendanceCandidateFragment"-->
+<!--        android:label="AttendanceCandidateFragment"-->
+<!--        tools:layout="@layout/attendance_candidate_fragment">-->
+<!--        <action-->
+<!--            android:id="@+id/action_attendanceCandidateFragment_to_attendanceFragment"-->
+<!--            app:destination="@id/attendanceFragment" >-->
+<!--            <argument-->
+<!--                android:name="candidateId"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="candidateName"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="candidateMobile"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="candidateEmail"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="candidateGender"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="candidateDob"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="candidateDp"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="batchId"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="candidateRollNo"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="aadhaarNo"-->
+<!--                app:argType="string" />-->
+
+<!--        </action>-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/attendanceFragment"-->
+<!--        android:name="com.rsetiapp.common.fragments.AttendanceFragment"-->
+<!--        android:label="AttendanceFragment"-->
+<!--        tools:layout="@layout/fragment_verify_user_attendance"-->
+<!--        />-->
+<!--    <fragment-->
+<!--        android:id="@+id/sdrVisitReport"-->
+<!--        android:name="com.rsetiapp.common.fragments.SdrVisitReport"-->
+<!--        android:label="SdrVisitReport"-->
+<!--        tools:layout="@layout/fragment_sdr_visit_report"/>-->
+<!--    <fragment-->
+<!--        android:id="@+id/sdrListFragment"-->
+<!--        android:name="com.rsetiapp.common.fragments.SdrListFragment"-->
+<!--        android:label="SdrListFragment"-->
+<!--        tools:layout="@layout/fragment_sdr_list">-->
+<!--        <action-->
+<!--            android:id="@+id/action_sdrListFragment_to_sdrVisitReport"-->
+<!--            app:destination="@id/sdrVisitReport" >-->
+<!--            <argument-->
+<!--                android:name="formName"-->
+<!--                app:argType="string" />-->
+
+<!--            <argument-->
+<!--                android:name="rsetiInstituteName"-->
+<!--                app:argType="string" />-->
+
+<!--            <argument-->
+<!--                android:name="finYear"-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="rsetiInstituteId"-->
+<!--                app:argType="string" />-->
+
+<!--            <argument-->
+<!--                android:name="monthCode"-->
+<!--                app:argType="string" />-->
+
+
+<!--        </action>-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/facultyAttendance"-->
+<!--        android:name="com.rsetiapp.common.fragments.FacultyAttendance"-->
+<!--        android:label="FacultyAttendance"-->
+<!--        tools:layout="@layout/faculty_attendance_fragment"/>-->
+<!--</navigation>-->

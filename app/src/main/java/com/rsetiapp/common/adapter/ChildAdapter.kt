@@ -31,8 +31,14 @@ class ChildAdapter(
             // Click to navigate to another fragment
             binding.root.setOnClickListener {
                 when (form.formCd) {
+
+
+
+
+
                     "ADD_EAP" -> {
                         val action = HomeFragmentDirections.actionHomeFrahmentToEapListFragment(
+//                        val action = HomeFragmentDirections.actionHomeFrahmentToSettlementFragment(
                             form.formName
                         )
                         binding.root.findNavController().navigate(action)
@@ -62,9 +68,59 @@ class ChildAdapter(
                         binding.root.findNavController().navigate(action)
 
                     }
+                    "SETTLEMENT_VERIFICATION" -> {
+                        val action = HomeFragmentDirections.actionSettlementVeryficationBatchFragment(
+                            form.formName
+                        )
+                        binding.root.findNavController().navigate(action)
+
+
+
+
+//                        val action = HomeFragmentDirections.(
+//                            form.formName
+//                        )
+//                        binding.root.findNavController().navigate(action)
+
+                    }
+
+
+
+
 
                 }
             }
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -95,6 +95,7 @@ class EAPAwarnessFormFragment  : BaseFragment<FragmentEapAwarnessBinding>(Fragme
 
 
     private var selectedDate=""
+
     private var selectedTotalParticipants=""
     private var selectedNameOfNGO=""
     private var selectedNoOfAppExpectedNextMonth=""
@@ -152,11 +153,12 @@ class EAPAwarnessFormFragment  : BaseFragment<FragmentEapAwarnessBinding>(Fragme
          programCode= arguments?.getString("programCode").toString()
 
 
-        binding.spinnerAutoState.text= stateNme
-        binding.districValue.text= districtName
-        binding.blockValue.text= blockName
-        binding.gpValue.text= gpName
-        binding.villageValue.text= villageName
+
+        binding.spinnerAutoState.editText?.setText(stateNme)
+        binding.districValue.editText?.setText(districtName)
+        binding.blockValue.editText?.setText(blockName)
+        binding.gpValue.editText?.setText(gpName)
+        binding.villageValue.editText?.setText(villageName)
         binding.eapName.text= eapName
         userPreferences = UserPreferences(requireContext())
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -189,7 +191,6 @@ class EAPAwarnessFormFragment  : BaseFragment<FragmentEapAwarnessBinding>(Fragme
         fun updateCandidateCount(count: Int) {
             candidateCountTextView?.text = "Candidates: "+count.toString()
             counts=count.toString()
-
         }
 
         if (recyclerView != null) {
@@ -228,7 +229,9 @@ class EAPAwarnessFormFragment  : BaseFragment<FragmentEapAwarnessBinding>(Fragme
     private fun listener(){
 
         val currentDate= getCurrentDate()
-        binding.tvDate.text = currentDate
+        //binding.tvDate.text = currentDate
+        binding.tvDate.setText(currentDate)
+
         selectedDate= currentDate
 
         binding.eapIdName.text= eapId
@@ -273,18 +276,10 @@ class EAPAwarnessFormFragment  : BaseFragment<FragmentEapAwarnessBinding>(Fragme
 
                     collectInsertResponse()
                 }
-
             }
-
             else
                 toastShort("Kindly fill all the fields first")
-
-
         }
-
-
-
-
 
         binding.btnAddCandidate.setOnClickListener {
             val bottomSheet = CandidateBottomSheetFragment(candidateList, adapter) { count ->
@@ -298,26 +293,13 @@ class EAPAwarnessFormFragment  : BaseFragment<FragmentEapAwarnessBinding>(Fragme
                 bottomSheet.show(parentFragmentManager, "CandidateBottomSheet")
             }
             else
-
-
            AppUtil.showAlertDialog(requireContext(),"Limit Reached","You cannot add more candidates as the maximum number of participants has been reached.")
-
         }
-
 
         binding.tvFormName.text= formName
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
-
-
-
-
-
-
-
-
-
 
         binding.image1.setOnClickListener {
 

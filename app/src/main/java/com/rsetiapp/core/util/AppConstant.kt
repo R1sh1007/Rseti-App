@@ -1,27 +1,30 @@
 package com.rsetiapp.core.util
+
+import com.rsetiapp.security.SecurityUtils
 import com.rsetiapp.BuildConfig
 
-
 object AppConstant {
-
+//    Code Commit in use  24.12.2025.18.20PM
     object StaticURL{
+      //  val baseUrl = BuildConfig.BASE_URL
+     //   val FACE_AUTH_UIADI = BuildConfig.FACE_AUTH_UIADI
+
 
         // const val baseUrl= "http://10.197.183.106:8002/rsetiapp/"             //local
-        //  const val baseUrl= "https://kaushal.rural.gov.in/demobackend/rsetiapp/"             //demo
-        const val baseUrl= "https://kaushal.rural.gov.in/backend/rsetiapp/"   // live
+
+//          const val baseUrl= "https://kaushal.rural.gov.in/demobackend/rsetiapp/" //demo
+        const val baseUrl= "https://kaushal.dord.gov.in/demobackend/rsetiapp/" //demo
+
+//        const val baseUrl= "https://kaushal.rural.gov.in/backend/rsetiapp/"   // live
        // const val FACE_AUTH_UIADI= "https://nregarep2.nic.in/Netnrega/StateServices/Uid_Face_Auth.svc/PostOnAUA_Face_auth"
         const val FACE_AUTH_UIADI= "https://nregarep2.nic.in/netnrega/stateServices/Uid_Face_Auth_DDUGKY.svc/PostOnAUA_Face_auth"
-
     }
 
     object Constants{
 
-        var REFRESH_TOKEN_URL = "jhbheugcy2373y379y37gydygdy";
-        var CLIENT_SECRET_KEY = "dgtbncbehkcbjebccnkec78yf37bc";
-
-        const val CRYPT_ID = BuildConfig.CRYPT_ID
-        const val CRYPT_IV = BuildConfig.CRYPT_IV
-        const val CRYPLIBAES = BuildConfig.CRYPLIBAES
+          var CRYPT_ID = SecurityUtils.getCryptId()
+         val CRYPT_IV = SecurityUtils.getCryptIv()
+         val CRYPLIBAES = SecurityUtils.getCryptLibAes()
         const val CAPTURE_INTENT_RESPONSE_DATA = "response"
         const val CAPTURE_INTENT_REQUEST = "request"
         const val CAPTURE_INTENT = "in.gov.uidai.rdservice.face.CAPTURE"
@@ -29,11 +32,13 @@ object AppConstant {
         const val ENGLISH: String = "english"
         const val PRE_PRODUCTION_CODE: String = "PP"
         const val CURRENT_ENVIRONMENT_CODE = PRE_PRODUCTION_CODE;
-        const val WADH_KEY = "sgydIC09zzy6f8Lb3xaAqzKquKe9lFcNR9uTvYxFp+A="
+        //const val WADH_KEY = "sgydIC09zzy6f8Lb3xaAqzKquKe9lFcNR9uTvYxFp+A="
         var LANGUAGE = "en"
         var ENVIRONMENT_TAG = "P"
-        var ENCRYPT_IV_KEY = BuildConfig.ENCRYPT_IV_KEY;
-        var ENCRYPT_KEY = BuildConfig.ENCRYPT_KEY;
+       // var ENCRYPT_IV_KEY = BuildConfig.ENCRYPT_IV_KEY;
+        var ENCRYPT_IV_KEY = SecurityUtils.getEncryptIvKey();
+
+        var ENCRYPT_KEY = SecurityUtils.getEncryptKey();
 
 
         const val EXTRA_CLIENT_ID = "client_id"

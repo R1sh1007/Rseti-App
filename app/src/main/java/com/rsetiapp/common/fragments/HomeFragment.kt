@@ -1,8 +1,10 @@
 package com.rsetiapp.common.fragments
 
+import ChildAdapter
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -15,15 +17,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.karumi.dexter.BuildConfig
 import com.rsetiapp.R
 import com.rsetiapp.common.CommonViewModel
-import com.rsetiapp.common.adapter.ParentAdapter
 import com.rsetiapp.common.model.response.Module
+import com.rsetiapp.common.model.response.VisitData
 import com.rsetiapp.core.basecomponent.BaseFragment
+import com.rsetiapp.core.basecomponent.BaseRecyclerAdapter
 import com.rsetiapp.core.util.AppUtil
+import com.rsetiapp.core.util.NoDataHelper
 import com.rsetiapp.core.util.Resource
 import com.rsetiapp.core.util.UserPreferences
 import com.rsetiapp.core.util.toastLong
 import com.rsetiapp.core.util.toastShort
 import com.rsetiapp.databinding.FragmentHomeBinding
+import com.rsetiapp.databinding.ItemParentBinding
+import com.rsetiapp.databinding.ItemSdrDataBinding
 import com.rsetiapp.databinding.NavigationHeaderBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -34,7 +40,8 @@ import kotlinx.coroutines.launch
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
     private val commonViewModel: CommonViewModel by activityViewModels()
-    private lateinit var parentAdapter: ParentAdapter
+    private lateinit var homeAdapter: BaseRecyclerAdapter<Module, ItemParentBinding>
+
     private val moduleList = mutableListOf<Module>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,50 +50,93 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         setupRecyclerView()
         collectModulesData()
+        if (moduleList.isEmpty()) {
+            NoDataHelper.showNoData(binding.container, title = "No Data Found")
+        } else {
+            NoDataHelper.hideNoData(binding.container)
+        }
         handleBackPress()
+        val shake = AnimationUtils.loadAnimation(requireContext(), R.anim.shake)
 
+        binding.apply {
 
-        // First, get the header view using getHeaderView()
-        val headerView = binding.navigationView.getHeaderView(0)
+            // Apply shake animation
+            profilePic.startAnimation(shake)
+            changeLanguage.startAnimation(shake)
 
-        // Now, bind the header layout using the generated ViewBinding for the header
-        val headerBinding = NavigationHeaderBinding.bind(headerView)
+            // Navigation Header Binding
+            navigationView.getHeaderView(0)?.let { headerView ->
+                val headerBinding = NavigationHeaderBinding.bind(headerView)
 
-        // Access the ImageView from the header layout
-        val headerImageView: ImageView = headerBinding.circleImageView
-        val headerIdView: TextView = headerBinding.loginId
-
-        headerIdView.text = userPreferences.getUserName()+  " ("+userPreferences.getUseID()+")"
-
-        binding.profilePic.setOnClickListener {
-            binding.drawerLayout.openDrawer(GravityCompat.START)
-        }
-        binding.changeLanguage.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFrahmentToLanguageChangeFragment())
-
-        }
-        // Handle item selection in the navigation menu
-        binding.navigationView.setNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_logout-> {
-                    Toast.makeText(requireContext(), "Logged out", Toast.LENGTH_SHORT).show()
-                    AppUtil.saveLoginStatus(requireContext(), false)
-
-                    findNavController().navigate(HomeFragmentDirections.actionHomeFrahmentToLoginFragment2())
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                headerBinding.apply {
+                    loginId.text =
+                        "${userPreferences.getUserName()} (${userPreferences.getUseID()})"
                 }
             }
-            true
+
+            // Profile click → Open Drawer
+            profilePic.setOnClickListener {
+                drawerLayout.openDrawer(GravityCompat.START)
+            }
+
+            // Change language → Navigate
+            changeLanguage.setOnClickListener {
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFrahmentToLanguageChangeFragment()
+                )
+            }
+
+            // Navigation menu clicks
+            navigationView.setNavigationItemSelectedListener { item ->
+                when (item.itemId) {
+
+                    R.id.nav_logout -> {
+                        Toast.makeText(requireContext(), "Logged out", Toast.LENGTH_SHORT).show()
+                        AppUtil.saveLoginStatus(requireContext(), false)
+
+                        findNavController().navigate(
+                            HomeFragmentDirections.actionHomeFrahmentToLoginFragment2()
+                        )
+
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                    }
+                }
+                true
+            }
         }
-
-
     }
 
 
     private fun setupRecyclerView() {
-        parentAdapter = ParentAdapter(moduleList)
+        homeAdapter=BaseRecyclerAdapter(items = moduleList,
+            bindingInflater = ItemParentBinding::inflate,
+            {item,binding,position ->
+                binding.apply {
+                    tvModuleName.text = item.moduleName
+                    tvModuleName.setOnClickListener {
+                        homeAdapter.triggerViewClick(binding.tvModuleName, item, position)
+                    }
+                    rvChild.visibility = if (item.isExpanded) View.VISIBLE else View.GONE
+                    if (item.isExpanded) {
+                        rvChild.layoutManager = LinearLayoutManager(binding.root.context)
+                        rvChild.adapter = ChildAdapter(item.forms)
+                    }
+                }
+            },
+            onViewClick  = {view,module,_ ->
+                when (view.id) {
+                    R.id.tvModuleName -> {
+                        module.isExpanded = !module.isExpanded
+                        homeAdapter.update(moduleList)
+                        homeAdapter.notifyDataSetChanged()
+
+                    }
+                }
+            }
+
+            )
         binding.rvParent.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvParent.adapter = parentAdapter
+        binding.rvParent.adapter = homeAdapter
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -98,21 +148,37 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                     is Resource.Loading -> showProgressBar()
                     is Resource.Error -> {
                         hideProgressBar()
-                        resource.error?.message?.let { toastShort(it) }
+                        resource.error?.message?.let {
+                            toastShort(it)
+                            NoDataHelper.showNoData(
+                                parent = binding.container,
+                                title =it,
+                                iconRes = R.drawable.no_data,
+                            )
+                        }
+
                     }
                     is Resource.Success -> {
                         hideProgressBar()
+                        NoDataHelper.hideNoData(binding.container)
                         resource.data?.let { response ->
                             if (response.responseCode == 200) {
                                 moduleList.clear()
                                 moduleList.addAll(response.wrappedList)
-                                parentAdapter.notifyDataSetChanged()
+                               // parentAdapter.notifyDataSetChanged()
+                                homeAdapter.update(response.wrappedList)
+                                homeAdapter.notifyDataSetChanged()
                             }
                             else if (response.responseCode==401){
                                 AppUtil.showSessionExpiredDialog(findNavController(),requireContext())
                             }
                             else {
                                 toastLong(response.responseDesc)
+                                NoDataHelper.showNoData(
+                                    parent = binding.container,
+                                    title =response.responseDesc,
+                                    iconRes = R.drawable.no_data,
+                                )
                             }
                         }
                     }
@@ -140,5 +206,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
             })
     }
-
 }

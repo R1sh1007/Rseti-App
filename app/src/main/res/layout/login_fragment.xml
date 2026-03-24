@@ -8,138 +8,135 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_20"
+        android:background="@drawable/bg_gradient">
 
+        <!-- Logo -->
         <ImageView
+            android:id="@+id/ivRSETI"
             android:layout_width="@dimen/dp_142"
             android:layout_height="@dimen/dp_142"
             android:src="@drawable/ic_rseti"
+            android:layout_marginTop="@dimen/dp_40"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/tvWelcome"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-
-
+        <!-- Welcome -->
         <TextView
             android:id="@+id/tvWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_30"
-            android:layout_marginBottom="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_20"
             android:fontFamily="@font/avenir_next_bold"
             android:text="@string/login_to_your_account"
             android:textColor="@color/color_dark_green"
             android:textSize="@dimen/sp_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/tvmsg"
+            app:layout_constraintTop_toBottomOf="@id/ivRSETI"
             app:layout_constraintStart_toStartOf="parent"
-        />
+            app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- Subtitle -->
         <TextView
             android:id="@+id/tvmsg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/avenir_next_regular"
+            android:layout_marginTop="@dimen/dp_5"
+            android:fontFamily="@font/avenir_next_semi_bold"
             android:text="@string/please_sign_in_to_your_account"
             android:textColor="@color/color_dark_green"
             android:textSize="@dimen/sp_16"
-            android:layout_marginBottom="@dimen/dp_20"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvWelcome"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/llFields"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
+        <!-- Fields Container -->
         <LinearLayout
             android:id="@+id/llFields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="@dimen/dp_20"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:layout_marginTop="@dimen/dp_40"
+            android:paddingVertical="@dimen/dp_10"
+            android:background="@drawable/login_screen_bg"
+        app:layout_constraintTop_toBottomOf="@id/tvmsg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-            <TextView
-                android:id="@+id/tvUser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_50"
-                android:layout_marginStart="@dimen/dp_30"
-                android:fontFamily="@font/avenir_next_semi_bold"
-                android:text="@string/userId"
-                android:textColor="@color/color_dark_green"
-                android:textSize="@dimen/sp_16"
-
-                />
-
-            <EditText
-                android:id="@+id/etEmail"
-                style="@style/EditText"
-                android:layout_marginHorizontal="@dimen/dp_30"
-                android:drawableEnd="@drawable/ic_user_id"
-                android:hint="@string/login_id"
-                android:imeOptions="actionNext"
-                android:drawablePadding="@dimen/dp_10"
-                android:paddingHorizontal="@dimen/dp_20"
-                android:inputType="textCapCharacters"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
-            <TextView
-                android:id="@+id/tvPass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_30"
-                android:layout_marginTop="@dimen/dp_10"
-                android:fontFamily="@font/avenir_next_semi_bold"
-                android:text="@string/password"
-                android:textColor="@color/color_dark_green"
-                android:textSize="@dimen/sp_16"
-
-                />
-
-            <EditText
-                android:id="@+id/etPassword"
-                style="@style/EditText"
-                android:layout_marginHorizontal="@dimen/dp_30"
-                android:drawableEnd="@drawable/close_eye"
-                android:hint="@string/enter_password"
-                android:imeOptions="actionNext"
-                android:inputType="textPassword"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etEmail" />
-
-            <TextView
-                android:id="@+id/tvForgotPass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_30"
-                android:layout_marginTop="@dimen/dp_10"
-                android:fontFamily="@font/avenir_next_bold"
-                android:text="@string/forgot_password"
-                android:textColor="@color/light_color"
-                android:textSize="@dimen/sp_16"
-
-                />
-
-        </LinearLayout>
-
+        <!-- User label -->
         <TextView
-            android:id="@+id/tvLogin"
-            style="@style/Button"
-            android:drawablePadding="@dimen/dp_20"
-            android:textSize="15sp"
-            android:text="@string/login"
-            app:drawableEndCompat="@drawable/ic_right_arrow"
-            android:layout_marginBottom="@dimen/dp_20"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/tvUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:fontFamily="@font/avenir_next_semi_bold"
+            android:text="@string/userId"
+            android:textColor="@color/color_dark_green"
+            android:textSize="@dimen/sp_16"/>
 
-            />
+        <!-- User Input -->
+        <EditText
+            android:id="@+id/etEmail"
+            style="@style/EditText"
+            android:layout_marginHorizontal="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_6"
+            android:drawableEnd="@drawable/ic_user_id"
+            android:hint="@string/login_id"
+            android:imeOptions="actionNext"
+            android:inputType="textCapCharacters"
+            android:paddingHorizontal="@dimen/dp_20"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Password label -->
+        <TextView
+            android:id="@+id/tvPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_20"
+            android:fontFamily="@font/avenir_next_semi_bold"
+            android:text="@string/password"
+            android:textColor="@color/color_dark_green"
+            android:textSize="@dimen/sp_16"/>
 
-</androidx.core.widget.NestedScrollView>
+        <!-- Password Input -->
+        <EditText
+            android:id="@+id/etPassword"
+            style="@style/EditText"
+            android:layout_marginHorizontal="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_6"
+            android:drawableEnd="@drawable/close_eye"
+            android:inputType="textPassword"
+            android:hint="@string/enter_password"
+            android:imeOptions="actionNext"/>
+
+        <!-- Forgot Password -->
+        <TextView
+            android:id="@+id/tvForgotPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_12"
+            android:fontFamily="@font/avenir_next_bold"
+            android:text="@string/forgot_password"
+            android:textColor="@color/light_color"
+            android:textSize="@dimen/sp_16"/>
+    </LinearLayout>
+
+    <!-- Login Button -->
+    <TextView
+        android:id="@+id/tvLogin"
+        style="@style/Button"
+        android:text="@string/login"
+        android:textSize="15sp"
+        android:drawablePadding="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginBottom="@dimen/dp_20"
+        app:drawableEndCompat="@drawable/ic_right_arrow"
+        app:layout_constraintTop_toBottomOf="@id/llFields"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>

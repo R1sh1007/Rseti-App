@@ -9,6 +9,10 @@ data class DistrictResponse(
 
 data class DistrictList(
     val districtName: String,
-    val districtCode: String,
-    val lgdDistrictCode:String,
+    val districtCode: String
 )
+//data class DistrictList(
+//    val districtName: String,
+//    val districtCode: String,
+//    val lgdDistrictCode:String,
+//)

@@ -1,767 +1,980 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:layout_marginBottom="@dimen/dp_20">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_100"
-        android:background="@drawable/top_home"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:title="">
-
-
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/backButton"
-            android:layout_marginStart="@dimen/dp_20"
-            android:padding="@dimen/dp_5"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_arrow_back_ios_new"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvFormName"
-            android:text="@string/form_name"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_16"/>
-
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <ImageView
-        android:layout_width="@dimen/dp_25"
-        android:layout_height="@dimen/dp_25"
-        android:id="@+id/orgImage"
-        android:src="@drawable/organization"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginStart="@dimen/dp_15"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tvOrganization"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        />
-
-
-    <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvOrganization"
-        android:text="@string/organisation_name"
-        android:textSize="@dimen/sp_16"
-        android:padding="@dimen/dp_4"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginStart="@dimen/dp_5"
-        android:fontFamily="@font/avenir_next_semi_bold"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintStart_toEndOf="@+id/orgImage"
-        />
+        android:background="@drawable/bg_gradient"
+        android:paddingBottom="@dimen/dp_20">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvOrganizationName"
-        android:text="@string/organisation_name"
-        android:textSize="@dimen/sp_16"
-        android:layout_marginStart="@dimen/dp_5"
-        android:padding="@dimen/dp_4"
-        android:fontFamily="@font/avenir_next_regular"
-        app:layout_constraintTop_toBottomOf="@+id/tvOrganization"
-        app:layout_constraintStart_toEndOf="@+id/orgImage"
-        />
-
-        <ImageView
-            android:layout_width="@dimen/dp_25"
-            android:layout_height="@dimen/dp_25"
-            android:id="@+id/instImage"
-            android:src="@drawable/institute"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginStart="@dimen/dp_15"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvInstitute"
-            app:layout_constraintTop_toBottomOf="@+id/tvOrganizationName"
-            />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvInstitute"
-            android:text="@string/institute_name"
-            android:textSize="@dimen/sp_16"
-            android:padding="@dimen/dp_4"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginStart="@dimen/dp_5"
-            android:fontFamily="@font/avenir_next_semi_bold"
-            app:layout_constraintTop_toBottomOf="@+id/tvOrganizationName"
-            app:layout_constraintStart_toEndOf="@+id/instImage"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvInstituteName"
-            android:text="@string/institute_name"
-            android:textSize="@dimen/sp_16"
-            android:padding="@dimen/dp_4"
-            android:layout_marginStart="@dimen/dp_5"
-            android:fontFamily="@font/avenir_next_regular"
-            app:layout_constraintTop_toBottomOf="@+id/tvInstitute"
-            app:layout_constraintStart_toEndOf="@+id/orgImage"
-            />
-
-        <ImageView
-            android:layout_width="@dimen/dp_25"
-            android:layout_height="@dimen/dp_25"
-            android:id="@+id/participatingOfficialImage"
-            android:src="@drawable/baseline_person_24"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginStart="@dimen/dp_15"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvparticipatingOfficial"
-            app:layout_constraintTop_toBottomOf="@+id/tvInstituteName"
-            />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvparticipatingOfficial"
-            android:text="@string/participating_official"
-            android:textSize="@dimen/sp_16"
-            android:padding="@dimen/dp_4"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginStart="@dimen/dp_5"
-            android:fontFamily="@font/avenir_next_semi_bold"
-            app:layout_constraintTop_toBottomOf="@+id/tvInstituteName"
-            app:layout_constraintStart_toEndOf="@+id/participatingOfficialImage"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvparticipatingOfficialName"
-            android:text="@string/participating_official"
-            android:textSize="@dimen/sp_16"
-            android:padding="@dimen/dp_4"
-            android:layout_marginStart="@dimen/dp_5"
-            android:fontFamily="@font/avenir_next_regular"
-            app:layout_constraintTop_toBottomOf="@+id/tvparticipatingOfficial"
-            app:layout_constraintStart_toEndOf="@+id/instImage"
-            />
-
-
-        <ImageView
-            android:layout_width="@dimen/dp_25"
-            android:layout_height="@dimen/dp_25"
-            android:id="@+id/desiginationImage"
-            android:src="@drawable/disignation"
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="@color/white"
-            android:layout_marginStart="@dimen/dp_15"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvdesigination"
-            app:layout_constraintTop_toBottomOf="@+id/tvparticipatingOfficialName"
-            />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvdesigination"
-            android:text="@string/designation"
-            android:textSize="@dimen/sp_16"
-            android:padding="@dimen/dp_4"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginStart="@dimen/dp_5"
-            android:fontFamily="@font/avenir_next_semi_bold"
-            app:layout_constraintTop_toBottomOf="@+id/tvparticipatingOfficialName"
-            app:layout_constraintStart_toEndOf="@+id/desiginationImage"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvdesiginationName"
-            android:text="@string/designation"
-            android:textSize="@dimen/sp_16"
-            android:padding="@dimen/dp_4"
-            android:layout_marginStart="@dimen/dp_5"
-            android:fontFamily="@font/avenir_next_regular"
-            app:layout_constraintTop_toBottomOf="@+id/tvdesigination"
-            app:layout_constraintStart_toEndOf="@+id/desiginationImage"
-            />
-
-        <ImageView
-            android:layout_width="@dimen/dp_25"
-            android:layout_height="@dimen/dp_25"
-            android:id="@+id/eapNameImage"
-            android:src="@drawable/id"
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="@color/white"
-            android:layout_marginStart="@dimen/dp_15"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvEapName"
-            app:layout_constraintTop_toBottomOf="@+id/tvdesiginationName"
-            />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvEapName"
-            android:text="@string/program_name1"
-            android:textSize="@dimen/sp_16"
-            android:padding="@dimen/dp_4"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginStart="@dimen/dp_5"
-            android:fontFamily="@font/avenir_next_semi_bold"
-            app:layout_constraintTop_toBottomOf="@+id/tvdesiginationName"
-            app:layout_constraintStart_toEndOf="@+id/eapNameImage"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/eapName"
-            android:text="@string/program_name1"
-            android:textSize="@dimen/sp_16"
-            android:padding="@dimen/dp_4"
-            android:layout_marginStart="@dimen/dp_5"
-            android:fontFamily="@font/avenir_next_regular"
-            app:layout_constraintTop_toBottomOf="@+id/tvEapName"
-            app:layout_constraintStart_toEndOf="@+id/eapNameImage"
-            />
-
-
-
-
-
-
-
-        <ImageView
-            android:layout_width="@dimen/dp_25"
-            android:layout_height="@dimen/dp_25"
-            android:id="@+id/eapIdImage"
-            android:src="@drawable/id"
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="@color/white"
-            android:layout_marginStart="@dimen/dp_15"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvEapId"
-            app:layout_constraintTop_toBottomOf="@+id/eapName"
-            />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvEapId"
-            android:text="@string/eap_id"
-            android:textSize="@dimen/sp_16"
-            android:padding="@dimen/dp_4"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginStart="@dimen/dp_5"
-            android:fontFamily="@font/avenir_next_semi_bold"
-            app:layout_constraintTop_toBottomOf="@+id/eapName"
-            app:layout_constraintStart_toEndOf="@+id/eapIdImage"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/eapIdName"
-            android:text="@string/eap_id"
-            android:textSize="@dimen/sp_16"
-            android:padding="@dimen/dp_4"
-            android:layout_marginStart="@dimen/dp_5"
-            android:fontFamily="@font/avenir_next_regular"
-            app:layout_constraintTop_toBottomOf="@+id/tvEapId"
-            app:layout_constraintStart_toEndOf="@+id/eapIdImage"
-            />
-
-
-
-
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:fontFamily="@font/avenir_next_demi_bold"
-            android:padding="@dimen/dp_4"
-            android:text="@string/date"
-            android:id="@+id/tvSelectDate"
-            android:layout_marginStart="@dimen/dp_30"
-            android:textColor="@color/color_dark_green"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/eapIdName"/>
-
-
-        <TextView
-            android:id="@+id/tvDate"
-            style="@style/EditText"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:inputType="none"
-            android:hint="@string/select_date"
-            android:textColor="@color/color_dark_green"
-            android:layout_marginStart="@dimen/dp_30"
-            android:layout_marginEnd="@dimen/dp_30"
-            android:textSize="15sp"
-            app:drawableEndCompat="@drawable/dobb"
-            tools:ignore="LabelFor"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSelectDate"/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:fontFamily="@font/avenir_next_demi_bold"
-            android:padding="@dimen/dp_4"
-            android:text="@string/total_participants"
-            android:id="@+id/tvSelectTotalParti"
-            android:layout_marginStart="@dimen/dp_30"
-            android:textColor="@color/color_dark_green"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDate"/>
-        <EditText
-            android:id="@+id/etTotalParticipant"
-            style="@style/EditText"
-            android:layout_marginHorizontal="@dimen/dp_30"
-            android:drawableEnd="@drawable/baseline_people_outline_24"
-            android:hint="@string/select_total_participants"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:maxLength="5"
-            android:paddingHorizontal="@dimen/dp_20"
+        <!-- Enhanced Toolbar -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_90"
+            android:background="@drawable/top_home"
+            android:elevation="8dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:theme="@style/ThemeOverlay.Material3.Dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSelectTotalParti" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:fontFamily="@font/avenir_next_demi_bold"
-            android:padding="@dimen/dp_4"
-            android:text="@string/name_of_organization"
-            android:id="@+id/tvSelectNameOfOrg"
-            android:layout_marginStart="@dimen/dp_30"
-            android:textColor="@color/color_dark_green"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etTotalParticipant"/>
-        <EditText
-            android:id="@+id/etNameOfOrgt"
-            style="@style/EditText"
-            android:layout_marginHorizontal="@dimen/dp_30"
-            android:hint="@string/name_of_org"
-            android:imeOptions="actionNext"
-            android:paddingHorizontal="@dimen/dp_20"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSelectNameOfOrg" />
-
-
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/expandAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_12"
-        android:visibility="visible"
-        android:layout_marginStart="@dimen/dp_30"
-        android:layout_marginEnd="@dimen/dp_30"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNameOfOrgt">
-
-        <TextView
-            android:id="@+id/tvState"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/avenir_next_demi_bold"
-            android:padding="@dimen/dp_4"
-            android:text="@string/state"
-            android:textColor="@color/color_dark_green"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
-
-        <TextView
-            style="@style/EditText"
-            android:id="@+id/spinnerAutoState"
-            android:fontFamily="@font/avenir_next_demi_bold"
-            android:textColorHint="@color/color_dark_green"
-            app:boxStrokeColor="@color/color_dark_green"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvState"/>
-
-
-
-
-        <LinearLayout
-            android:id="@+id/llDistrict"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerAutoState">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp_16"
-                android:fontFamily="@font/avenir_next_demi_bold"
-                android:padding="@dimen/dp_4"
-                android:text="@string/district"
-                android:textColor="@color/color_dark_green" />
-
-
-            <TextView
-                style="@style/EditText"
-                android:id="@+id/districValue"
-                android:fontFamily="@font/avenir_next_demi_bold"
-                android:textColorHint="@color/color_dark_green"
-                app:boxStrokeColor="@color/color_dark_green"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvState"/>
-            <TextView
-                android:id="@+id/TvDisName"
-                style="@style/EditText"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_background"
-                android:hint="@string/select_district"
-                android:padding="12dp"
-                android:visibility="gone"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvState"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llBlock"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/llDistrict">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp_16"
-                android:fontFamily="@font/avenir_next_demi_bold"
-                android:padding="@dimen/dp_4"
-                android:text="@string/Block"
-                android:textColor="@color/color_dark_green" />
-
-            <TextView
-                style="@style/EditText"
-                android:id="@+id/blockValue"
-                android:fontFamily="@font/avenir_next_demi_bold"
-                android:textColorHint="@color/color_dark_green"
-                app:boxStrokeColor="@color/color_dark_green"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvState"/>
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/llGp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/llBlock">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp_16"
-                android:fontFamily="@font/avenir_next_demi_bold"
-                android:padding="@dimen/dp_4"
-                android:text="@string/Gp"
-                android:textColor="@color/color_dark_green" />
-
-            <TextView
-                style="@style/EditText"
-                android:id="@+id/gpValue"
-                android:fontFamily="@font/avenir_next_demi_bold"
-                android:textColorHint="@color/color_dark_green"
-                app:boxStrokeColor="@color/color_dark_green"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvState"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llVillage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="@dimen/dp_20"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/llGp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp_16"
-                android:fontFamily="@font/avenir_next_demi_bold"
-                android:padding="@dimen/dp_4"
-                android:text="@string/Village"
-                android:textColor="@color/color_dark_green" />
-
-
-            <TextView
-                style="@style/EditText"
-                android:id="@+id/villageValue"
-                android:fontFamily="@font/avenir_next_demi_bold"
-                android:textColorHint="@color/color_dark_green"
-                app:boxStrokeColor="@color/color_dark_green"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvState"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:fontFamily="@font/avenir_next_demi_bold"
-                android:padding="@dimen/dp_4"
-                android:text="@string/no_of_application_expected"
-                android:id="@+id/tvNoOfAppExpec"
-                android:textColor="@color/color_dark_green" />
-            <EditText
-                android:id="@+id/etNoOfAppExpec"
-                style="@style/EditText"
-                android:hint="@string/enter_no_of_application_expected"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLength="5"
-                android:paddingHorizontal="@dimen/dp_20" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:fontFamily="@font/avenir_next_demi_bold"
-                android:padding="@dimen/dp_4"
-                android:text="@string/brief_description"
-                android:id="@+id/tvBrief"
-                android:textColor="@color/color_dark_green" />
-            <EditText
-                android:id="@+id/etBrief"
-                style="@style/EditText"
-                android:hint="@string/enter_brief_description"
-                android:imeOptions="actionNext"
-                android:paddingHorizontal="@dimen/dp_20" />
-
-
-
-
-
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:fontFamily="@font/avenir_next_demi_bold"
-                android:padding="@dimen/dp_4"
-                android:text="@string/capture_image"
-                android:textColor="@color/color_dark_green" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@color/white">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/dp_10"
-                android:weightSum="2">
-
-                <ImageView
-                    android:id="@+id/image1"
-                    android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_weight="1"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/captureimage"
-                    android:layout_marginEnd="@dimen/dp_10"
-                    android:padding="@dimen/dp_5"/>
-
-                <ImageView
-                    android:id="@+id/image2"
-                    android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_weight="1"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/captureimage"
-                    android:layout_marginStart="@dimen/dp_10"
-                    android:padding="@dimen/dp_5"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/lllatLang"
-                android:visibility="gone"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:fontFamily="@font/avenir_next_demi_bold"
-                    android:padding="@dimen/dp_4"
-                    android:text="@string/location"
-                    android:textColor="@color/color_dark_green" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/location"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:fontFamily="@font/avenir_next_medium"
-                    android:padding="@dimen/dp_4"
-                    android:textColor="@color/color_dark_green" />
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/llAdress"
-                android:visibility="gone"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:fontFamily="@font/avenir_next_demi_bold"
-                    android:padding="@dimen/dp_4"
-                    android:text="@string/address"
-                    android:textColor="@color/color_dark_green" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/address"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:fontFamily="@font/avenir_next_medium"
-                    android:padding="@dimen/dp_4"
-                    android:textColor="@color/color_dark_green" />
-
-
-            </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/llRecycler"
-            android:visibility="visible"
-            android:layout_marginTop="@dimen/dp_30"
-            android:weightSum="2">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:id="@+id/candidteCount"
-                android:fontFamily="@font/avenir_next_demi_bold"
-                android:padding="@dimen/dp_4"
-                android:text="@string/added_candidates"
-                android:textColor="@color/color_dark_green" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-        </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-
-                <TextView
-                    android:layout_width="0dp"
+                <!-- Back Button -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/backButton"
+                    android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:padding="8dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_arrow_back_ios_new"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                    android:tint="@color/white" />
+
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/tvFormName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/add_candidate"
-                    android:gravity="center"
-                    android:id="@+id/btnAddCandidate"
+                    android:paddingStart="12dp"
+                    android:text="@string/form_name"
                     android:textColor="@color/white"
-                    android:elevation="4dp"
-                    android:textSize="@dimen/sp_16"
-                    android:background="@drawable/card_background"
-                    android:layout_margin="8dp" />
+                    android:textSize="@dimen/sp_18"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/avenir_next_bold" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:id="@+id/btnSubmit"
-                    android:elevation="4dp"
-                    android:text="@string/submit_details"
-                    android:textColor="@color/light_color"
-                    android:textSize="@dimen/sp_16"
-                    android:background="@drawable/backgroung_overlay"
-                    android:layout_margin="8dp" />
+                <!-- App Logo -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:layout_marginStart="8dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_rseti"
+                    app:shapeAppearanceOverlay="@style/CustomRectangleShape"
+                    android:visibility="gone" />
+
             </LinearLayout>
 
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <!-- User Info Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ueserinfo_card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <!-- ORG IMAGE -->
+                <ImageView
+                    android:id="@+id/orgImage"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/organization"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- ORG TITLE -->
+                <TextView
+                    android:id="@+id/tvOrganization"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/organisation_name"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/color_dark_green"
+                    android:fontFamily="@font/avenir_next_semi_bold"
+                    app:layout_constraintStart_toEndOf="@+id/orgImage"
+                    app:layout_constraintTop_toTopOf="@+id/orgImage" />
+
+                <!-- ORG NAME -->
+                <TextView
+                    android:id="@+id/tvOrganizationName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/organisation_name"
+                    android:textSize="@dimen/sp_16"
+                    android:fontFamily="@font/avenir_next_regular"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintStart_toStartOf="@+id/tvOrganization"
+                    app:layout_constraintTop_toBottomOf="@+id/tvOrganization"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- INST IMAGE -->
+                <ImageView
+                    android:id="@+id/instImage"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/institute"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvOrganizationName" />
+
+                <!-- INST LABEL -->
+                <TextView
+                    android:id="@+id/tvInstitute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/institute_name"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/color_dark_green"
+                    android:fontFamily="@font/avenir_next_demi_bold"                    android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toEndOf="@+id/instImage"
+                    app:layout_constraintTop_toTopOf="@+id/instImage" />
+
+                <!-- INST NAME -->
+                <TextView
+                    android:id="@+id/tvInstituteName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/institute_name"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/avenir_next_regular"
+                    app:layout_constraintStart_toStartOf="@+id/tvInstitute"
+                    app:layout_constraintTop_toBottomOf="@+id/tvInstitute"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- PARTICIPATING OFFICER -->
+                <ImageView
+                    android:id="@+id/participatingOfficialImage"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/baseline_person_24"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvInstituteName"/>
+
+                <TextView
+                    android:id="@+id/tvparticipatingOfficial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/participating_official"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/color_dark_green"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/avenir_next_demi_bold"                    app:layout_constraintStart_toEndOf="@+id/participatingOfficialImage"
+                    app:layout_constraintTop_toTopOf="@+id/participatingOfficialImage" />
+
+                <TextView
+                    android:id="@+id/tvparticipatingOfficialName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/participating_official"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/avenir_next_regular"
+                    app:layout_constraintStart_toStartOf="@+id/tvparticipatingOfficial"
+                    app:layout_constraintTop_toBottomOf="@+id/tvparticipatingOfficial"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- DESIGNATION -->
+                <ImageView
+                    android:id="@+id/desiginationImage"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/disignation"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvparticipatingOfficialName"/>
+
+                <TextView
+                    android:id="@+id/tvdesigination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/designation"
+                    android:textSize="@dimen/sp_14"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/color_dark_green"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    app:layout_constraintStart_toEndOf="@+id/desiginationImage"
+                    app:layout_constraintTop_toTopOf="@+id/desiginationImage"/>
+
+                <TextView
+                    android:id="@+id/tvdesiginationName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/designation"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/avenir_next_regular"
+                    app:layout_constraintStart_toStartOf="@+id/tvdesigination"
+                    app:layout_constraintTop_toBottomOf="@+id/tvdesigination"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
 
 
 
-        </LinearLayout>
+        <!-- Program Info Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/programInfocard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ueserinfo_card">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <!-- PROGRAM NAME -->
+                <ImageView
+                    android:id="@+id/eapNameImage"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/id"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tvEapName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/program_name1"
+                    android:textSize="@dimen/sp_14"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/color_dark_green"
+                    android:fontFamily="@font/avenir_next_semi_bold"
+                    app:layout_constraintStart_toEndOf="@+id/eapNameImage"
+                    app:layout_constraintTop_toTopOf="@+id/eapNameImage"/>
+
+                <TextView
+                    android:id="@+id/eapName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/program_name1"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/color_dark_green"
+                    android:fontFamily="@font/avenir_next_regular"
+                    app:layout_constraintStart_toStartOf="@+id/tvEapName"
+                    app:layout_constraintTop_toBottomOf="@+id/tvEapName"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- EAP ID -->
+                <ImageView
+                    android:id="@+id/eapIdImage"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/id"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/eapName"/>
+
+                <TextView
+                    android:id="@+id/tvEapId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/eap_id"
+                    android:textSize="@dimen/sp_14"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/color_dark_green"
+                    android:fontFamily="@font/avenir_next_semi_bold"
+                    app:layout_constraintStart_toEndOf="@+id/eapIdImage"
+                    app:layout_constraintTop_toTopOf="@+id/eapIdImage"/>
+
+                <TextView
+                    android:id="@+id/eapIdName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/eap_id"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/avenir_next_regular"
+                    app:layout_constraintStart_toStartOf="@+id/tvEapId"
+                    app:layout_constraintTop_toBottomOf="@+id/tvEapId"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <!-- Form Inputs Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/formIntput_card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/programInfocard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- Date Selection -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvSelectDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date"
+                    android:textColor="@color/color_dark_green"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/dateInputLayout"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:boxCornerRadiusBottomEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusTopStart="8dp"
+                    app:endIconDrawable="@drawable/dobb"
+                    app:endIconMode="custom"
+                    app:boxStrokeColor="@color/color_dark_green"
+                    app:hintTextColor="@color/color_dark_green">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tvDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/select_date"
+                        android:inputType="none"
+                        android:textColor="@color/color_dark_green"
+                        android:textSize="15sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Total Participants -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvSelectTotalParti"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/total_participants"
+                    android:textColor="@color/color_dark_green"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:boxCornerRadiusBottomEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusTopStart="8dp"
+                    app:endIconDrawable="@drawable/baseline_people_outline_24"
+                    app:endIconMode="custom"
+                    app:boxStrokeColor="@color/color_dark_green"
+                    app:hintTextColor="@color/color_dark_green">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etTotalParticipant"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/select_total_participants"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="5"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Organization Name -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvSelectNameOfOrg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/name_of_organization"
+                    android:textColor="@color/color_dark_green"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:boxCornerRadiusBottomEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusTopStart="8dp"
+                    app:boxStrokeColor="@color/color_dark_green"
+                    app:hintTextColor="@color/color_dark_green">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNameOfOrgt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/name_of_org"
+                        android:imeOptions="actionNext"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Address Section Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/expandAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/formIntput_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- State -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/state"
+                    android:textColor="@color/color_dark_green"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/spinnerAutoState"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:boxCornerRadiusBottomEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusTopStart="8dp"
+                    app:boxStrokeColor="@color/color_dark_green"
+                    app:hintTextColor="@color/color_dark_green">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/select_state"
+                        android:textColorHint="@color/color_dark_green"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- District -->
+                <LinearLayout
+                    android:id="@+id/llDistrict"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/district"
+                        android:textColor="@color/color_dark_green"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/avenir_next_demi_bold"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/districValue"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:boxCornerRadiusBottomEnd="8dp"
+                        app:boxCornerRadiusBottomStart="8dp"
+                        app:boxCornerRadiusTopEnd="8dp"
+                        app:boxCornerRadiusTopStart="8dp"
+                        app:boxStrokeColor="@color/color_dark_green"
+                        app:hintTextColor="@color/color_dark_green">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/select_district"
+                            android:textColorHint="@color/color_dark_green"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <!-- Block -->
+                <LinearLayout
+                    android:id="@+id/llBlock"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Block"
+                        android:textColor="@color/color_dark_green"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/avenir_next_demi_bold"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/blockValue"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:boxCornerRadiusBottomEnd="8dp"
+                        app:boxCornerRadiusBottomStart="8dp"
+                        app:boxCornerRadiusTopEnd="8dp"
+                        app:boxCornerRadiusTopStart="8dp"
+                        app:boxStrokeColor="@color/color_dark_green"
+                        app:hintTextColor="@color/color_dark_green">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/select_Block"
+                            android:textColorHint="@color/color_dark_green"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <!-- GP -->
+                <LinearLayout
+                    android:id="@+id/llGp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Gp"
+                        android:textColor="@color/color_dark_green"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/avenir_next_demi_bold"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/gpValue"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:boxCornerRadiusBottomEnd="8dp"
+                        app:boxCornerRadiusBottomStart="8dp"
+                        app:boxCornerRadiusTopEnd="8dp"
+                        app:boxCornerRadiusTopStart="8dp"
+                        app:boxStrokeColor="@color/color_dark_green"
+                        app:hintTextColor="@color/color_dark_green">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/select_gp"
+                            android:textColorHint="@color/color_dark_green"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <!-- Village -->
+                <LinearLayout
+                    android:id="@+id/llVillage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="@dimen/dp_20">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Village"
+                        android:textColor="@color/color_dark_green"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/avenir_next_demi_bold"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/villageValue"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:boxCornerRadiusBottomEnd="8dp"
+                        app:boxCornerRadiusBottomStart="8dp"
+                        app:boxCornerRadiusTopEnd="8dp"
+                        app:boxCornerRadiusTopStart="8dp"
+                        app:boxStrokeColor="@color/color_dark_green"
+                        app:hintTextColor="@color/color_dark_green">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/select_Village"
+                            android:textColorHint="@color/color_dark_green"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Additional Info Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/infoCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/expandAddress">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- Expected Applications -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvNoOfAppExpec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_of_application_expected"
+                    android:textColor="@color/color_dark_green"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:boxCornerRadiusBottomEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusTopStart="8dp"
+                    app:boxStrokeColor="@color/color_dark_green"
+                    app:hintTextColor="@color/color_dark_green">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNoOfAppExpec"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/enter_no_of_application_expected"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="5"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Brief Description -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvBrief"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/brief_description"
+                    android:textColor="@color/color_dark_green"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:boxCornerRadiusBottomEnd="8dp"
+                    app:boxCornerRadiusBottomStart="8dp"
+                    app:boxCornerRadiusTopEnd="8dp"
+                    app:boxCornerRadiusTopStart="8dp"
+                    app:boxStrokeColor="@color/color_dark_green"
+                    app:hintTextColor="@color/color_dark_green">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etBrief"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:hint="@string/enter_brief_description"
+                        android:imeOptions="actionNext"
+                        android:inputType="textMultiLine"
+                        android:lines="3"
+                        android:minLines="3"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Image Capture -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/capture_image"
+                    android:textColor="@color/color_dark_green"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="150dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp">
+
+                        <ImageView
+                            android:id="@+id/image1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/captureimage"
+                            android:scaleType="centerCrop" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="150dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp">
+
+                        <ImageView
+                            android:id="@+id/image2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/captureimage"
+                            android:scaleType="centerCrop" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+                <!-- Hidden Location Views -->
+                <LinearLayout
+                    android:id="@+id/lllatLang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/location"
+                        android:textColor="@color/color_dark_green"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/avenir_next_demi_bold"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/color_dark_green"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/avenir_next_medium" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llAdress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/address"
+                        android:textColor="@color/color_dark_green"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/avenir_next_demi_bold"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/color_dark_green"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/avenir_next_medium" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Candidates Section Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/infoCard">
+
+            <LinearLayout
+                android:id="@+id/llRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/candidteCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/added_candidates"
+                    android:textColor="@color/color_dark_green"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/avenir_next_demi_bold"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_candidate"
+                    tools:itemCount="5"
+                    />
+
+                <!-- Action Buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAddCandidate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="?attr/colorPrimary"
+                        android:elevation="1dp"
+                        android:text="@string/add_candidate"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_12"
+                        app:cornerRadius="6dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSubmit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="?attr/colorSecondary"
+                        android:textColor="@color/white"
+                        android:elevation="1dp"
+                        android:text="@string/submit_details"
+                        android:textSize="@dimen/sp_12"
+                        app:cornerRadius="6dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/dp_10"
+    android:layout_marginTop="@dimen/dp_12"
+    android:padding="@dimen/dp_10"
+    android:background="@drawable/card_follow_up_background"
+    android:elevation="4dp"
+    android:clipToPadding="false"
+    android:clipChildren="false">
+
+    <!-- Batch ID Label -->
+    <TextView
+        android:id="@+id/tvBatchId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenir_next_medium"
+        android:text="@string/batch_id"
+        android:textColor="@color/color_follow_up_title"
+        android:textSize="@dimen/sp_14"
+        android:letterSpacing="0.02"
+        android:paddingBottom="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Batch ID Value -->
+    <TextView
+        android:id="@+id/tvBatchIdName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:fontFamily="@font/avenir_next_semi_bold"
+        android:textColor="@color/color_text"
+        android:textSize="@dimen/sp_14"
+        android:letterSpacing="0.01"
+        app:layout_constraintStart_toEndOf="@id/tvBatchId"
+        app:layout_constraintTop_toTopOf="@id/tvBatchId" />
+
+    <!-- Batch Name Label -->
+    <TextView
+        android:id="@+id/tvBatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenir_next_medium"
+        android:text="@string/batch_name"
+        android:textColor="@color/color_follow_up_title"
+        android:textSize="@dimen/sp_14"
+        android:paddingTop="6dp"
+        android:letterSpacing="0.02"
+        app:layout_constraintTop_toBottomOf="@id/tvBatchIdName"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvBatchName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/avenir_next_semi_bold"
+        android:textColor="@color/color_text"
+        android:textSize="@dimen/sp_14"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:lineSpacingExtra="3dp"
+        app:layout_constraintStart_toEndOf="@id/tvBatch"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvBatch"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+
+    <TextView
+        android:id="@+id/tvInstitute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenir_next_medium"
+        android:text="@string/institute_name"
+        android:textColor="@color/color_follow_up_title"
+        android:textSize="@dimen/sp_14"
+        android:paddingTop="6dp"
+        android:letterSpacing="0.02"
+        app:layout_constraintTop_toBottomOf="@id/tvBatchName"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvInstituteName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/avenir_next_semi_bold"
+        android:textColor="@color/color_text"
+        android:textSize="@dimen/sp_14"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:lineSpacingExtra="3dp"
+        app:layout_constraintStart_toEndOf="@id/tvInstitute"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvInstitute"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+<!--"batchId": 26,
+            "candidateId": "2509237604",
+            "instituteId": 113,
+            "settledCandidates": 8,
+            "totalCandidates": 30,
+            "settledPercentage": 26.67-->
+
+
+    <TextView
+        android:id="@+id/tvSettlementPerctange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenir_next_medium"
+        android:text="@string/settlement_percentage"
+        android:textColor="@color/color_follow_up_title"
+        android:textSize="@dimen/sp_14"
+        android:paddingTop="6dp"
+        android:letterSpacing="0.02"
+        app:layout_constraintTop_toBottomOf="@id/tvInstituteName"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSettlementPerctangeName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/avenir_next_semi_bold"
+        android:textColor="@color/color_text"
+        android:textSize="@dimen/sp_14"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:lineSpacingExtra="3dp"
+        app:layout_constraintStart_toEndOf="@id/tvSettlementPerctange"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvSettlementPerctange"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
