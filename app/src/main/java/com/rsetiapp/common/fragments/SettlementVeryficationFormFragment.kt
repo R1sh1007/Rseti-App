@@ -138,36 +138,6 @@ class SettlementVeryficationFormFragment :
     @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        /* parentFragmentManager.setFragmentResultListener("settlement_result", this) { _, bundle ->
-             selectedStatus = bundle.getString("selectedStatusItem").orEmpty()
-             selfInvestmentItem =
-                 bundle.getString("selectedSelfInvestmentItem").orEmpty()
-             creditFromBankItem =
-                 bundle.getString("SelectedCreditFromBankItem").orEmpty()
-             totalV = bundle.getInt("selectedTotal").toString()
-             upperCaseIfscTextV = bundle.getString("selectedUpperCaseIfscText").orEmpty()
-             bankCode = bundle.getString("selectedBankCode").orEmpty()
-             branchCode = bundle.getString("selectedBranchCode").orEmpty()
-             loanAcc = bundle.getString("selectedLoanAcc").orEmpty()
-             city = bundle.getString("selectedCity").orEmpty()
-             selectedReason = bundle.getString("selectedReason").orEmpty()
-             selectdeAccountStatus = bundle.getString("selectdeAccountStatus").orEmpty()
-             selectedRangeId = bundle.getString("selectedRangeId").orEmpty()
-             employmentGiven = bundle.getString("selectedEmploymentGiven").orEmpty()
-             familyMemberPartTime =
-                 bundle.getString("selectedFamilyMemberPartTime").orEmpty()
-             settlementPhoto = bundle.getString("selectedSettlementPhoto").orEmpty()
-             passbookCopy = bundle.getString("selectedPassbookCopy").orEmpty()
-             appointmentLetter = bundle.getString("selectedAppointmentLetter").orEmpty()
-
-             Log.d("ResultDebug", "Received result in MyFragment: $selectedStatus")
-
-         }*/
-
-
-
-
         userPreferences = UserPreferences(requireContext())
         init()
 
@@ -181,35 +151,13 @@ class SettlementVeryficationFormFragment :
 
 
     private fun init() {
-
-        val strValue = "12.34"
-//        val strlongitutde= CandidateSettlement.longitutde
-//        val strlatitude= CandidateSettlement.latitude
-//        val latitudeValue: Double? = strlatitude!!.toDoubleOrNull()
-//        val longitutdeValue: Double? = strlongitutde!!.toDoubleOrNull()
         CandidateSettlement = arguments?.getSerializable("SettlementVeryficationBatch") as CandidateSettlementVerificationDetail
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         userPreferences = UserPreferences(requireContext())
-
-
-//        Toast.makeText(requireContext(), latitudeValue.toString()+longitutdeValue.toString(), Toast.LENGTH_SHORT).show()
         checkAndRequestStoragePermissions()
 
 
 //        Not Image get from API
-
-//        if (CandidateSettlement.candidateProfilePic == "NA" || CandidateSettlement.candidateProfilePic?.isEmpty() ?: true) {
-//            Glide.with(binding.root.context).load(R.drawable.person).into(binding.candidateImage)
-//        } else {
-//            val decodedString: ByteArray =
-//                Base64.decode(CandidateSettlement.candidateProfilePic, Base64.DEFAULT)
-//            val profileBitmap: Bitmap =
-//                BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-//
-//            Glide.with(binding.root.context).load(profileBitmap).into(binding.candidateImage)
-//        }
-
-
 
 
         binding.tvCandidateName.text = CandidateSettlement.candidateName
@@ -272,6 +220,9 @@ class SettlementVeryficationFormFragment :
                     setFragmentResultListener("settlement_result") { _, bundle ->
                         val selectedRangeId = bundle.getString("selectedRangeId", "N/A")
                         // Process the selected range if needed
+
+
+
                     }
                 }
 

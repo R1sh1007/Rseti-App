@@ -281,6 +281,7 @@ class FollowUpFormFragment :
             if ( selectedFollowUpType != null && selectedFollowUpStatus != null )
             {
                 if ((  selectedFollowUpStatus!!.statusId == 3) && image1Base64.isNotEmpty() ) {
+
                     commonViewModel.insertFollowUpAPI(AppUtil.getSavedTokenPreference(requireContext()),
                         FollowUpInsertReq(AppUtil.getAndroidId(requireContext()),userPreferences.getUseID(),
                             appVersion = BuildConfig.VERSION_NAME,
@@ -619,8 +620,6 @@ class FollowUpFormFragment :
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraLauncher.launch(intent)  // No extra output, no file
     }
-
-
     private val cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val bitmap = result.data?.extras?.get("data") as? Bitmap
@@ -681,6 +680,9 @@ class FollowUpFormFragment :
             }
         }
 
+
+
+
         @SuppressLint("MissingPermission")
         private fun getCurrentLocation() {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
@@ -703,7 +705,6 @@ class FollowUpFormFragment :
                 Log.e("LocationError", "Failed to get location: ${it.message}")
             }
         }
-
         @SuppressLint("MissingPermission")
         private fun requestNewLocation() {
             val locationRequest = LocationRequest.Builder(
@@ -735,8 +736,7 @@ class FollowUpFormFragment :
 
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
         }
-
-        private fun getAddressFromLocation(latitude: Double, longitude: Double) {
+       private fun getAddressFromLocation(latitude: Double, longitude: Double) {
             try {
                 val geocoder = Geocoder(requireContext(), Locale("en", "IN"))
                 val addresses = geocoder.getFromLocation(latitude, longitude, 1)

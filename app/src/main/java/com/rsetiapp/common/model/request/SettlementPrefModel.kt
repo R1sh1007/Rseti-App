@@ -1,0 +1,40 @@
+package com.rsetiapp.common.model.request
+
+data class SettlementPrefModel(
+    val instituteId: String,
+    val candidateId: String,
+    val candidateName: String,
+    val mobileNo: String,
+    val guardianName: String,
+    val guardianMobileNo: String,
+    val aadharBlockName: String,
+    val aadharPinCode: String,
+    val settlementId: String,
+    val followUpId: String,
+    val batchId: String,
+    val ifscCode: String,
+    val loanAccountNo: String,
+    val creditFromBank: String,
+    val selfInvestment: String,
+    val totalInvestment: String,
+    val passbookCopy: String,
+    val appointmentLetter: String,
+    val settlementPhoto: String,
+    val updatedBy: String,
+    val latitude: String,
+    val longitude: String,
+    val rollNo: String,
+
+    val cityName: String,
+    val settlementReason: String,
+    val accountStatus: String,
+    val salaryRange: String,
+    val employmentGiven: String,
+    val familyMemberPartTime: String,
+    val bankName: String,
+    val branchName: String,
+    val followupType: String,
+    val statusName: String,
+    val salaryRangeId: String
+)
+

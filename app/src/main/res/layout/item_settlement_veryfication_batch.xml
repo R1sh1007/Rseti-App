@@ -14,6 +14,13 @@
     android:clipChildren="false">
 
     <!-- Batch ID Label -->
+
+
+
+
+
+
+
     <TextView
         android:id="@+id/tvBatchId"
         android:layout_width="wrap_content"
@@ -40,6 +47,40 @@
         app:layout_constraintStart_toEndOf="@id/tvBatchId"
         app:layout_constraintTop_toTopOf="@id/tvBatchId" />
 
+
+    <TextView
+        android:id="@+id/tvCandidateID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenir_next_medium"
+        android:text="@string/candidate_id"
+        android:textColor="@color/color_follow_up_title"
+        android:textSize="@dimen/sp_14"
+        android:paddingTop="6dp"
+        android:letterSpacing="0.02"
+        app:layout_constraintTop_toBottomOf="@id/tvBatchIdName"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvtvCandidateIDName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/avenir_next_semi_bold"
+        android:textColor="@color/color_text"
+        android:textSize="@dimen/sp_14"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:lineSpacingExtra="3dp"
+        app:layout_constraintStart_toEndOf="@id/tvCandidateID"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvCandidateID"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+
+
+
     <!-- Batch Name Label -->
     <TextView
         android:id="@+id/tvBatch"
@@ -51,7 +92,7 @@
         android:textSize="@dimen/sp_14"
         android:paddingTop="6dp"
         android:letterSpacing="0.02"
-        app:layout_constraintTop_toBottomOf="@id/tvBatchIdName"
+        app:layout_constraintTop_toBottomOf="@id/tvtvCandidateIDName"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView

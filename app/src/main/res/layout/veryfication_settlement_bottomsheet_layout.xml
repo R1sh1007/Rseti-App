@@ -39,29 +39,39 @@
             android:text="@string/status_mandate"
             android:textColor="@color/color_dark_green" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/avenir_next_demi_bold"-->
+<!--            android:hint="@string/statush"-->
+<!--            android:padding="1dp"-->
+<!--            android:textColorHint="@color/color_dark_green"-->
+<!--            app:boxStrokeColor="@color/color_dark_green">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/spinnerStatusBottom"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:focusable="false"-->
+<!--                android:focusableInTouchMode="false"-->
+<!--                android:inputType="none"-->
+<!--                android:textColor="@color/color_dark_green"-->
+<!--                android:textSize="15sp"-->
+<!--                tools:ignore="LabelFor" />-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_16"
             android:fontFamily="@font/avenir_next_demi_bold"
-            android:hint="@string/statush"
-            android:padding="1dp"
-            android:textColorHint="@color/color_dark_green"
-            app:boxStrokeColor="@color/color_dark_green">
-
-            <AutoCompleteTextView
-                android:id="@+id/spinnerStatusBottom"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:inputType="none"
-                android:textColor="@color/color_dark_green"
-                android:textSize="15sp"
-                tools:ignore="LabelFor" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
+            android:padding="@dimen/dp_4"
+            style="@style/EditText"
+            android:background="@drawable/edittext_background"
+            android:id="@+id/tVstatus"
+            android:textColor="@color/color_dark_green" />
 
 
     </LinearLayout>
@@ -199,7 +209,7 @@
 
                 <!-- EditText with custom background -->
                 <TextView
-                    android:id="@+id/etIfscCode"
+                    android:id="@+id/tvIfscCode"
                     style="@style/EditText"
                     android:background="@drawable/edittext_background"
                     android:hint="@string/enter_ifsc_code"
@@ -241,7 +251,7 @@
 
                 <!-- EditText with custom background -->
                 <TextView
-                    android:id="@+id/etBankName"
+                    android:id="@+id/tvBankName"
                     style="@style/EditText"
                     android:background="@drawable/edittext_background"
                     android:hint="@string/bank_name"
@@ -271,7 +281,7 @@
 
                 <!-- EditText with custom background -->
                 <TextView
-                    android:id="@+id/etBranchName"
+                    android:id="@+id/tvBranchName"
                     style="@style/EditText"
                     android:background="@drawable/edittext_background"
                     android:hint="@string/branch_name"
@@ -310,11 +320,9 @@
 
                 <!-- EditText with custom background -->
                 <TextView
-                    android:id="@+id/etBankAcNo"
+                    android:id="@+id/tvLoanBankAcNo"
                     style="@style/EditText"
                     android:background="@drawable/edittext_background"
-                    android:hint="@string/enter_loan_account_number"
-                    android:inputType="numberPassword"
                     android:padding="12dp"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
@@ -345,7 +353,7 @@
 
                 <!-- EditText with custom background -->
                 <TextView
-                    android:id="@+id/etCity"
+                    android:id="@+id/TvCity"
                     style="@style/EditText"
                     android:background="@drawable/edittext_background"
                     android:hint="@string/Enter_City_Name"
@@ -380,7 +388,7 @@
 
                 <!-- EditText with custom background -->
                 <TextView
-                    android:id="@+id/etReason"
+                    android:id="@+id/tvReason"
                     style="@style/EditText"
                     android:background="@drawable/edittext_background"
                     android:hint="@string/Reason"
@@ -410,28 +418,25 @@
                     android:text="@string/account_status_mandate"
                     android:textColor="@color/color_dark_green" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/avenir_next_demi_bold"
-                    android:hint="@string/account_status"
-                    android:padding="1dp"
-                    android:textColorHint="@color/color_dark_green"
-                    app:boxStrokeColor="@color/color_dark_green">
 
-                    <AutoCompleteTextView
-                        android:id="@+id/spinnerAccountStatus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:inputType="none"
-                        android:textColor="@color/color_dark_green"
-                        android:textSize="15sp"
-                        tools:ignore="LabelFor" />
+                    <TextView
+                        android:id="@+id/tvAccountStatus"
+                        style="@style/EditText"
+                        android:background="@drawable/edittext_background"
+                        android:padding="12dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+<!--                    <AutoCompleteTextView-->
+<!--                        android:id="@+id/spinnerAccountStatus"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:focusable="false"-->
+<!--                        android:focusableInTouchMode="false"-->
+<!--                        android:inputType="none"-->
+<!--                        android:textColor="@color/color_dark_green"-->
+<!--                        android:textSize="15sp"-->
+<!--                        tools:ignore="LabelFor" />-->
 
-                </com.google.android.material.textfield.TextInputLayout>
 
 
 
@@ -440,6 +445,7 @@
             <LinearLayout
                 android:id="@+id/llEarningsIncome"
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -454,29 +460,35 @@
                     android:padding="@dimen/dp_4"
                     android:text="@string/earnings_income_mandate"
                     android:textColor="@color/color_dark_green" />
+                <TextView
+                    android:id="@+id/tvEarningsIncome"
+                    style="@style/EditText"
+                    android:background="@drawable/edittext_background"
+                    android:padding="12dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/avenir_next_demi_bold"-->
+<!--                    android:hint="@string/earnings_income_hint"-->
+<!--                    android:padding="1dp"-->
+<!--                    android:textColorHint="@color/color_dark_green"-->
+<!--                    app:boxStrokeColor="@color/color_dark_green">-->
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/avenir_next_demi_bold"
-                    android:hint="@string/earnings_income_hint"
-                    android:padding="1dp"
-                    android:textColorHint="@color/color_dark_green"
-                    app:boxStrokeColor="@color/color_dark_green">
+<!--                    <AutoCompleteTextView-->
+<!--                        android:id="@+id/spinnerEarningsIncome"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:focusable="false"-->
+<!--                        android:focusableInTouchMode="false"-->
+<!--                        android:inputType="none"-->
+<!--                        android:textColor="@color/color_dark_green"-->
+<!--                        android:textSize="15sp"-->
+<!--                        tools:ignore="LabelFor" />-->
 
-                    <AutoCompleteTextView
-                        android:id="@+id/spinnerEarningsIncome"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:inputType="none"
-                        android:textColor="@color/color_dark_green"
-                        android:textSize="15sp"
-                        tools:ignore="LabelFor" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
             </LinearLayout>
 
             <LinearLayout
@@ -517,11 +529,9 @@
                     android:paddingBottom="4dp" />
 
                 <TextView
-                    android:id="@+id/etEmploymentGiven"
+                    android:id="@+id/tvEmploymentGiven"
                     style="@style/EditText"
                     android:background="@drawable/edittext_background"
-                    android:inputType="number"
-                    android:hint="@string/enter_number_of_employment_given_to_others"
                     android:padding="12dp"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
@@ -551,28 +561,35 @@
                     android:padding="@dimen/dp_4"
                     android:text="@string/family_member_part_time_job_mandate"
                     android:textColor="@color/color_dark_green" />
+                <TextView
+                    android:id="@+id/tvFamilyMemberWorksPartTime"
+                    style="@style/EditText"
+                    android:background="@drawable/edittext_background"
+                    android:padding="12dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/avenir_next_demi_bold"
-                    android:hint="@string/family_member_part_time_job"
-                    android:padding="1dp"
-                    android:textColorHint="@color/color_dark_green"
-                    app:boxStrokeColor="@color/color_dark_green">
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/avenir_next_demi_bold"-->
+<!--                    android:hint="@string/family_member_part_time_job"-->
+<!--                    android:padding="1dp"-->
+<!--                    android:textColorHint="@color/color_dark_green"-->
+<!--                    app:boxStrokeColor="@color/color_dark_green">-->
 
-                    <AutoCompleteTextView
-                        android:id="@+id/spinnerFamilyMemberPartTime"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:inputType="none"
-                        android:textColor="@color/color_dark_green"
-                        android:textSize="15sp"
-                        tools:ignore="LabelFor" />
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                    <AutoCompleteTextView-->
+<!--                        android:id="@+id/spinnerFamilyMemberPartTime"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:focusable="false"-->
+<!--                        android:focusableInTouchMode="false"-->
+<!--                        android:inputType="none"-->
+<!--                        android:textColor="@color/color_dark_green"-->
+<!--                        android:textSize="15sp"-->
+<!--                        tools:ignore="LabelFor" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
 
                 <TextView
@@ -593,6 +610,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="@dimen/dp_3"
+
                 android:layout_marginTop="@dimen/dp_10"
                 android:weightSum="3"
                 app:layout_constraintStart_toStartOf="parent"
@@ -635,8 +653,9 @@
             </LinearLayout>
 
 
+
             <LinearLayout
-                android:id="@+id/llImageUpload"
+                android:id="@+id/llImageUpload3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -680,6 +699,81 @@
                     android:padding="@dimen/dp_5"/>
             </LinearLayout>
 
+
+
+
+            <LinearLayout
+                android:id="@+id/llProof"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/llImageUpload3">
+
+
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Remark"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <!-- EditText with custom background -->
+                <EditText
+                    android:id="@+id/TvRemark"
+                    style="@style/EditText"
+                    android:background="@drawable/edittext_background"
+                    android:hint="@string/enter_remark"
+                    android:padding="12dp"
+                    android:inputType="text"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+
+
+
+
+
+
+
+
+
+
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                android:textColor="@color/black"
+                android:text="Remark Proof"/>
+
+            <ImageView
+                android:id="@+id/image1"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:background="@drawable/captureimage"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:padding="@dimen/dp_5"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lllatLang"
+
+                />
+            </LinearLayout>
+
+
+
             <TextView
                 android:id="@+id/btnSettled"
                 style="@style/Button"
@@ -689,7 +783,7 @@
                 app:drawableEndCompat="@drawable/ic_right_arrow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/llImageUpload"/>
+                app:layout_constraintTop_toBottomOf="@+id/llProof"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

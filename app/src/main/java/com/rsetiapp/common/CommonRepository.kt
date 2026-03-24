@@ -42,6 +42,7 @@ import com.rsetiapp.common.model.request.SdrListReq
 import com.rsetiapp.common.model.request.SettleStatusRequest
 import com.rsetiapp.common.model.request.SettlementVeryficationBatchReq
 import com.rsetiapp.common.model.request.SettlementVeryficationReq
+import com.rsetiapp.common.model.request.SettlementVeryficationUploadReq
 import com.rsetiapp.common.model.request.TokenReq
 import com.rsetiapp.common.model.request.ValidateOtpReq
 import com.rsetiapp.common.model.response.AttendanceBatchRes
@@ -78,6 +79,7 @@ import com.rsetiapp.common.model.response.SdrListResp
 import com.rsetiapp.common.model.response.SettleStatusResponse
 import com.rsetiapp.common.model.response.SettlementPercentageListResponse
 import com.rsetiapp.common.model.response.SettlementVeryficationListResponse
+import com.rsetiapp.common.model.response.SettlementVeryficationUploadInsertRes
 import com.rsetiapp.common.model.response.TokenRes
 import com.rsetiapp.core.data.local.database.AppDatabase
 import com.rsetiapp.core.data.remote.AppLevelApi
@@ -490,6 +492,19 @@ class CommonRepository @Inject constructor(
     suspend fun getsettledbatchAPI(settleBatchReq: SettlementVeryficationBatchReq) : Flow<Resource<out SettlementPercentageListResponse>>{
         return networkBoundResourceWithoutDb {
             appLevelApi.getgetsettledbatchAPIListAPI(settleBatchReq)
+        }
+    }
+
+
+
+
+
+
+
+
+    suspend fun reverificationSettlementAPI(settlementVeryReq: SettlementVeryficationUploadReq) : Flow<Resource<out SettlementVeryficationUploadInsertRes>>{
+        return networkBoundResourceWithoutDb {
+            appLevelApi.reverificationSettlementAPI(settlementVeryReq)
         }
     }
 

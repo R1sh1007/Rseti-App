@@ -33,6 +33,7 @@ import com.rsetiapp.common.model.request.SdrListReq
 import com.rsetiapp.common.model.request.SettleStatusRequest
 import com.rsetiapp.common.model.request.SettlementVeryficationBatchReq
 import com.rsetiapp.common.model.request.SettlementVeryficationReq
+import com.rsetiapp.common.model.request.SettlementVeryficationUploadReq
 import com.rsetiapp.common.model.request.StateListReq
 import com.rsetiapp.common.model.request.TokenReq
 import com.rsetiapp.common.model.request.ValidateOtpReq
@@ -71,6 +72,7 @@ import com.rsetiapp.common.model.response.SdrListResp
 import com.rsetiapp.common.model.response.SettleStatusResponse
 import com.rsetiapp.common.model.response.SettlementPercentageListResponse
 import com.rsetiapp.common.model.response.SettlementVeryficationListResponse
+import com.rsetiapp.common.model.response.SettlementVeryficationUploadInsertRes
 import com.rsetiapp.common.model.response.StateDataResponse
 import com.rsetiapp.common.model.response.TokenRes
 import com.rsetiapp.common.model.response.VillageResponse
@@ -355,6 +357,10 @@ interface AppLevelApi {
     @POST("settled-batch")
     suspend fun getgetsettledbatchAPIListAPI(@Body batchListReq: SettlementVeryficationBatchReq): SettlementPercentageListResponse
 
+
+
+    @POST("reverificationSettlement")
+    suspend fun reverificationSettlementAPI(@Body settlementVeryficationReq: SettlementVeryficationUploadReq): SettlementVeryficationUploadInsertRes
 
 
 

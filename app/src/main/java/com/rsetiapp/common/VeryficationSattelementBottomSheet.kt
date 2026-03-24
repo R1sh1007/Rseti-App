@@ -1,15 +1,20 @@
 
 package com.rsetiapp.common
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.location.Geocoder
+import android.location.Location
+import android.os.Build
 import android.os.Bundle
-import android.text.Editable
-import android.text.InputFilter
-import android.text.TextWatcher
+import android.os.Handler
+import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,121 +22,136 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.rsetiapp.R
+import com.rsetiapp.core.util.AppUtil
+import com.rsetiapp.core.util.AppUtil.getCurrentDate
+import com.rsetiapp.core.util.AppUtil.hasStoragePermission
+import com.rsetiapp.core.util.Resource
+import com.rsetiapp.core.util.UserPreferences
+import com.rsetiapp.core.util.toastLong
+import com.rsetiapp.core.util.visible
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
+import java.util.Locale
+import java.util.Timer
+import java.util.TimerTask
+import kotlin.toString
+
+
+import android.app.AlertDialog
+import android.text.Editable
+import android.text.InputFilter
+import android.text.TextWatcher
+import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.snackbar.Snackbar
+import com.google.gson.GsonBuilder
 import com.karumi.dexter.BuildConfig
-import com.rsetiapp.R
 import com.rsetiapp.common.model.request.BankIFSCSearchReq
 import com.rsetiapp.common.model.request.SalaryRangeReq
 import com.rsetiapp.common.model.request.SettleStatusRequest
-import com.rsetiapp.common.model.response.BankDetailsList
-import com.rsetiapp.common.model.response.SalaryRange
-import com.rsetiapp.common.model.response.SettlementStatus
-import com.rsetiapp.core.util.AppUtil
-import com.rsetiapp.core.util.Resource
-import com.rsetiapp.core.util.UserPreferences
+import com.rsetiapp.common.model.request.SettlementVeryficationUploadReq
+import com.rsetiapp.common.model.response.SettlementVeryficationUploadInsertRes
 import com.rsetiapp.core.util.gone
 import com.rsetiapp.core.util.log
 import com.rsetiapp.core.util.toastLong
 import com.rsetiapp.core.util.toastShort
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.io.ByteArrayOutputStream
 import javax.inject.Inject
+import kotlin.toString
 
 class VeryficationSattelementBottomSheet : BottomSheetDialogFragment() {
     private val commonViewModel: CommonViewModel by activityViewModels()
-    private lateinit var progressBar: View
-    private lateinit var bankName: TextView
-    private lateinit var branchName: TextView
-    private lateinit var accountNo: TextView
-    private lateinit var etCity: TextView
-    private lateinit var etSelfInvestment: TextView
-    private lateinit var etReason: TextView
-    private lateinit var etCreditFromBank: TextView
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var Bindinglatitude = 0.0
+    private var Bindinglongitutde = 0.0
+
+
+    //    private var Bindinglatitude = 27.034750
+//    private var Bindinglongitutde = 79.487056
+    private var latitude = 0.0
+    private var longitude = 0.0
+    private var currentImageView: ImageView? = null
+    private var image1Base64 = ""
+    var radius: Float = 100f
+
+    private val progress: androidx.appcompat.app.AlertDialog? by lazy {
+        AppUtil.getProgressDialog(context)
+    }
+    
+    private var settlementReason = ""
+    private var accountStatus = ""
+    private var statusName = ""
+    private var salaryRangeId = ""
+    private var EditRemark = ""
+    private var followupType = ""
+    private var branchName = ""
+    private var bankName = ""
+    private var familyMemberPartTime = ""
+    private var employmentGiven = ""
+    private var salaryRange = ""
+    private var cityName = ""
+    private var instituteId = ""
+    private var candidateId = ""
+    private var candidateName = ""
+    private var mobileNo = ""
+    private var guardianName = ""
+    private var guardianMobileNo = ""
+    private var aadharBlockName = ""
+    private var aadharPinCode = ""
+    private var settlementId = ""
+    private var followUpId = ""
+    private var batchId = ""
+    private var ifscCode = ""
+    private var loanAccountNo = ""
+    private var creditFromBank = ""
+    private var selfInvestment = ""
+    private var totalInvestment = ""
+    private var passbookCopy = ""
+    private var appointmentLetterValue = ""
+    private var updatedBy = ""
+    private var rollNo = ""
+    private lateinit var TvRemark: EditText
     private lateinit var btnSettledSubmit: TextView
-    private lateinit var total: TextView
-    private lateinit var etEmploymentGiven: TextView
-    private lateinit var ivSettlementPhoto: ImageView
-    private lateinit var ivPassbookCopy: ImageView
-    private lateinit var ivAppointmentLetter: ImageView
-
-    // private lateinit var spinnerStatus: AutoCompleteTextView
-    private lateinit var spinnerAccount: AutoCompleteTextView
-    private lateinit var spinnerEarning: AutoCompleteTextView
-    private lateinit var spinnerFamimyMemberJob: AutoCompleteTextView
-    private lateinit var llselfInvestment: LinearLayout
-    private lateinit var llBankinvestment: LinearLayout
-    private lateinit var llTotal: LinearLayout
-    private lateinit var ifsc: EditText
-    private lateinit var settleText: TextView
-    private lateinit var selectedImageView: ImageView
-    private val PICK_IMAGE_REQUEST = 1
-    private lateinit var spinnerSettleStatus: AutoCompleteTextView
-
-    // self service adapter
-    /*   private lateinit var selfAndServiceAdapter: ArrayAdapter<String>
-       private val selfAndServiceList = listOf("SelfSettled", "Settled In service")
-   */
-    private lateinit var settleStatusAdapter: ArrayAdapter<String>
-    private var settleStatusList: List<SettlementStatus> = listOf()
-    private var statusNameList = ArrayList<String>()
-    private var statusId = ArrayList<String>()
-
-
-
-    private lateinit var accountStatusAdapter: ArrayAdapter<String>
-    private val accountStatusList = listOf("Active", "InActive")
-
-
-    private lateinit var familyMemberPartTimeJobAdapter: ArrayAdapter<String>
-    private val familyMemberPartTimeJobList = listOf("Yes", "No")
-
-    private var ifscSearchList: List<BankDetailsList> = listOf()
-
-    private lateinit var salaryRangeAdapter: ArrayAdapter<String>
-    private var SalaryRangeList: List<SalaryRange> = listOf()
-    private var SalaryRangeNameList = ArrayList<String>()
-    private var SalaryRangeIdList = ArrayList<String>()
-
-    //Selected all values
-    var selectedBankCode = 0
-    var SelectedBranchCode = 0
-    var accLenghth = 0
-    private var selectedStatusItem = ""
-    private var selectedStatusId = ""
-    private var selectedSelfInvestmentItem = ""
-    private var SelectedCreditFromBankItem = ""
-    private var selectedTotal = 0
-    private var selectedUpperCaseIfscText = ""
-    private var selectedLoanAcc = ""
-    private var selectedCity = ""
-    private var selectedReason = ""
-    private var selectdeAccountStatus = ""
-    private var selectedRangeId = ""
-    private var selectedEmploymentGiven = ""
-    private var selectedFamilyMemberPartTime = ""
-    private var selectedSettlementPhoto = ""
-    private var selectedPassbookCopy = ""
-    private var selectedAppointmentLetter = ""
-
+    private var settlmentPhoto = ""
+    private lateinit var image1: ImageView
+    private lateinit var passbookPhoto: ImageView
+    private lateinit var appointmentLetterImage: ImageView
+    private lateinit var settlmentPhotoImage: ImageView
     lateinit var userPreferences: UserPreferences
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.veryfication_settlement_bottomsheet_layout, container, false)
+        return inflater.inflate(
+            R.layout.veryfication_settlement_bottomsheet_layout,
+            container,
+            false
+        )
     }
 
 
@@ -139,719 +159,463 @@ class VeryficationSattelementBottomSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         userPreferences = UserPreferences(requireContext())
 
-        commonViewModel.getSalaryRange(
-            AppUtil.getSavedTokenPreference(requireContext()),
-            SalaryRangeReq(
-                BuildConfig.VERSION_NAME,
-                AppUtil.getAndroidId(requireContext()),
-                userPreferences.getUseID()
-            )
-        )
-
-        // log("token", AppUtil.getSavedTokenPreference(requireContext())+ BuildConfig.VERSION_NAME, userPreferences.getUseID(),AppUtil.getAndroidId(requireContext())))
-
-        //  log("token", AppUtil.getSavedTokenPreference(requireContext())
-
-        commonViewModel.getSettleStatusApi(
-            AppUtil.getSavedTokenPreference(requireContext()),
-            SettleStatusRequest(
-                BuildConfig.VERSION_NAME,
-                userPreferences.getUseID(),
-                AppUtil.getAndroidId(requireContext())
-            )
-        )
-
-        collectStatusResponse()
-
-        collectSalaryRangeResponse()
-
-        // ✅ Load saved data and prefill the form
-        //loadsavefromdata()
+        // Get arguments
 
 
-        val ifscEt = view.findViewById<EditText>(R.id.etIfscCode)
-        val ifscBtn = view.findViewById<TextView>(R.id.ifscBtn)
-        bankName = view.findViewById<TextView>(R.id.etBankName)
-        branchName = view.findViewById<TextView>(R.id.etBranchName)
-        total = view.findViewById<TextView>(R.id.total)
-        progressBar = view.findViewById(R.id.progressBarr)
-        accountNo = view.findViewById(R.id.etBankAcNo)
-        spinnerSettleStatus = view.findViewById<AutoCompleteTextView>(R.id.spinnerStatusBottom)
-        spinnerAccount = view.findViewById<AutoCompleteTextView>(R.id.spinnerAccountStatus)
-        spinnerFamimyMemberJob =
-            view.findViewById<AutoCompleteTextView>(R.id.spinnerFamilyMemberPartTime)
-        llselfInvestment = view.findViewById(R.id.llselfinvestment)
-        llBankinvestment = view.findViewById(R.id.llBankinvestment)
-        llTotal = view.findViewById(R.id.llTotal)
-        etCity = view.findViewById(R.id.etCity)
+        val savedList = AppUtil.getList(requireContext())
 
-
-        etSelfInvestment = view.findViewById(R.id.etselfInvestment)
-        etReason = view.findViewById(R.id.etReason)
-        etCreditFromBank = view.findViewById(R.id.etCredit)
-        etEmploymentGiven = view.findViewById(R.id.etEmploymentGiven)
-        ivSettlementPhoto = view.findViewById(R.id.settlmentPhoto)
-        ivPassbookCopy = view.findViewById(R.id.passbookPhoto)
-        ivAppointmentLetter = view.findViewById(R.id.appointmentLetter)
-        spinnerEarning = view.findViewById<AutoCompleteTextView>(R.id.spinnerEarningsIncome)
-        btnSettledSubmit = view.findViewById(R.id.btnSettled)
-        settleText = view.findViewById(R.id.settleText)
-
-
-        //account adapter
-        accountStatusAdapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_dropdown_item,
-            accountStatusList
-        )
-        spinnerAccount.setAdapter(accountStatusAdapter)
+        if (savedList.isNotEmpty()) {
+            val lastItem = savedList.last()
 
 
 
-        spinnerAccount.setOnItemClickListener { parent, view, position, id ->
-            selectdeAccountStatus = parent.getItemAtPosition(position).toString()
+
+
+
+            instituteId = lastItem.instituteId
+            candidateId = lastItem.candidateId
+            candidateName = lastItem.candidateName
+            mobileNo = lastItem.mobileNo
+            guardianName = lastItem.guardianName
+            guardianMobileNo = lastItem.guardianMobileNo
+            aadharBlockName = lastItem.aadharBlockName
+            aadharPinCode = lastItem.aadharPinCode
+            settlementId = lastItem.settlementId
+            followUpId = lastItem.followUpId
+            batchId = lastItem.batchId
+            ifscCode = lastItem.ifscCode
+            loanAccountNo = lastItem.loanAccountNo
+            creditFromBank = lastItem.creditFromBank
+            selfInvestment = lastItem.selfInvestment
+            totalInvestment = lastItem.totalInvestment
+            passbookCopy = lastItem.passbookCopy
+            appointmentLetterValue = lastItem.appointmentLetter
+            settlmentPhoto = lastItem.settlementPhoto
+            updatedBy = lastItem.updatedBy
+            Bindinglatitude = lastItem.latitude.toDoubleOrNull() ?: 0.0
+            Bindinglongitutde = lastItem.longitude.toDoubleOrNull() ?: 0.0
+            rollNo = lastItem.rollNo
+//        Add field
+
+            cityName = lastItem.cityName
+            settlementReason = lastItem.settlementReason
+            accountStatus = lastItem.accountStatus
+            salaryRange = lastItem.salaryRange
+            employmentGiven = lastItem.employmentGiven
+            familyMemberPartTime = lastItem.familyMemberPartTime
+            bankName = lastItem.bankName
+            branchName = lastItem.branchName
+            followupType = lastItem.followupType
+            statusName = lastItem.statusName
+            salaryRangeId = lastItem.salaryRangeId
+
         }
-        //family Member adapter
-        familyMemberPartTimeJobAdapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_dropdown_item,
-            familyMemberPartTimeJobList
-        )
-        spinnerFamimyMemberJob.setAdapter(familyMemberPartTimeJobAdapter)
+        btnSettledSubmit = view.findViewById<TextView>(R.id.btnSettled)
+        passbookPhoto = view.findViewById<ImageView>(R.id.passbookPhoto)
+        appointmentLetterImage = view.findViewById<ImageView>(R.id.appointmentLetter)
+        settlmentPhotoImage = view.findViewById<ImageView>(R.id.settlmentPhoto)
 
-        spinnerFamimyMemberJob.setOnItemClickListener { parent, view, position, id ->
-            selectedFamilyMemberPartTime = parent.getItemAtPosition(position).toString()
+        TvRemark = view.findViewById<EditText>(R.id.TvRemark)
+        val tVstatus = view.findViewById<TextView>(R.id.tVstatus)
+        val tvIfscCode = view.findViewById<TextView>(R.id.tvIfscCode)
+        val tvLoanBankAcNo = view.findViewById<TextView>(R.id.tvLoanBankAcNo)
+        val TvCity = view.findViewById<TextView>(R.id.TvCity)
+        val tvBranchName = view.findViewById<TextView>(R.id.tvBranchName)
+        val tvBankName = view.findViewById<TextView>(R.id.tvBankName)
+        val tvReason = view.findViewById<TextView>(R.id.tvReason)
+        val tvAccountStatus = view.findViewById<TextView>(R.id.tvAccountStatus)
+        val tvEarningsIncome = view.findViewById<TextView>(R.id.tvEarningsIncome)
+        val etEmploymentGiven = view.findViewById<TextView>(R.id.tvEmploymentGiven)
+        val tvFamilyMemberWorksPartTime =
+            view.findViewById<TextView>(R.id.tvFamilyMemberWorksPartTime)
+
+
+        tVstatus.setText(statusName)
+        tvIfscCode.setText(ifscCode)
+        tvLoanBankAcNo.setText(loanAccountNo)
+        TvCity.setText(cityName)
+        tvBranchName.setText(branchName)
+        tvBankName.setText(bankName)
+        tvReason.setText(settlementReason)
+        tvAccountStatus.setText(accountStatus)
+        etEmploymentGiven.setText(employmentGiven)
+        tvFamilyMemberWorksPartTime.setText(familyMemberPartTime)
+        tvEarningsIncome.setText(salaryRangeId)
+
+//        collectInsertResponse()
+
+
+//        passbookCopy = bitmapToBase64(compressedBitmap)
+        val base64Image = passbookCopy
+        val base64ImageppointmentLetter = appointmentLetterValue
+        val base64settlmentPhotoImage = settlmentPhoto
+        val bitmap = passbookCopybase64ToBitmap(base64Image)
+        val appointmentLetter =
+            base64ImageppointmentLetterbase64ToBitmap(base64ImageppointmentLetter)
+        val settlmentPhoto = base64ToBitmap(base64settlmentPhotoImage)
+
+
+        if (bitmap != null) {
+            passbookPhoto.setImageBitmap(bitmap)
+        }
+        if (appointmentLetter != null) {
+            appointmentLetterImage.setImageBitmap(appointmentLetter)
         }
 
-        ivSettlementPhoto.setOnClickListener {
-            openGallery(ivSettlementPhoto)
+        if (settlmentPhoto != null) {
+            settlmentPhotoImage.setImageBitmap(settlmentPhoto)
         }
-        // salary adapter
-        salaryRangeAdapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_dropdown_item,
-            SalaryRangeNameList
-        )
-        spinnerEarning.setAdapter(salaryRangeAdapter)
-        etCreditFromBank.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                // Get values safely, ensuring no empty strings
-                val selfInvestment = etSelfInvestment.text.toString().toIntOrNull() ?: 0
-                val creditFromBank = etCreditFromBank.text.toString().toIntOrNull() ?: 0
 
-                selectedTotal = selfInvestment + creditFromBank
-                total.text = selectedTotal.toString()
-            }
-
-            override fun beforeTextChanged(
-                s: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-        })
-        // save form data
-
-        // submit button
+        latitude = Bindinglatitude
+        longitude = Bindinglongitutde
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        checkAndRequestStoragePermissions()
+        image1 = view.findViewById<ImageView>(R.id.image1)
+        image1.setOnClickListener {
+//            openCamera()
+            openCamera(image1)
+        }
         btnSettledSubmit.setOnClickListener {
-            selectedSelfInvestmentItem = etSelfInvestment.text.toString()
-            SelectedCreditFromBankItem = etCreditFromBank.text.toString()
-            selectedUpperCaseIfscText = ifscEt.text.toString()
-            selectedLoanAcc = accountNo.text.toString()
-            selectedCity = etCity.text.toString()
-            selectedReason = etReason.text.toString()
-            selectedEmploymentGiven = etEmploymentGiven.text.toString()
 
-            if (selectedStatusItem.isEmpty()) {
-                Toast.makeText(requireContext(), "Please select status.", Toast.LENGTH_SHORT)
+//            reverificationSettlement
+            getCurrentLocation { location ->
+                if (location != null) {
+                    val isInside = isUserInsideGeofence(location, latitude, longitude, radius)
+                    if (isInside) {
+                        reverificationSettlement()
+                    } else {
+                        showAlertGeoFancingDialog(
+                            requireContext(),
+                            "Alert",
+                            "❌ You are outside the institute area"
+                        )
+
+                    }
+                } else {
+                    toastLong("❌ Failed to retrieve current location")
+                    showAlertGeoFancingDialog(
+                        requireContext(),
+                        "Alert",
+                        "❌ Failed to retrieve current location Kindly on your gps from settings"
+                    )
+                }
+            }
+
+
+
+        }
+    }
+    private fun reverificationSettlement() {
+        EditRemark = TvRemark.text.toString()
+
+            // ✅ 1️⃣ Build REQUEST object
+            val request = SettlementVeryficationUploadReq(
+                candidateId,
+                candidateName,
+                instituteId,
+                guardianName,
+                settlementId,
+                followUpId,
+                ifscCode,
+                loanAccountNo,
+                EditRemark,
+                image1Base64,
+                latitude,
+                longitude,
+                batchId,
+                bankName,
+                cityName,
+                creditFromBank,
+                selfInvestment,
+                totalInvestment,
+                updatedBy,
+                rollNo,
+                salaryRange,
+                employmentGiven,
+                familyMemberPartTime,
+                userPreferences.getUserName(),
+                com.karumi.dexter.BuildConfig.VERSION_NAME
+            )
+
+            // ✅ 2️⃣ PRINT REQUEST JSON
+            val gson = GsonBuilder().setPrettyPrinting().create()
+            val requestJson = gson.toJson(request)
+
+            Log.d("ReverificationAPI", "📤 REQUEST JSON:\n$requestJson")
+
+            // ✅ 3️⃣ Call API
+            commonViewModel.reverificationSettlementAPI(request)
+
+            // ✅ 4️⃣ Collect RESPONSE
+            lifecycleScope.launch {
+                commonViewModel.reverificationSettlement.collectLatest { res ->
+                    when (res) {
+
+                        is Resource.Loading -> {
+                            Log.d("ReverificationAPI", "⏳ Loading...")
+                        }
+
+                        is Resource.Success -> {
+
+                            val apiResponse =
+                                res.data as? SettlementVeryficationUploadInsertRes
+
+                            val successMessage =
+                                apiResponse?.responseMsg ?: "Success"
+
+                            Toast.makeText(
+                                requireContext(),
+                                successMessage,   // 👈 "Verified successfully"
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+
+
+                            requireActivity().onBackPressedDispatcher.onBackPressed()
+                        }
+
+                        is Resource.Error -> {
+                            Log.e(
+                                "ReverificationAPI",
+                                "❌ ERROR: ${res.error?.message}"
+                            )
+                            Toast.makeText(
+                                requireContext(),
+                                res.error?.message ?: "Something went wrong",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+            }
+
+    }
+    private fun checkAndRequestPermissions() {
+        val permissions = arrayOf(
+            Manifest.permission.CAMERA,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+
+        if (permissions.any {
+                ContextCompat.checkSelfPermission(
+                    requireContext(), it
+                ) != PackageManager.PERMISSION_GRANTED
+            }) {
+            ActivityCompat.requestPermissions(requireActivity(), permissions, 100)
+        }
+    }
+    @Deprecated("Deprecated in Java")
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 100) {
+            if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+                Toast.makeText(requireContext(), "Permissions granted!", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                Toast.makeText(requireContext(), "Permissions denied!", Toast.LENGTH_SHORT)
                     .show()
             }
-            else if (selectedStatusItem == "Self Settled") {
-                if (selectedSelfInvestmentItem.isNotEmpty() &&
-                    SelectedCreditFromBankItem.isNotEmpty() &&
-                    selectedUpperCaseIfscText.isNotEmpty() &&
-                    selectedLoanAcc.isNotEmpty() &&
-                    selectedCity.isNotEmpty() &&
-                    selectedReason.isNotEmpty() &&
-                    selectdeAccountStatus.isNotEmpty() &&
-                    selectedRangeId.isNotEmpty() &&
-                    selectedEmploymentGiven.isNotEmpty() &&
-                    selectedFamilyMemberPartTime.isNotEmpty() &&
-                    selectedSettlementPhoto.isNotEmpty() &&
-                    selectedPassbookCopy.isNotEmpty() &&
-                    selectedAppointmentLetter.isNotEmpty()
-                ) {
+        }
+    }
+    private fun openCamera(imageView: ImageView) {
+        checkAndRequestPermissions()
 
-                    val result = Bundle().apply {
-                        putString("selectedStatusItem", selectedStatusId)
-                        putString("selectedSelfInvestmentItem", selectedSelfInvestmentItem)
-                        putString("SelectedCreditFromBankItem", SelectedCreditFromBankItem)
-                        putInt("selectedTotal", selectedTotal)
-                        putString("selectedUpperCaseIfscText", selectedUpperCaseIfscText)
-                        putString("selectedBankCode", selectedBankCode.toString())
-                        putString("selectedBranchCode", SelectedBranchCode.toString())
-                        putString("selectedLoanAcc", selectedLoanAcc)
-                        putString("selectedCity", selectedCity)
-                        putString("selectedReason", selectedReason)
-                        putString("selectdeAccountStatus", selectdeAccountStatus)
-                        putString("selectedRangeId", selectedRangeId)
-                        putString("selectedEmploymentGiven", selectedEmploymentGiven)
-                        putString("selectedFamilyMemberPartTime", selectedFamilyMemberPartTime)
-                        putString("selectedSettlementPhoto", selectedSettlementPhoto)
-                        putString("selectedPassbookCopy", selectedPassbookCopy)
-                        putString("selectedAppointmentLetter", selectedAppointmentLetter)
-                    }
-                    commonViewModel.settlementData.value=result
+        currentImageView = imageView
 
-                    // ✅ Dismiss the bottom sheet
-                    dismiss()
-                } else {
-                    // Show success message when all fields are filled
-                    Toast.makeText(
-                        requireContext(),
-                        "Kindly fill all details",
-                        Toast.LENGTH_SHORT
-                    ).show()
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            Toast.makeText(requireContext(), "Camera permission required!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        cameraLauncher.launch(intent)  // No extra output, no file
+    }
+    private val cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val bitmap = result.data?.extras?.get("data") as? Bitmap
+            if (bitmap == null || currentImageView == null) {
+                Toast.makeText(requireContext(), "Image capture failed!", Toast.LENGTH_SHORT).show()
+                return@registerForActivityResult
+            }
+
+            val compressedBitmap = compressBitmap(bitmap)
+            currentImageView?.setImageBitmap(compressedBitmap)
+
+            val base64Image = bitmapToBase64(compressedBitmap)
+
+            when (currentImageView?.id) {
+                R.id.image1 -> {
+                    image1Base64 = base64Image
                 }
             }
-            else if (selectedStatusItem == "Settled in service") {
-                if (selectedUpperCaseIfscText.isNotEmpty() &&
-                    selectedLoanAcc.isNotEmpty() &&
-                    selectedCity.isNotEmpty() &&
-                    selectedReason.isNotEmpty() &&
-                    selectdeAccountStatus.isNotEmpty() &&
-                    selectedRangeId.isNotEmpty() &&
-                    selectedEmploymentGiven.isNotEmpty() &&
-                    selectedFamilyMemberPartTime.isNotEmpty() &&
-                    selectedPassbookCopy.isNotEmpty() &&
-                    selectedAppointmentLetter.isNotEmpty()
-                ) {
 
-                    val result = Bundle().apply {
-                        putString("selectedStatusItem", selectedStatusId)
-                        putString("selectedSelfInvestmentItem", selectedSelfInvestmentItem)
-                        putString("SelectedCreditFromBankItem", SelectedCreditFromBankItem)
-                        putInt("selectedTotal", selectedTotal)
-                        putString("selectedUpperCaseIfscText", selectedUpperCaseIfscText)
-                        putString("selectedBankCode", selectedBankCode.toString())
-                        putString("selectedBranchCode", SelectedBranchCode.toString())
-                        putString("selectedLoanAcc", selectedLoanAcc)
-                        putString("selectedCity", selectedCity)
-                        putString("selectedReason", selectedReason)
-                        putString("selectdeAccountStatus", selectdeAccountStatus)
-                        putString("selectedRangeId", selectedRangeId)
-                        putString("selectedEmploymentGiven", selectedEmploymentGiven)
-                        putString("selectedFamilyMemberPartTime", selectedFamilyMemberPartTime)
-                        putString("selectedSettlementPhoto", selectedSettlementPhoto)
-                        putString("selectedPassbookCopy", selectedPassbookCopy)
-                        putString("selectedAppointmentLetter", selectedAppointmentLetter)
-                    }
-                    commonViewModel.settlementData.value=result
 
-                    dismiss()
 
-                } else
-                    Toast.makeText(
-                        requireContext(),
-                        "Kindly fill all details first",
-                        Toast.LENGTH_SHORT
-                    ).show()
 
+//            binding.lllatLang.visible()
+//            binding.llAdress.visible()
+        }
+    }
+
+
+    private fun compressBitmap(bitmap: Bitmap): Bitmap {
+        return try {
+            val maxSize = 1024 // Resize to max 1024px width/height
+            val width = bitmap.width
+            val height = bitmap.height
+            val scale =
+                if (width > height) maxSize.toFloat() / width else maxSize.toFloat() / height
+
+            val newWidth = (width * scale).toInt()
+            val newHeight = (height * scale).toInt()
+
+            Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            bitmap // Return the original bitmap if compression fails
+        }
+    }
+
+    private fun bitmapToBase64(bitmap: Bitmap): String {
+        return try {
+            val outputStream = ByteArrayOutputStream()
+            bitmap.compress(
+                Bitmap.CompressFormat.JPEG,
+                90,
+                outputStream
+            ) // Increase quality to 90
+            val byteArray = outputStream.toByteArray()
+            outputStream.close()
+            Base64.encodeToString(byteArray, Base64.NO_WRAP) // Use NO_WRAP to avoid line breaks
+        } catch (e: Exception) {
+            e.printStackTrace()
+            ""
+        }
+    }
+    fun showProgressBar() {
+        // Ensure context is not null and the fragment is attached
+        if (context != null && isAdded && progress?.isShowing == false) {
+            progress?.show()
+        }
+    }
+
+    fun hideProgressBar() {
+        // Hide the progress bar if it's currently showing
+        if (progress?.isShowing == true) {
+            progress?.dismiss()
+        }
+    }
+    fun showSnackBar(message: String) {
+        val rootView = view ?: return   // Fragment root view
+
+        val snackBar = Snackbar.make(rootView, message, Snackbar.LENGTH_SHORT)
+
+        snackBar.view.setPadding(0, 0, 0, 0)
+        snackBar.view.elevation = 0f
+        snackBar.view.background =
+            ContextCompat.getDrawable(requireContext(), R.drawable.shape_rectangle_grey)
+
+        snackBar.show()
+    }
+
+
+
+    private fun showAlertGeoFancingDialog(context: Context, title: String, message: String) {
+        val builder = androidx.appcompat.app.AlertDialog.Builder(context)
+        builder.setTitle(title)
+        builder.setMessage(message)
+        builder.setPositiveButton("OK") { dialog, _ ->
+            findNavController().navigateUp()
+        }
+
+        val dialog = builder.create()
+        dialog.setCancelable(false)  // Prevent outside touch dismissal
+        dialog.setCanceledOnTouchOutside(false) // Extra safety: disable outside clicks
+        dialog.show()
+    }
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocation(onLocationResult: (Location?) -> Unit) {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            toastLong("❌ Location permission not granted")
+            return
+        }
+
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            onLocationResult(location)
+        }.addOnFailureListener {
+            onLocationResult(null)
+        }
+    }
+    private fun isUserInsideGeofence(currentLocation: Location, lat: Double, lng: Double, radius: Float): Boolean {
+        val targetLocation = Location("").apply {
+            latitude = lat
+            longitude = lng
+        }
+        val distance = currentLocation.distanceTo(targetLocation)
+        return distance <= radius
+    }
+    private fun checkAndRequestStoragePermissions() {
+        if (!hasStoragePermission(requireContext())) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                storagePermissionLauncher.launch(AppUtil.storagePermissions)
+            } else {
+                storagePermissionLauncher.launch(arrayOf(AppUtil.legacyStoragePermission))
             }
-            //validateform()
-
-
-            else if (selectedStatusItem == "SHG") {
-                if (selectedUpperCaseIfscText.isNotEmpty() &&
-                    selectedLoanAcc.isNotEmpty() &&
-                    selectedCity.isNotEmpty() &&
-                    selectedReason.isNotEmpty() &&
-                    selectdeAccountStatus.isNotEmpty() &&
-                    selectedRangeId.isNotEmpty() &&
-                    selectedEmploymentGiven.isNotEmpty() &&
-                    selectedFamilyMemberPartTime.isNotEmpty() &&
-                    selectedPassbookCopy.isNotEmpty() &&
-                    selectedAppointmentLetter.isNotEmpty()
-                ) {
-
-                    val result = Bundle().apply {
-                        putString("selectedStatusItem", selectedStatusId)
-                        putString("selectedSelfInvestmentItem", selectedSelfInvestmentItem)
-                        putString("SelectedCreditFromBankItem", SelectedCreditFromBankItem)
-                        putInt("selectedTotal", selectedTotal)
-                        putString("selectedUpperCaseIfscText", selectedUpperCaseIfscText)
-                        putString("selectedBankCode", selectedBankCode.toString())
-                        putString("selectedBranchCode", SelectedBranchCode.toString())
-                        putString("selectedLoanAcc", selectedLoanAcc)
-                        putString("selectedCity", selectedCity)
-                        putString("selectedReason", selectedReason)
-                        putString("selectdeAccountStatus", selectdeAccountStatus)
-                        putString("selectedRangeId", selectedRangeId)
-                        putString("selectedEmploymentGiven", selectedEmploymentGiven)
-                        putString("selectedFamilyMemberPartTime", selectedFamilyMemberPartTime)
-                        putString("selectedSettlementPhoto", selectedSettlementPhoto)
-                        putString("selectedPassbookCopy", selectedPassbookCopy)
-                        putString("selectedAppointmentLetter", selectedAppointmentLetter)
-                    }
-                    commonViewModel.settlementData.value=result
-
-                    // ✅ Dismiss the bottom sheet
-                    dismiss()
-
-                } else
-                    Toast.makeText(
-                        requireContext(),
-                        "Kindly fill all details first",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-            }
-            else if (selectedStatusItem == "Bank") {
-                if (selectedUpperCaseIfscText.isNotEmpty() &&
-                    selectedLoanAcc.isNotEmpty() &&
-                    selectedCity.isNotEmpty() &&
-                    selectedReason.isNotEmpty() &&
-                    selectdeAccountStatus.isNotEmpty() &&
-                    selectedRangeId.isNotEmpty() &&
-                    selectedEmploymentGiven.isNotEmpty() &&
-                    selectedFamilyMemberPartTime.isNotEmpty() &&
-                    selectedPassbookCopy.isNotEmpty() &&
-                    selectedAppointmentLetter.isNotEmpty()
-                ) {
-
-                    val result = Bundle().apply {
-                        putString("selectedStatusItem", selectedStatusId)
-                        putString("selectedSelfInvestmentItem", selectedSelfInvestmentItem)
-                        putString("SelectedCreditFromBankItem", SelectedCreditFromBankItem)
-                        putInt("selectedTotal", selectedTotal)
-                        putString("selectedUpperCaseIfscText", selectedUpperCaseIfscText)
-                        putString("selectedBankCode", selectedBankCode.toString())
-                        putString("selectedBranchCode", SelectedBranchCode.toString())
-                        putString("selectedLoanAcc", selectedLoanAcc)
-                        putString("selectedCity", selectedCity)
-                        putString("selectedReason", selectedReason)
-                        putString("selectdeAccountStatus", selectdeAccountStatus)
-                        putString("selectedRangeId", selectedRangeId)
-                        putString("selectedEmploymentGiven", selectedEmploymentGiven)
-                        putString("selectedFamilyMemberPartTime", selectedFamilyMemberPartTime)
-                        putString("selectedSettlementPhoto", selectedSettlementPhoto)
-                        putString("selectedPassbookCopy", selectedPassbookCopy)
-                        putString("selectedAppointmentLetter", selectedAppointmentLetter)
-                    }
-                    commonViewModel.settlementData.value=result
-
-                    // ✅ Dismiss the bottom sheet
-                    dismiss()
-
-                } else
-                    Toast.makeText(
-                        requireContext(),
-                        "Kindly fill all details first",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-            }
+        } else {
+            // Permissions already granted, continue your logic
         }
-
-
-
-
-
-        spinnerEarning.setOnItemClickListener { parent, view, position, id ->
-
-            if (position in SalaryRangeList.indices) {
-                selectedRangeId = SalaryRangeIdList[position]
-
-            }
-        }
-
-        // Rohit
-        spinnerSettleStatus.setOnItemClickListener { parent, view, position, id ->
-            selectedStatusItem = parent.getItemAtPosition(position) as String
-            selectedStatusId = statusId[position]
-            Log.d("FollowUpFra", "Status: $selectedStatusItem, SelectedReason: $selectedStatusId")
-
-
-            // Check if the selected item is "Settled In service"
-            if (selectedStatusItem.equals("Settled In service", ignoreCase = true)) {
-                // Hide the self-investment section
-                llselfInvestment.visibility = View.GONE
-                llBankinvestment.visibility = View.GONE
-                llTotal.visibility = View.GONE
-                selectedSelfInvestmentItem = ""
-                SelectedCreditFromBankItem = ""
-                selectedTotal = 0
-//                etSelfInvestment.text.clear()
-//                etCreditFromBank.text.clear()
-                ivSettlementPhoto.setImageDrawable(null)
-                settleText.visibility = View.GONE
-                ivSettlementPhoto.visibility = View.GONE
-            } else if (selectedStatusItem.equals("Self Settled", ignoreCase = true)) {
-                llselfInvestment.visibility = View.VISIBLE
-                llBankinvestment.visibility = View.VISIBLE
-                llTotal.visibility = View.VISIBLE
-                settleText.visibility = View.VISIBLE
-                ivSettlementPhoto.visibility = View.VISIBLE
-                //selectedStatusItem=""
-                selectedSelfInvestmentItem = ""
-                SelectedCreditFromBankItem = ""
-                selectedTotal = 0
-//                etSelfInvestment.text.clear()
-//                etCreditFromBank.text.clear()
-
-            }
-        }
-        ivSettlementPhoto.setOnClickListener {
-            openGallery(ivSettlementPhoto)
-        }
-
-
-        ivPassbookCopy.setOnClickListener {
-            openGallery(ivPassbookCopy)
-        }
-
-        ivAppointmentLetter.setOnClickListener {
-            openGallery(ivAppointmentLetter)
-        }
-
-//        ifscBtn.setOnClickListener {
-//
-//            if (ifscEt.text.toString().isNotEmpty()) {
-//                val inputText = ifscEt.text.toString()
-//                selectedUpperCaseIfscText = inputText.uppercase()
-//                commonViewModel.getbankIFSCAPI(
-//                    AppUtil.getSavedTokenPreference(requireContext()),
-//                    BankIFSCSearchReq(
-//                        BuildConfig.VERSION_NAME,
-//                        selectedUpperCaseIfscText,
-//                        AppUtil.getAndroidId(requireContext()),
-//                        userPreferences.getUseID()
-//                    )
-//                )
-//                collectBankDetailResponse()
-//            } else
-//                toastShort("Please Enter Ifsc Code")
-//        }
     }
 
+    private val storagePermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val allGranted = permissions.entries.all { it.value }
+        if (allGranted) {
+            Toast.makeText(requireContext(), "Permission granted", Toast.LENGTH_SHORT).show()
+            // proceed with file/media access
+        } else {
+            Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun passbookCopybase64ToBitmap(base64Str: String): Bitmap? {
+        return try {
+            val decodedBytes = Base64.decode(base64Str, Base64.DEFAULT)
+            BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 
-    // Bank Details
-    private fun collectBankDetailResponse() {
-        lifecycleScope.launch {
-            commonViewModel.getbankIFSCAPI.collectLatest { it ->
-                when (it) {
-                    is Resource.Loading -> Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT)
-                        .show()
-
-                    is Resource.Error -> {
-                        //   hideProgressBar()
-                        Toast.makeText(
-                            requireContext(),
-                            "Internal Server Error",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-
-                    is Resource.Success -> {
-                        // hideProgressBar()
-                        it.data?.let { getBankDetails ->
-                            if (getBankDetails.responseCode == 200) {
-                                ifscSearchList = getBankDetails.bankDetailsList
-
-
-                                for (x in ifscSearchList) {
-                                    bankName.text = x.bankName
-                                    branchName.text = x.branchName
-                                    selectedBankCode = x.bankCode
-                                    SelectedBranchCode = x.branchCode
-                                    accLenghth = x.branchCode
-                                }
-                                accountNo.filters = arrayOf(InputFilter.LengthFilter(accLenghth))
-
-                            } else if (getBankDetails.responseCode == 301) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    getBankDetails.responseMsg,
-                                    Toast.LENGTH_SHORT
-                                ).show()
-
-
-                            } else if (getBankDetails.responseCode == 302) {
-
-                                Toast.makeText(
-                                    requireContext(),
-                                    getBankDetails.responseDesc,
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                bankName.text = ""
-                                branchName.text = ""
-                                selectedBankCode = 0
-                                SelectedBranchCode = 0
-                                accLenghth = 0
-
-                            } else if (getBankDetails.responseCode == 401) {
-                                AppUtil.showSessionExpiredDialog(
-                                    findNavController(),
-                                    requireContext()
-                                )
-
-
-                            } else toastLong(getBankDetails.responseDesc)
-
-                        } ?: Toast.makeText(
-                            requireContext(),
-                            "Internal Server Error",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-                }
-            }
+    fun base64ImageppointmentLetterbase64ToBitmap(base64Str: String): Bitmap? {
+        return try {
+            val decodedBytes = Base64.decode(base64Str, Base64.DEFAULT)
+            BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+    fun base64ToBitmap(base64Str: String): Bitmap? {
+        return try {
+            val decodedBytes = Base64.decode(base64Str, Base64.DEFAULT)
+            BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 
 
-    //status response
-    private fun collectStatusResponse() {
-        lifecycleScope.launch {
-            commonViewModel.getSettleStatusApi.collectLatest { it ->
-                when (it) {
-                    is Resource.Loading -> Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT)
-                        .show()
-
-                    is Resource.Error -> {
-                        //   hideProgressBar()
-                        Toast.makeText(
-                            requireContext(),
-                            "Internal Server Error",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-
-                    is Resource.Success -> {
-                        // hideProgressBar()
-                        it.data?.let { getStatus ->
-                            if (getStatus.responseCode == 200) {
-                                settleStatusList = getStatus.wrappedList
-
-
-                                for (x in settleStatusList) {
-
-                                    statusId.add(x.statusId.toString())
-                                    statusNameList.add(x.status)
-
-                                }
-
-                                // Update spinner adapter with string list
-                                settleStatusAdapter = ArrayAdapter(
-                                    requireContext(),
-                                    android.R.layout.simple_spinner_dropdown_item,
-                                    statusNameList
-                                )
-                                spinnerSettleStatus.setAdapter(settleStatusAdapter)
-
-                            } else if (getStatus.responseCode == 301) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    getStatus.responseMsg,
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            } else if (getStatus.responseCode == 302) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    getStatus.responseMsg,
-                                    Toast.LENGTH_SHORT
-                                ).show()
-
-
-                            } else if (getStatus.responseCode == 401) {
-                                AppUtil.showSessionExpiredDialog(
-                                    findNavController(),
-                                    requireContext()
-                                )
-
-
-                            } else toastLong(getStatus.responseDesc)
-
-                        } ?: Toast.makeText(
-                            requireContext(),
-                            "Internal Server Error",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-                }
-            }
-        }
-    }
-
-
-    //salary
-    private fun collectSalaryRangeResponse() {
-        lifecycleScope.launch {
-            commonViewModel.salaryDetailsState.collectLatest { it ->
-                when (it) {
-                    is Resource.Loading -> Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT)
-                        .show()
-
-                    //showProgressBar()
-                    is Resource.Error -> {
-                        //  hideProgressBar()
-                        Toast.makeText(
-                            requireContext(),
-                            "Internal Server Error",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-
-                    is Resource.Success -> {
-                        //  hideProgressBar()
-                        it.data?.let { getSalaryRangeDetails ->
-                            if (getSalaryRangeDetails.responseCode == 200) {
-                                SalaryRangeList = getSalaryRangeDetails.wrappedList
-
-
-
-                                for (x in SalaryRangeList) {
-                                    SalaryRangeNameList.add(x.salaryRange)
-                                    SalaryRangeIdList.add(x.salaryRangeId)
-                                }
-                                // ✅ Retrieve saved salary range from the database
-                                val savedSalaryRangeId = getSavedSalaryRangeIdFromDB()
-
-                                if (savedSalaryRangeId.isNotEmpty()) {
-                                    val savedIndex = SalaryRangeIdList.indexOf(savedSalaryRangeId)
-                                    if (savedIndex != -1) {
-                                        // ✅ Set the saved salary range in the spinner
-                                        spinnerEarning.setText(
-                                            SalaryRangeNameList[savedIndex],
-                                            false
-                                        )
-                                        selectedRangeId = savedSalaryRangeId
-                                    }
-
-                                    // ✅ Ask the user if they want to update their salary range
-                                    showSalaryUpdateDialog()
-                                }
-                            } else if (getSalaryRangeDetails.responseCode == 301) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    getSalaryRangeDetails.responseMsg,
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            } else if (getSalaryRangeDetails.responseCode == 401) {
-                                AppUtil.showSessionExpiredDialog(
-                                    findNavController(),
-                                    requireContext()
-                                )
-                            } else toastLong(getSalaryRangeDetails.responseDesc)
-
-                        } ?: Toast.makeText(
-                            requireContext(),
-                            "Internal Server Error",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-                }
-            }
-        }
-    }
-    //status
-
-    private fun getSavedSalaryRangeIdFromDB(): String {
-        val sharedPreferences =
-            requireContext().getSharedPreferences("UserPreferences", Activity.MODE_PRIVATE)
-        return sharedPreferences.getString("saved_salary_range_id", "") ?: ""
-    }
-
-    private fun saveSalaryRangeIdToDB(salaryRangeId: String) {
-        val sharedPreferences =
-            requireContext().getSharedPreferences("UserPreferences", Activity.MODE_PRIVATE)
-        with(sharedPreferences.edit()) {
-            putString("saved_salary_range_id", salaryRangeId)
-            apply()
-        }
-    }
-
-    private fun showSalaryUpdateDialog() {
-        val alertDialog = AlertDialog.Builder(requireContext())
-        alertDialog.setTitle("Update Salary Range")
-        alertDialog.setMessage("Do you want to update your salary range?")
-
-        alertDialog.setPositiveButton("Yes") { dialog, _ ->
-            spinnerEarning.setText("", false)  // Clear the selection
-            selectedRangeId = ""
-            dialog.dismiss()
-        }
-
-        alertDialog.setNegativeButton("No") { dialog, _ ->
-            dialog.dismiss()
-        }
-
-        alertDialog.show()
-    }
-
-    /* private fun showProgressBar() {
-     }         progressBar.visibility = View.VISIBLE
-
-
-     private fun hideProgressBar() {
-         progressBar.visibility = View.GONE
-     }*/
-
-    private fun openGallery(imageView: ImageView) {
-        selectedImageView = imageView // Store the clicked ImageView
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
-    }
-
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            val imageUri = data.data
-            val inputStream = requireActivity().contentResolver.openInputStream(imageUri!!)
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            // Set the selected image to the clicked ImageView
-            selectedImageView.setImageBitmap(bitmap)
-
-            // Convert image to Base64
-            val base64String = encodeImageToBase64(bitmap)
-
-            // Store Base64 in the correct variable
-            when (selectedImageView.id) {
-                R.id.settlmentPhoto -> {
-                    selectedSettlementPhoto = base64String
-                }
-
-                R.id.passbookPhoto -> {
-                    selectedPassbookCopy = base64String
-                }
-
-                R.id.appointmentLetter -> {
-                    selectedAppointmentLetter = base64String
-                }
-            }
-        }
-    }
-
-
-    private fun encodeImageToBase64(bitmap: Bitmap): String {
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-        val byteArray = byteArrayOutputStream.toByteArray()
-        return Base64.encodeToString(byteArray, Base64.DEFAULT)
-    }
 }
 
 

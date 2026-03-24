@@ -8,6 +8,7 @@ data class SettlementPercentage(
     val instituteId: String?,
     val settledCandidates: String?,
     val totalCandidates: String?,
+    val batchRegNo: String?,
     val batchName: String?,
     val instituteName: String?,
     val settledPercentage: String

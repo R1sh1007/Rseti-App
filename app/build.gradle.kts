@@ -6,7 +6,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-parcelize") // Add this line
 }
-// testing  Ajit Ranjan 29/12/2025/12:36PM
+
 android {
     namespace = "com.rsetiapp"  // ✅ Ensure this matches your package name
     compileSdk = 35
@@ -24,21 +24,8 @@ android {
         // ✅ Correct Kotlin DSL syntax for keeping all language resources
         resourceConfigurations += listOf("en", "hi", "as", "bn", "gu", "kn", "ml", "mr", "or", "pa", "ta", "te", "ur")
 
-        externalNativeBuild {
-            cmake {
-                cppFlags += "-std=c++17"
-            }
-        }
 
-        ndk {
-            abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
-        }
-    }
 
-    externalNativeBuild {
-        cmake {
-            path = file("src/main/cpp/CMakeLists.txt")
-        }
     }
 
     // ✅ Prevent Google Play from splitting languages (needed for in-app switching)
@@ -48,15 +35,16 @@ android {
         }
     }
 
-
-
-
-
-
     buildTypes {
         release {
-            isMinifyEnabled = true
-            isShrinkResources =true
+            isMinifyEnabled = false
+
+            buildConfigField("String", "ENCRYPT_IV_KEY", "\"$10A80$10A80$10A\"")  // ✅ Example BuildConfig variable
+            buildConfigField("String", "ENCRYPT_KEY", "\"$10A80$10A80$10A\"")  // ✅ Example BuildConfig variable
+            buildConfigField("String", "CRYPLIBAES", "\"AES/CBC/PKCS5PADDING\"")  // ✅ Example BuildConfig variable
+            buildConfigField("String", "CRYPT_ID", "\"8080808080808080\"")  // ✅ Example BuildConfig variable
+            buildConfigField("String", "CRYPT_IV", "\"8080808080808080\"")  // ✅ Example BuildConfig variable
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -64,13 +52,21 @@ android {
         }
         debug {
             isMinifyEnabled = false
+            buildConfigField("String", "API_KEY", "\"DEBUG_API_KEY\"")
+            buildConfigField("String", "ENCRYPT_IV_KEY", "\"$10A80$10A80$10A\"")
+            buildConfigField("String", "ENCRYPT_KEY", "\"$10A80$10A80$10A\"")
+            buildConfigField("String", "CRYPLIBAES", "\"AES/CBC/PKCS5PADDING\"")
+            buildConfigField("String", "CRYPT_ID", "\"8080808080808080\"")
+            buildConfigField("String", "CRYPT_IV", "\"8080808080808080\"")
+
+
         }
     }
 
     buildFeatures {
         viewBinding = true
-        buildConfig = true  // Ensure BuildConfig is enabled
-       // compose = true
+        buildConfig = true  // ✅ Ensure BuildConfig is enabled
+        compose = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.10"
@@ -82,6 +78,22 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+            version = "3.22.1"
+        }
+    }
+
+    defaultConfig {
+        externalNativeBuild {
+            cmake {
+                cppFlags += ""
+                abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+            }
+        }
     }
 
     flavorDimensions += listOf("app")
@@ -126,8 +138,6 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
 
     implementation(libs.androidx.room.runtime)
-    implementation(libs.navigation.fragment.ktx)
-    implementation(libs.navigation.ui.ktx)
     kapt(libs.androidx.room.compiler)
 
     implementation(libs.androidx.datastore.preferences)
@@ -232,14 +242,9 @@ dependencies {
 
     // MediaPipe Tasks Vision
     implementation("com.google.mediapipe:tasks-vision:0.10.14")
+    implementation("io.coil-kt:coil-compose:2.6.0")
 
 
-
-}
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
 }
 
 kapt {

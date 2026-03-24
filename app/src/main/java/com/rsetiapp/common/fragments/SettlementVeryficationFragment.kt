@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rsetiapp.BuildConfig
 import com.rsetiapp.common.CommonViewModel
+import com.rsetiapp.common.MySattelementBottomSheet
+import com.rsetiapp.common.VeryficationSattelementBottomSheet
 import com.rsetiapp.common.adapter.SettlementBatchAdapter
 import com.rsetiapp.common.model.request.DistrictListReq
 import com.rsetiapp.common.model.request.InstituteListReq
@@ -115,10 +118,9 @@ class SettlementVeryficationFragment : BaseFragment<FragmentSettlementVeryficati
             selectedInstituteIdValue = selected.instituteId
             commonViewModel.getsettledbatchAPI(SettlementVeryficationBatchReq(BuildConfig.VERSION_NAME,selected.instituteId))
             collectBatchesData()
+            AppUtil.saveinstituteIdPreference(requireContext(),selected.instituteId)
         }
-
     }
-
     private fun DistrictAdapter() {
         //Adapter Follow Up Type
 
@@ -297,6 +299,7 @@ class SettlementVeryficationFragment : BaseFragment<FragmentSettlementVeryficati
                     is Resource.Success -> {
                         hideProgressBar()
 
+
                         val list = resource.data?.wrappedList
                         if (!list.isNullOrEmpty()) {
                             batchList.clear()
@@ -312,6 +315,238 @@ class SettlementVeryficationFragment : BaseFragment<FragmentSettlementVeryficati
                 }
             }
         }
-        }
     }
+}
 
+
+
+
+//@AndroidEntryPoint
+//class SettlementVeryficationFragment :
+//    BaseFragment<FragmentSettlementVeryficationBinding>(
+//        FragmentSettlementVeryficationBinding::inflate
+//    ) {
+//
+//    private lateinit var districtAdapter: ArrayAdapter<String>
+//    private lateinit var instituteAdapter: ArrayAdapter<String>
+//
+//    private var selectedDistrictId: String? = null
+//    private var selectedInstituteId: String? = null
+//
+//    private var districtList: List<DistrictList> = emptyList()
+//    private var instituteList: List<Institutes> = emptyList()
+//
+//    private val districtNames = ArrayList<String>()
+//    private val instituteNames = ArrayList<String>()
+//
+//    private lateinit var batchAdapter: SettlementBatchAdapter
+//    private val batchList = mutableListOf<SettlementPercentage>()
+//
+//    private val commonViewModel: CommonViewModel by activityViewModels()
+//
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        initUI()
+//        setupRecyclerView()
+//        setupDistrictSpinner()
+//        setupInstituteSpinner()
+//        observeDistricts()
+//        observeInstitutes()
+//        observeBatches()
+//        loadDistricts()
+////        handleBackPress()
+//
+//
+////        requireActivity().onBackPressedDispatcher.addCallback(
+////            viewLifecycleOwner,
+////            object : OnBackPressedCallback(true) {
+////                override fun handleOnBackPressed() {
+////
+////                    // Optional: clear data if required
+////                    // resetInstitute()
+////                    // resetBatch()
+////
+////                    resetInstitute()
+////                    resetBatch()
+////
+//////                    findNavController().navigateUp()
+////                }
+////            }
+////        )
+//
+//
+//    }
+//
+//    // ---------------- UI ----------------
+//
+//    private fun initUI() {
+//        binding.tvTitleName.text = "Settlement Batch"
+//        binding.backButton.setOnClickListener {
+//            findNavController().navigateUp()
+//        }
+//    }
+//
+//    private fun setupRecyclerView() {
+//        batchAdapter = SettlementBatchAdapter(batchList)
+//        binding.rvBatch.layoutManager = LinearLayoutManager(requireContext())
+//        binding.rvBatch.adapter = batchAdapter
+//    }
+//
+//    // ---------------- District ----------------
+//
+//    private fun setupDistrictSpinner() {
+//        districtAdapter = ArrayAdapter(
+//            requireContext(),
+//            android.R.layout.simple_spinner_dropdown_item,
+//            districtNames
+//        )
+//        binding.spinnerDistrict.setAdapter(districtAdapter)
+//
+//        binding.spinnerDistrict.setOnItemClickListener { _, _, position, _ ->
+//            val district = districtList[position]
+//            selectedDistrictId = district.districtCode
+//
+//            // RESET institute & batch
+//            resetInstitute()
+//            resetBatch()
+//
+//            commonViewModel.instituteListAPI(
+//                token = AppUtil.getSavedTokenPreference(requireContext())
+//                    .removePrefix("Bearer "),
+//                request = InstituteListReq(
+//                    appVersion = BuildConfig.VERSION_NAME,
+//                    login = userPreferences.getUseID(),
+//                    imeiNo = AppUtil.getAndroidId(requireContext()),
+//                    districtCode = district.districtCode
+//                )
+//            )
+//        }
+//    }
+//
+//    private fun observeDistricts() {
+//        lifecycleScope.launch {
+//            commonViewModel.districtList.collectLatest { res ->
+//                when (res) {
+//                    is Resource.Success -> {
+//                        districtList = res.data?.districtList ?: emptyList()
+//                        districtNames.clear()
+//                        districtNames.addAll(districtList.map { it.districtName })
+//                        districtAdapter.notifyDataSetChanged()
+//                    }
+//                    is Resource.Error -> showSnackBar(res.error?.message ?: "Error")
+//                    else -> {}
+//                }
+//            }
+//        }
+//    }
+//
+//    private fun loadDistricts() {
+//        val lastTwo = AppUtil.getSavedEntityPreference(requireContext()).takeLast(2)
+//        commonViewModel.getdistrictListAPI(
+//            DistrictListReq(lastTwo, BuildConfig.VERSION_NAME)
+//        )
+//    }
+//
+//    // ---------------- Institute ----------------
+//
+//    private fun setupInstituteSpinner() {
+//        instituteAdapter = ArrayAdapter(
+//            requireContext(),
+//            android.R.layout.simple_spinner_dropdown_item,
+//            instituteNames
+//        )
+//        binding.spinnerInstitute.setAdapter(instituteAdapter)
+//
+//        binding.spinnerInstitute.setOnItemClickListener { _, _, position, _ ->
+//            val institute = instituteList[position]
+//            selectedInstituteId = institute.instituteId
+//
+//            resetBatch()
+//
+//            commonViewModel.getsettledbatchAPI(
+//                SettlementVeryficationBatchReq(
+//                    BuildConfig.VERSION_NAME,
+//                    institute.instituteId
+//                )
+//            )
+//        }
+//    }
+//
+//    private fun observeInstitutes() {
+//        lifecycleScope.launch {
+//            commonViewModel.instituteListAPI.collectLatest { res ->
+//                when (res) {
+//                    is Resource.Success -> {
+//                        instituteList = res.data?.wrappedList ?: emptyList()
+//                        instituteNames.clear()
+//                        instituteNames.addAll(instituteList.map { it.instituteName })
+//                        instituteAdapter.notifyDataSetChanged()
+//                    }
+//                    is Resource.Error -> showSnackBar(res.error?.message ?: "Error")
+//                    else -> {}
+//                }
+//            }
+//        }
+//    }
+//
+//    // ---------------- Batch ----------------
+//
+//    private fun observeBatches() {
+//        lifecycleScope.launch {
+//            commonViewModel.getsettledbatchAPI.collectLatest { res ->
+//                when (res) {
+//                    is Resource.Success -> {
+//
+//                        AppUtil.saveinstituteIdPreference(requireContext(),""+selectedInstituteId)
+//                        batchList.clear()
+//                        res.data?.wrappedList?.let {
+//                            batchList.addAll(it)
+//                        }
+//                        batchAdapter.notifyDataSetChanged()
+//                    }
+//                    is Resource.Error -> {
+//                        batchList.clear()
+//                        batchAdapter.notifyDataSetChanged()
+//                        showSnackBar(res.error?.message ?: "Error")
+//                    }
+//                    else -> {}
+//                }
+//            }
+//        }
+//    }
+//
+//    // ---------------- Reset Helpers ----------------
+//
+//    private fun resetInstitute() {
+//        instituteList = emptyList()
+//        instituteNames.clear()
+//        instituteAdapter.notifyDataSetChanged()
+//        binding.spinnerInstitute.setText("", false)
+//    }
+//
+//    private fun resetBatch() {
+//        batchList.clear()
+//        batchAdapter.notifyDataSetChanged()
+//    }
+//
+//    private fun handleBackPress() {
+//        requireActivity().onBackPressedDispatcher.addCallback(
+//            viewLifecycleOwner,
+//            object : OnBackPressedCallback(true) {
+//                override fun handleOnBackPressed() {
+//
+//                    // 🔹 Optional: clear selections or data if needed
+//                    selectedDistrictId = null
+//                    selectedInstituteId = null
+//
+//                    resetInstitute()
+//                    resetBatch()
+//
+//                    // 🔹 Navigate back safely
+//                    findNavController().navigateUp()
+//                }
+//            }
+//        )
+//    }
+//
+//}

@@ -1,53 +1,67 @@
 package com.rsetiapp.core.util
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.location.Location
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import android.util.Base64
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.rsetiapp.R
+import com.rsetiapp.common.model.request.SettlementPrefModel
+import com.rsetiapp.common.model.response.CandidateSettlementVerificationDetail
+import java.security.MessageDigest
+import java.security.SecureRandom
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.Month
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
 import java.util.Calendar
 import java.util.Date
 import java.util.GregorianCalendar
 import java.util.Locale
 import java.util.TimeZone
-import android.content.res.Configuration
-import android.location.Location
-import android.provider.Settings
-import android.util.Log
-import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
-import androidx.navigation.NavController
-import androidx.navigation.NavOptions
-import com.google.gson.Gson
-import com.rsetiapp.R
-import java.security.MessageDigest
-import java.security.SecureRandom
-import java.time.Month
-import java.time.format.TextStyle
 
 
 object AppUtil {
 
+    private var fusedLocationClient: FusedLocationProviderClient? = null
 
+    var myLocale: Locale? = null
+
+    var latitude: Double = 0.0
+
+    var longitude: Double = 0.0
+
+    var accuracy: Double = 0.0
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     val storagePermissions = arrayOf(
         android.Manifest.permission.READ_MEDIA_IMAGES,
@@ -55,6 +69,41 @@ object AppUtil {
         android.Manifest.permission.READ_MEDIA_AUDIO
     )
     val legacyStoragePermission = android.Manifest.permission.READ_EXTERNAL_STORAGE
+
+
+
+
+
+    fun getCurrentLocation(
+        context: Context,
+        onLocationResult: (latitude: Double, longitude: Double) -> Unit,
+        onError: (String) -> Unit
+    ) {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
+
+        if (
+            ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            onError("Location permission not granted")
+            return
+        }
+
+        fusedLocationClient?.lastLocation
+            ?.addOnSuccessListener { location ->
+                if (location != null) {
+                    onLocationResult(location.latitude, location.longitude)
+                } else {
+                    onError("Location is null")
+                }
+            }
+            ?.addOnFailureListener {
+                onError(it.message ?: "Failed to get location")
+            }
+    }
+
 
 
 
@@ -153,6 +202,98 @@ object AppUtil {
     }
 
 
+
+
+    fun saveCandidateIdPreference(context: Context, candidateId: String) {
+        val sharedPreferences = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("candidateId", candidateId)
+        editor.apply()
+    }
+
+    fun getSavedCandidatePreference(context: Context): String {
+        val sharedPreferences = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("candidateId", "") ?: "" // Default to English
+    }
+
+
+    fun saveItem(context: Context, item: SettlementPrefModel) {
+        val prefs = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+        val gson = Gson()
+
+        val currentList = getList(context).toMutableList()
+        currentList.add(item)
+
+        prefs.edit()
+            .putString("app_preferences", gson.toJson(currentList))
+            .apply()
+    }
+
+    fun getList(context: Context): List<SettlementPrefModel> {
+        val prefs = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+        val gson = Gson()
+        val json = prefs.getString("app_preferences", null) ?: return emptyList()
+
+        val type = object : TypeToken<List<SettlementPrefModel>>() {}.type
+        return gson.fromJson(json, type)
+    }
+
+
+    fun saveinstituteIdPreference(context: Context, instituteId: String) {
+        val sharedPreferences = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("instituteId", instituteId)
+        editor.apply()
+    }
+
+    fun getSavedinstituteIdPreference(context: Context): String {
+        val sharedPreferences = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("instituteId", "") ?: "" // Default to English
+    }
+
+
+
+
+
+
+    // ✅ Save list
+    fun saveCandidateListPreference(
+        context: Context,
+        candidateList: List<CandidateSettlementVerificationDetail>
+    ) {
+        val sharedPreferences =
+            context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+
+        val gson = Gson()
+        val json = gson.toJson(candidateList)
+
+        sharedPreferences.edit()
+            .putString("candidate_list", json)
+            .apply()
+    }
+
+
+    // ✅ Get list
+    fun getCandidateListPreference(
+        context: Context
+    ): MutableList<CandidateSettlementVerificationDetail> {
+
+        val sharedPreferences =
+            context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+
+        val json = sharedPreferences.getString("candidate_list", null)
+
+        return if (json != null) {
+            val type = object :
+                TypeToken<MutableList<CandidateSettlementVerificationDetail>>() {}.type
+            Gson().fromJson(json, type)
+        } else {
+            mutableListOf()
+        }
+    }
+
+
+
     fun saveHRIdPreference(context: Context, entityCode: String) {
         val sharedPreferences = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -164,6 +305,11 @@ object AppUtil {
         val sharedPreferences = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
         return sharedPreferences.getString("hrId", "") ?: "" // Default to English
     }
+
+
+
+
+
 
     fun saveOrgIdPreference(context: Context, entityCode: String) {
         val sharedPreferences = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)

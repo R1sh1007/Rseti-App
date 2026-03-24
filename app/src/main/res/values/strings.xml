@@ -206,4 +206,14 @@
     <string name="select_institute">Select Institute</string>
     <string name="settlement_percentage">Settlement Percentage</string>
 
+
+
+    <string name="accuracy">Accuracy</string>
+    <string name="current_accuracy">Current Accuracy</string>
+    <string name="req_accuracy">Required Accuracy</string>
+    <string name="accuracy_msg">We request you to wait for some time in an open place until your current accuracy is less than the permissible accuracy.</string>
+
+    <string name="location_gps">Please come in the open space or restart your GPS as the location cannot be retrieved. </string>
+    <string name="enter_remark">Enter Remark</string>
+
 </resources>
