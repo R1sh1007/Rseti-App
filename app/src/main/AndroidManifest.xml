@@ -70,10 +70,6 @@
             android:name=".common.CommonActivity"
             android:exported="false"
             />
-
-        <service android:name=".core.util.GlobalLocationService"
-            android:enabled="true"
-            android:exported="false"/>
     </application>
 
 
