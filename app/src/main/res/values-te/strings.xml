@@ -100,7 +100,7 @@
 <string name="account_status_mandate">ఖాతా స్థితి <font color='#FF0000'>*</font></string>
 <string name="batchList">బ్యాచ్లు</string>
 <string name="batch_name">బ్యాచ్ పేరు</string>
-<string name="batch_id">బ్యాచ్ ఐడి</string>
+    <string name="batch_id">బ్యాచ్ నమోదు సంఖ్య</string>
 <string name="candidate_attendance">అభ్యర్థుల జాబితా</string>
 <string name="contact_number">కాంటాక్ట్ నంబర్</string>
 <string name="roll_no">రోల్ నెం.</string>

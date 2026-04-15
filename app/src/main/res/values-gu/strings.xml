@@ -98,7 +98,7 @@
     <string name="account_status_mandate">ખાતાની સ્થિતિ <font color='#FF0000'>*</font></string>
     <string name="batchList">બૅચેસ</string>
     <string name="batch_name">બેચનું નામ</string>
-    <string name="batch_id">બેચ આઈડી</string>
+    <string name="batch_id">બેચ રજી નંબર</string>
     <string name="candidate_attendance">ઉમેદવાર યાદી</string>
     <string name="contact_number">સંપર્ક નંબર</string>
     <string name="roll_no">રોલ નંબર.</string>

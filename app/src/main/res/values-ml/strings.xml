@@ -99,7 +99,7 @@
     <string name="account_status_mandate">അക്കൌണ്ട് സ്റ്റാറ്റസ് <font color='#FF0000'>*</font></string>
     <string name="batchList">ബാച്ചുകൾ</string>
     <string name="batch_name">ബാച്ചിൻറെ പേര്</string>
-    <string name="batch_id">ബാച്ച് ഐഡി</string>
+    <string name="batch_id">ബാച്ച് രജിസ്‌ട്രേഷൻ നമ്പർ</string>
     <string name="candidate_attendance">സ്ഥാനാർത്ഥി പട്ടിക</string>
     <string name="contact_number">കോൺടാക്റ്റ് നമ്പർ</string>
     <string name="roll_no">റോൾ നമ്പർ.</string>

@@ -1,5 +1,7 @@
 package com.rsetiapp.core.data.remote
 
+import com.rsetiapp.bhashini.RequestModel.TranslationRequest
+import com.rsetiapp.bhashini.ResponseMode.TranslationResponse
 import com.rsetiapp.common.model.request.AttendanceBatchReq
 import com.rsetiapp.common.model.request.AttendanceCandidateReq
 import com.rsetiapp.common.model.request.AttendanceCheckReq
@@ -65,7 +67,6 @@ import com.rsetiapp.common.model.response.InsertFacultyRes
 import com.rsetiapp.common.model.response.InstituteResponse
 import com.rsetiapp.common.model.response.LoginRes
 import com.rsetiapp.common.model.response.OtpGenerateResponse
-import com.rsetiapp.common.model.response.ProgramResponse
 import com.rsetiapp.common.model.response.SalaryRangeRes
 import com.rsetiapp.common.model.response.SdrInsertResp
 import com.rsetiapp.common.model.response.SdrListResp
@@ -81,11 +82,8 @@ import com.rsetiapp.core.uidai.ekyc.UidaiKycRequest
 import com.rsetiapp.core.uidai.ekyc.UidaiResp
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.HTTP
 import retrofit2.http.Header
 import retrofit2.http.POST
-import retrofit2.http.Query
 import retrofit2.http.Url
 
 interface AppLevelApi {
@@ -363,6 +361,15 @@ interface AppLevelApi {
     suspend fun reverificationSettlementAPI(@Body settlementVeryficationReq: SettlementVeryficationUploadReq): SettlementVeryficationUploadInsertRes
 
 
+
+
+
+//    Use Bhashani API
+@POST("services/inference/pipeline")
+suspend fun translateText(
+    @Header("Authorization") token: String,
+    @Body request: TranslationRequest
+): TranslationResponse
 
 }
 

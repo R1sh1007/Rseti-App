@@ -99,7 +99,7 @@
     <string name="account_status_mandate">ಖಾತೆ ಸ್ಥಿತಿ <font color='#FF0000'>*</font></string>
     <string name="batchList">ಬ್ಯಾಚ್ಗಳು</string>
     <string name="batch_name">ಬ್ಯಾಚ್ ಹೆಸರು</string>
-    <string name="batch_id">ಬ್ಯಾಚ್ ಐಡಿ</string>
+    <string name="batch_id">ಬ್ಯಾಚ್ ನೋಂದಣಿ ಸಂಖ್ಯೆ</string>
     <string name="candidate_attendance">ಅಭ್ಯರ್ಥಿಯ ಪಟ್ಟಿ</string>
     <string name="contact_number">ಸಂಪರ್ಕ ಸಂಖ್ಯೆ</string>
     <string name="roll_no">ರೋಲ್ ಸಂಖ್ಯೆ.</string>

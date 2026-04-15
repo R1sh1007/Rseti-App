@@ -98,7 +98,7 @@
     <string name="account_status_mandate">ଆକାଉଣ୍ଟ ସ୍ଥିତି <font color='#FF0000'>*</font></string>
     <string name="batchList">ବ୍ୟାଚଗୁଡ଼ିକ</string>
     <string name="batch_name">ବ୍ୟାଚ୍ ନାମ</string>
-    <string name="batch_id">ବ୍ୟାଚ୍ ଆଇଡି</string>
+    <string name="batch_id">ବ୍ୟାଚ୍ ରେଜିଷ୍ଟ୍ରେସନ୍ ନମ୍ବର</string>
     <string name="candidate_attendance">ପ୍ରାର୍ଥୀ ତାଲିକା</string>
     <string name="contact_number">ଯୋଗାଯୋଗ ନମ୍ବର</string>
     <string name="roll_no">ରୋଲ୍ ନମ୍ବର।</string>

@@ -99,7 +99,7 @@
     <string name="account_status_mandate">खाते की स्थिति <font color='#FF0000'>*</font></string>
     <string name="batchList">बैचेस</string>
     <string name="batch_name">बैच नाम</string>
-    <string name="batch_id">बैच आईडी</string>
+    <string name="batch_id">बैच पंजीकरण संख्या</string>
     <string name="candidate_attendance">उम्मीदवार सूची</string>
     <string name="contact_number">संपर्क संख्या</string>
     <string name="roll_no">रोल नं.</string>

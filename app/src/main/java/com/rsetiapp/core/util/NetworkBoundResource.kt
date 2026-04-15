@@ -41,23 +41,53 @@ fun <ResultType, RequestType> networkBoundResource(
 
 }
 
-fun <RequestType>  networkBoundResourceWithoutDb(
-    fetch: suspend () -> RequestType
-) = flow {
+//fun <RequestType>  networkBoundResourceWithoutDb(
+//    fetch: suspend () -> RequestType
+//) = flow {
+//
+//    emit(Resource.Loading(null))
+//    try {
+//        emit(Resource.Success(fetch.invoke()))
+//    } catch (t: Throwable) {
+//        val error = if (t is HttpException)
+//            getErrorMessage(t)
+//        else{
+//            if (t.message!!.contains("Unable to resolve host")){
+//                 BaseErrorResponse(HttpURLConnection.HTTP_GATEWAY_TIMEOUT, "No Internet Connection", false,Any())
+//            }else BaseErrorResponse(0, t.message.toString(), false, Any())
+//        }
+//
+//        emit(Resource.Error(error, null))
+//    }
+//}
 
-    emit(Resource.Loading(null))
+fun <T> networkBoundResourceWithoutDb(
+    fetch: suspend () -> T
+): Flow<Resource<T>> = flow {
+
+    emit(Resource.Loading())
+
     try {
-        emit(Resource.Success(fetch.invoke()))
+        val response = fetch()
+        emit(Resource.Success(response))
     } catch (t: Throwable) {
+
         val error = if (t is HttpException)
             getErrorMessage(t)
-        else{
-            if (t.message!!.contains("Unable to resolve host")){
-                 BaseErrorResponse(HttpURLConnection.HTTP_GATEWAY_TIMEOUT, "No Internet Connection", false,Any())
-            }else BaseErrorResponse(0, t.message.toString(), false, Any())
+        else {
+            if (t.message?.contains("Unable to resolve host") == true) {
+                BaseErrorResponse(
+                    HttpURLConnection.HTTP_GATEWAY_TIMEOUT,
+                    "No Internet Connection",
+                    false,
+                    Any()
+                )
+            } else {
+                BaseErrorResponse(0, t.message.toString(), false, Any())
+            }
         }
 
-        emit(Resource.Error(error, null))
+        emit(Resource.Error(error))
     }
 }
 

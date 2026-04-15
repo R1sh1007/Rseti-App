@@ -13,6 +13,13 @@ import com.rsetiapp.common.model.response.DistrictResponse
 import com.rsetiapp.common.model.response.VillageResponse
 import com.rsetiapp.common.model.response.grampanchayatResponse
 import com.rsetiapp.BuildConfig
+import com.rsetiapp.bhashini.RequestModel.Config
+import com.rsetiapp.bhashini.RequestModel.InputData
+import com.rsetiapp.bhashini.RequestModel.InputItem
+import com.rsetiapp.bhashini.RequestModel.Language
+import com.rsetiapp.bhashini.RequestModel.PipelineTask
+import com.rsetiapp.bhashini.RequestModel.TranslationRequest
+import com.rsetiapp.bhashini.ResponseMode.TranslationResponse
 import com.rsetiapp.common.model.request.AttendanceCheckReq
 import com.rsetiapp.common.model.request.AttendanceInsertReq
 import com.rsetiapp.common.model.request.BankIFSCSearchReq
@@ -43,7 +50,6 @@ import com.rsetiapp.common.model.response.AttendanceCandidateRes
 import com.rsetiapp.common.model.response.AttendanceCheckRes
 import com.rsetiapp.common.model.response.AttendanceInsertRes
 import com.rsetiapp.common.model.response.BankIFSCSearchRes
-import com.rsetiapp.common.model.response.Batch
 import com.rsetiapp.common.model.response.BatchListResponse
 import com.rsetiapp.common.model.response.CandidateListResponse
 import com.rsetiapp.common.model.response.CandidateDetailsRes
@@ -64,7 +70,6 @@ import com.rsetiapp.common.model.response.InsertFacultyRes
 import com.rsetiapp.common.model.response.InstituteResponse
 import com.rsetiapp.common.model.response.LoginRes
 import com.rsetiapp.common.model.response.OtpGenerateResponse
-import com.rsetiapp.common.model.response.ProgramResponse
 import com.rsetiapp.common.model.response.SalaryRangeRes
 import com.rsetiapp.common.model.response.SdrInsertResp
 import com.rsetiapp.common.model.response.SdrListResp
@@ -82,7 +87,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import retrofit2.http.Header
 import javax.inject.Inject
 
 
@@ -689,7 +693,39 @@ class CommonViewModel @Inject constructor(private val commonRepository: CommonRe
 
 
 
-        }}}
+        }}
+
+
+
+//    private val _translation = MutableSharedFlow<Resource<TranslationResponse>>()
+//    val translation = _translation.asSharedFlow()
+//
+//    fun translateText(text: String) {
+//        viewModelScope.launch {
+//
+//            val request = TranslationRequest(
+//                pipelineTasks = listOf(
+//                    PipelineTask(
+//                        taskType = "translation",
+//                        config = Config(
+//                            language = Language("en", "hi"),
+//                            serviceId = "ai4bharat/indictrans-v2-all-gpu--t4"
+//                        )
+//                    )
+//                ),
+//                inputData = InputData(
+//                    input = listOf(InputItem(text))
+//                )
+//            )
+//
+//            commonRepository.translateText(request).collectLatest {
+//                _translation.emit(it)
+//            }
+//        }
+//    }
+
+
+    }
 //}
 
 

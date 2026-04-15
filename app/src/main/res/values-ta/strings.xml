@@ -98,7 +98,7 @@
     <string name="account_status_mandate">கணக்கு நிலை <font color='#FF0000'>*</font></string>
     <string name="batchList">தொகுதிகள்</string>
     <string name="batch_name">தொகுதியின் பெயர்</string>
-    <string name="batch_id">தொகுதி ஐடி</string>
+    <string name="batch_id">பேட்ச் பதிவு எண்</string>
     <string name="candidate_attendance">வேட்பாளர் பட்டியல்</string>
     <string name="contact_number">தொடர்பு எண்</string>
     <string name="roll_no">ரோல் எண்.</string>

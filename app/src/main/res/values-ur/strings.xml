@@ -98,7 +98,8 @@
     <string name="account_status_mandate">اکاؤنٹ کی حیثیت <font color='#FF0000'>*</font></string>
     <string name="batchList">بیچ</string>
     <string name="batch_name">بیچ کا نام</string>
-    <string name="batch_id">بیچ آئی ڈی</string>
+<!--    <string name="batch_id">بیچ آئی ڈی</string>-->
+    <string name="batch_id">بیچ رجسٹریشن نمبر</string>
     <string name="candidate_attendance">امیدواروں کی فہرست</string>
     <string name="contact_number">رابطہ نمبر</string>
     <string name="roll_no">رول نمبر۔</string>

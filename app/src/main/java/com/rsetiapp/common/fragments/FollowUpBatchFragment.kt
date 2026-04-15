@@ -2,6 +2,7 @@ package com.rsetiapp.common.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.fragment.app.activityViewModels
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rsetiapp.BuildConfig
 import com.rsetiapp.R
+import com.rsetiapp.bhashini.TranslationHelper
 import com.rsetiapp.common.CommonViewModel
 import com.rsetiapp.common.model.response.Batch
 import com.rsetiapp.core.basecomponent.BaseFragment
@@ -49,12 +51,14 @@ class FollowUpBatchFragment :
 
     private var selectedYear = "All"
     private var selectedMonth = "All"
+    lateinit var translationHelper: TranslationHelper
+    val translationCache = HashMap<String, String>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userPreferences = UserPreferences(requireContext())
         formName = arguments?.getString("formName").toString()
-
+        translationHelper = TranslationHelper()
         init()
         collectBatchesData()
         if (batchFilteredList.isEmpty()) {
@@ -136,7 +140,37 @@ class FollowUpBatchFragment :
     }
 
 
+//    private fun updateBatchList() {
+//        val filtered = batchList.filter { batch ->
+//
+//            val batchYear = extractYearFromDate(batch.complitionDate)
+//            val batchMonth = extractMonthFromDate(batch.complitionDate)
+//
+//            when {
+//                selectedYear == "All" && selectedMonth == "All" -> true
+//
+//                selectedYear != "All" && selectedMonth == "All" ->
+//                    batchYear == selectedYear
+//
+//                selectedYear == "All" && selectedMonth != "All" ->
+//                    batchMonth.equals(selectedMonth, ignoreCase = true)
+//
+//                else ->
+//                    batchYear == selectedYear &&
+//                            batchMonth.equals(selectedMonth, ignoreCase = true)
+//            }
+//        }
+//
+//        batchFilteredList.clear()
+//        batchFilteredList.addAll(filtered)
+//
+//        batchAdapter.update(batchFilteredList)
+//        //batchAdapter.notifyDataSetChanged()
+//    }
+
+
     private fun updateBatchList() {
+
         val filtered = batchList.filter { batch ->
 
             val batchYear = extractYearFromDate(batch.complitionDate)
@@ -149,21 +183,55 @@ class FollowUpBatchFragment :
                     batchYear == selectedYear
 
                 selectedYear == "All" && selectedMonth != "All" ->
-                    batchMonth.equals(selectedMonth, ignoreCase = true)
+                    batchMonth.equals(selectedMonth, true)
 
                 else ->
                     batchYear == selectedYear &&
-                            batchMonth.equals(selectedMonth, ignoreCase = true)
+                            batchMonth.equals(selectedMonth, true)
             }
         }
 
-        batchFilteredList.clear()
-        batchFilteredList.addAll(filtered)
+        // 🔥 IMPORTANT: direct update karo (clear/addAll hata do)
+        batchAdapter.update(filtered)
 
-        batchAdapter.update(batchFilteredList)
-        //batchAdapter.notifyDataSetChanged()
+        // debug ke liye
+        Log.d("FILTER_DEBUG", "Filtered size: ${filtered.size}")
     }
 
+
+    private fun convertMonthNumberToFullName(month: Int): String {
+        return when (month) {
+            1 -> "January"
+            2 -> "February"
+            3 -> "March"
+            4 -> "April"
+            5 -> "May"
+            6 -> "June"
+            7 -> "July"
+            8 -> "August"
+            9 -> "September"
+            10 -> "October"
+            11 -> "November"
+            12 -> "December"
+            else -> ""
+        }
+    }
+    private fun extractYearFromDate(date: String?): String {
+        return try {
+            date?.substring(0, 4) ?: ""
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    private fun extractMonthFromDate(date: String?): String {
+        return try {
+            val monthNumber = date?.substring(5, 7)?.toInt() ?: 0
+            convertMonthNumberToFullName(monthNumber)
+        } catch (e: Exception) {
+            ""
+        }
+    }
 
     private fun collectBatchesData() {
         commonViewModel.getBatchAPI(
@@ -184,7 +252,6 @@ class FollowUpBatchFragment :
                         hideProgressBar()
                         showSnackBar("Internal Server Error")
                     }
-
                     is Resource.Success -> {
                         hideProgressBar()
 
@@ -194,15 +261,12 @@ class FollowUpBatchFragment :
 
                                 200 -> {
                                     NoDataHelper.hideNoData(binding.container)
+
                                     batchList.clear()
                                     batchList.addAll(response.wrappedList)
 
-                                    batchFilteredList.clear()
-                                    batchFilteredList.addAll(batchList)
-
-                                    batchAdapter.update(batchFilteredList)
-                                    //batchAdapter.notifyDataSetChanged()
-
+                                    // ✅ YAHI IMPORTANT LINE HAI
+                                    updateBatchList()
                                 }
 
                                 301 -> showSnackBar("Please update the app from PlayStore")
@@ -212,10 +276,11 @@ class FollowUpBatchFragment :
                                     requireContext()
                                 )
 
-                                else ->{ toastLong(response.responseDesc)
+                                else -> {
+                                    toastLong(response.responseDesc)
                                     NoDataHelper.showNoData(
                                         parent = binding.container,
-                                        title =response.responseDesc,
+                                        title = response.responseDesc,
                                         iconRes = R.drawable.no_data,
                                     )
                                 }
@@ -223,6 +288,44 @@ class FollowUpBatchFragment :
 
                         } ?: showSnackBar("Internal Server Error")
                     }
+//                    is Resource.Success -> {
+//                        hideProgressBar()
+//
+//                        resource.data?.let { response ->
+//
+//                            when (response.responseCode) {
+//
+//                                200 -> {
+//                                    NoDataHelper.hideNoData(binding.container)
+//                                    batchList.clear()
+//                                    batchList.addAll(response.wrappedList)
+//
+//                                    batchFilteredList.clear()
+//                                    batchFilteredList.addAll(batchList)
+//
+//                                    batchAdapter.update(batchFilteredList)
+//                                    //batchAdapter.notifyDataSetChanged()
+//
+//                                }
+//
+//                                301 -> showSnackBar("Please update the app from PlayStore")
+//
+//                                401 -> AppUtil.showSessionExpiredDialog(
+//                                    findNavController(),
+//                                    requireContext()
+//                                )
+//
+//                                else ->{ toastLong(response.responseDesc)
+//                                    NoDataHelper.showNoData(
+//                                        parent = binding.container,
+//                                        title =response.responseDesc,
+//                                        iconRes = R.drawable.no_data,
+//                                    )
+//                                }
+//                            }
+//
+//                        } ?: showSnackBar("Internal Server Error")
+//                    }
                 }
             }
         }

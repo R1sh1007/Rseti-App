@@ -99,7 +99,7 @@
     <string name="account_status_mandate">ਅਕਾਊਂਟ ਸਟੇਟਸ <font color='#FF0000'>*</font></string>
     <string name="batchList">ਬੈਚ</string>
     <string name="batch_name">ਬੈਚ ਨਾਮ</string>
-    <string name="batch_id">ਬੈਚ ਆਈਡੀ</string>
+    <string name="batch_id">ਬੈਚ ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਨੰਬਰ</string>
     <string name="candidate_attendance">ਉਮੀਦਵਾਰ ਸੂਚੀ</string>
     <string name="contact_number">ਸੰਪਰਕ ਨੰਬਰ</string>
     <string name="roll_no">ਰੋਲ ਨੰ.</string>

@@ -99,7 +99,8 @@
     <string name="account_status_mandate">একাউণ্টৰ অৱস্থা <font color='#FF0000'>*</font></string>
     <string name="batchList">ব্যাচসমূহ</string>
     <string name="batch_name">ব্যাচৰ নাম</string>
-    <string name="batch_id">বেচ আইডি</string>
+<!--    <string name="batch_id">বেচ আইডি</string>-->
+    <string name="batch_id">বেচ ৰেগ নং</string>
     <string name="candidate_attendance">প্ৰাৰ্থী তালিকা</string>
     <string name="contact_number">যোগাযোগ নম্বৰ</string>
     <string name="roll_no">ৰোল নম্বৰ।</string>

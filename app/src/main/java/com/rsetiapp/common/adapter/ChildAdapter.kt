@@ -8,7 +8,8 @@ import com.rsetiapp.databinding.ItemChildBinding
 
 class ChildAdapter(
     private val formList: List<Form>
-) : RecyclerView.Adapter<ChildAdapter.FormViewHolder>() {
+) : RecyclerView.Adapter<ChildAdapter.FormViewHolder>()
+{
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FormViewHolder {
         val binding = ItemChildBinding.inflate(LayoutInflater.from(parent.context), parent, false)

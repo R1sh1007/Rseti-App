@@ -1,5 +1,9 @@
 package com.rsetiapp.common
 
+import com.google.android.datatransport.runtime.dagger.Module
+import com.google.android.datatransport.runtime.dagger.Provides
+import com.rsetiapp.bhashini.RequestModel.TranslationRequest
+import com.rsetiapp.bhashini.ResponseMode.TranslationResponse
 import com.rsetiapp.core.uidai.ekyc.UidaiKycRequest
 import com.rsetiapp.core.uidai.ekyc.UidaiResp
 import com.rsetiapp.common.model.request.AttendanceBatchReq
@@ -48,14 +52,12 @@ import com.rsetiapp.common.model.request.ValidateOtpReq
 import com.rsetiapp.common.model.response.AttendanceBatchRes
 import com.rsetiapp.common.model.response.AttendanceCandidateRes
 import com.rsetiapp.common.model.response.BankIFSCSearchRes
-import com.rsetiapp.common.model.response.Batch
 import com.rsetiapp.common.model.response.AttendanceCheckRes
 import com.rsetiapp.common.model.response.AttendanceInsertRes
 import com.rsetiapp.common.model.response.BatchListResponse
 import com.rsetiapp.common.model.response.CandidateListResponse
 import com.rsetiapp.common.model.response.EAPInsertResponse
 import com.rsetiapp.common.model.response.EapAutoFetchRes
-import com.rsetiapp.common.model.response.FollowUpStatus
 import com.rsetiapp.common.model.response.CandidateDetailsRes
 import com.rsetiapp.common.model.response.CandidateSearchResp
 import com.rsetiapp.common.model.response.CourseResponse
@@ -72,7 +74,6 @@ import com.rsetiapp.common.model.response.InsertFacultyRes
 import com.rsetiapp.common.model.response.InstituteResponse
 import com.rsetiapp.common.model.response.LoginRes
 import com.rsetiapp.common.model.response.OtpGenerateResponse
-import com.rsetiapp.common.model.response.ProgramResponse
 import com.rsetiapp.common.model.response.SalaryRangeRes
 import com.rsetiapp.common.model.response.SdrInsertResp
 import com.rsetiapp.common.model.response.SdrListResp
@@ -86,11 +87,15 @@ import com.rsetiapp.core.data.remote.AppLevelApi
 import com.rsetiapp.core.di.AppModule
 import com.rsetiapp.core.util.Resource
 import com.rsetiapp.core.util.networkBoundResourceWithoutDb
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.Header
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
+import javax.inject.Named
+import javax.inject.Singleton
 
 
 class CommonRepository @Inject constructor(
@@ -355,8 +360,6 @@ class CommonRepository @Inject constructor(
     }
 
 
-
-
     suspend fun postOnAUAFaceAuthNREGA(
         url: String,
         uidaiKycRequest: UidaiKycRequest
@@ -365,6 +368,7 @@ class CommonRepository @Inject constructor(
             appLevelApi.postOnAUAFaceAuthNREGA(url, uidaiKycRequest)
         }
     }
+
     suspend fun getSalaryDetailsAPI(
         header: String,
         salaryRangeReq: SalaryRangeReq
@@ -449,25 +453,17 @@ class CommonRepository @Inject constructor(
     }
 
 
-
-
-
-
-
-        suspend fun getSettlementsLoginAPI(settlementVeryficationReq: SettlementVeryficationReq) : Flow<Resource<out SettlementVeryficationListResponse>>{
+    suspend fun getSettlementsLoginAPI(settlementVeryficationReq: SettlementVeryficationReq): Flow<Resource<out SettlementVeryficationListResponse>> {
         return networkBoundResourceWithoutDb {
             appLevelApi.getSettlementsLoginAPI(settlementVeryficationReq)
         }
     }
 
-    suspend fun getdistrictListAPI(districtrReq: DistrictListReq) : Flow<Resource<out DistrictListResponse>>{
+    suspend fun getdistrictListAPI(districtrReq: DistrictListReq): Flow<Resource<out DistrictListResponse>> {
         return networkBoundResourceWithoutDb {
             appLevelApi.getdistrictListAPI(districtrReq)
         }
     }
-
-
-
 
 
 //    instituteListAPI
@@ -486,47 +482,21 @@ class CommonRepository @Inject constructor(
     }
 
 
-
-
-
-    suspend fun getsettledbatchAPI(settleBatchReq: SettlementVeryficationBatchReq) : Flow<Resource<out SettlementPercentageListResponse>>{
+    suspend fun getsettledbatchAPI(settleBatchReq: SettlementVeryficationBatchReq): Flow<Resource<out SettlementPercentageListResponse>> {
         return networkBoundResourceWithoutDb {
             appLevelApi.getgetsettledbatchAPIListAPI(settleBatchReq)
         }
     }
 
 
-
-
-
-
-
-
-    suspend fun reverificationSettlementAPI(settlementVeryReq: SettlementVeryficationUploadReq) : Flow<Resource<out SettlementVeryficationUploadInsertRes>>{
+    suspend fun reverificationSettlementAPI(settlementVeryReq: SettlementVeryficationUploadReq): Flow<Resource<out SettlementVeryficationUploadInsertRes>> {
         return networkBoundResourceWithoutDb {
             appLevelApi.reverificationSettlementAPI(settlementVeryReq)
         }
     }
 
-
-//    getsettledbatchAPI
-//
-//
-//
-//
-//    suspend fun getsettledbatchAPI(
-//        appVersion: String,
-//        instituteId: String
-//    ): Flow<Resource<out BatchListResponse>> {
-//        return networkBoundResourceWithoutDb {
-//            appLevelApi.getgetsettledbatchAPIListAPI(
-//                SettlementVeryficationBatchReq(appVersion, instituteId)
-//            )
-//        }
-//    }
-
-
-
 }
+
+
 
 

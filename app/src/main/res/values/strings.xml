@@ -99,7 +99,7 @@
     <string name="account_status_mandate">Account status<font color='red'>*</font></string>
     <string name="batchList">Batches</string>
     <string name="batch_name">Batch Name</string>
-    <string name="batch_id">Batch ID</string>
+    <string name="batch_id">Batch Reg No</string>
     <string name="candidate_attendance">Candidate List</string>
     <string name="contact_number">Contact Number</string>
     <string name="roll_no">Roll No.</string>
