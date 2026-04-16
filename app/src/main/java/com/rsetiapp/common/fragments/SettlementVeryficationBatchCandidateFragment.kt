@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.GsonBuilder
 import com.rsetiapp.BuildConfig
+import com.rsetiapp.R
 import com.rsetiapp.common.CommonViewModel
 import com.rsetiapp.common.MySattelementBottomSheet
 import com.rsetiapp.common.VeryficationSattelementBottomSheet
@@ -60,7 +61,7 @@ class SettlementVeryficationBatchCandidateFragment :   BaseFragment<FragmentSett
     }
 
     private fun init() {
-        binding.tvTitleName.text = "Settlement Veryfication"
+        binding.tvTitleName.text = getString(R.string.settlement_veryfication)
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }

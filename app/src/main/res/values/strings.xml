@@ -216,5 +216,6 @@
     <string name="location_gps">Please come in the open space or restart your GPS as the location cannot be retrieved. </string>
     <string name="enter_remark">Enter Remark</string>
     <string name="settlement_batch">Settlement Batch</string>
+    <string name="settlement_veryfication">Settlement Veryfication</string>
 
 </resources>
