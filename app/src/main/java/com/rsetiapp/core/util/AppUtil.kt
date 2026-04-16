@@ -218,15 +218,49 @@ object AppUtil {
 
 
     fun saveItem(context: Context, item: SettlementPrefModel) {
-        val prefs = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
-        val gson = Gson()
 
-        val currentList = getList(context).toMutableList()
-        currentList.add(item)
 
-        prefs.edit()
-            .putString("app_preferences", gson.toJson(currentList))
-            .apply()
+        try {
+            val json = Gson().toJson(item)
+
+            if (json.length > 500000) { // ~500KB limit
+                Log.e("SAVE_ERROR", "Data too large")
+                return
+            }
+
+            val prefs = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+            val gson = Gson()
+
+            val currentList = getList(context).toMutableList()
+            currentList.add(item)
+
+            prefs.edit()
+                .putString("app_preferences", gson.toJson(currentList))
+                .apply()
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+
+
+
+
+
+
+
+
+
+
+//        val prefs = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+//        val gson = Gson()
+//
+//        val currentList = getList(context).toMutableList()
+//        currentList.add(item)
+//
+//        prefs.edit()
+//            .putString("app_preferences", gson.toJson(currentList))
+//            .apply()
     }
 
     fun getList(context: Context): List<SettlementPrefModel> {

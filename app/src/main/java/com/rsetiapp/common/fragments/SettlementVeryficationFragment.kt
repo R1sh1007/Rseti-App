@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rsetiapp.BuildConfig
+import com.rsetiapp.R
 import com.rsetiapp.common.CommonViewModel
 import com.rsetiapp.common.MySattelementBottomSheet
 import com.rsetiapp.common.VeryficationSattelementBottomSheet
@@ -67,7 +68,7 @@ class SettlementVeryficationFragment : BaseFragment<FragmentSettlementVeryficati
 
     private fun init() {
 //        binding.tvTitleName.text = formName
-        binding.tvTitleName.text = "Settlement Batch Batch"
+        binding.tvTitleName.text = getString(R.string.settlement_batch)
 
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()

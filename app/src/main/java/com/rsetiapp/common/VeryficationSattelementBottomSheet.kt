@@ -242,21 +242,14 @@ class VeryficationSattelementBottomSheet : BottomSheetDialogFragment() {
         tvFamilyMemberWorksPartTime.setText(familyMemberPartTime)
         tvEarningsIncome.setText(salaryRangeId)
 
-//        collectInsertResponse()
+
+        val passCopy = passbookCopybase64ToBitmap(passbookCopy)
+        val appointmentLetter = base64ImageppointmentLetterbase64ToBitmap(appointmentLetterValue)
+        val settlmentPhoto = base64ToBitmap(settlmentPhoto)
 
 
-//        passbookCopy = bitmapToBase64(compressedBitmap)
-        val base64Image = passbookCopy
-        val base64ImageppointmentLetter = appointmentLetterValue
-        val base64settlmentPhotoImage = settlmentPhoto
-        val bitmap = passbookCopybase64ToBitmap(base64Image)
-        val appointmentLetter =
-            base64ImageppointmentLetterbase64ToBitmap(base64ImageppointmentLetter)
-        val settlmentPhoto = base64ToBitmap(base64settlmentPhotoImage)
-
-
-        if (bitmap != null) {
-            passbookPhoto.setImageBitmap(bitmap)
+        if (passCopy != null) {
+            passbookPhoto.setImageBitmap(passCopy)
         }
         if (appointmentLetter != null) {
             appointmentLetterImage.setImageBitmap(appointmentLetter)
@@ -265,6 +258,16 @@ class VeryficationSattelementBottomSheet : BottomSheetDialogFragment() {
         if (settlmentPhoto != null) {
             settlmentPhotoImage.setImageBitmap(settlmentPhoto)
         }
+
+        Log.e("passbookPhoto",passbookPhoto.toString() )
+        Log.e("appointmentLetterImage",appointmentLetterImage.toString() )
+        Log.e("settlmentPhotoImage",settlmentPhotoImage.toString() )
+
+
+
+
+
+
 
         latitude = Bindinglatitude
         longitude = Bindinglongitutde

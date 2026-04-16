@@ -112,6 +112,9 @@ class SettlementVeryficationBatchCandidateFragment :   BaseFragment<FragmentSett
 
             Log.d("ReverificationAPI", "📤 REQUEST JSON:\n$requestJson")
             AppUtil.saveItem(requireContext(), model)
+
+
+
             val bottomSheet = VeryficationSattelementBottomSheet()
             bottomSheet.show(parentFragmentManager, "MySattelementBottomSheet")
 
