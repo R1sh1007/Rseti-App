@@ -61,7 +61,7 @@ class SettlementVeryficationBatchCandidateFragment :   BaseFragment<FragmentSett
     }
 
     private fun init() {
-        binding.tvTitleName.text = getString(R.string.settlement_veryfication)
+        binding.tvTitleName.text = getString(R.string.settlement_veryfication_form)
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -129,7 +129,6 @@ class SettlementVeryficationBatchCandidateFragment :   BaseFragment<FragmentSett
     @SuppressLint("NotifyDataSetChanged")
     private fun collectCandidatesData() {
         commonViewModel.getSettlementsLoginAPI(SettlementVeryficationReq(BuildConfig.VERSION_NAME, AppUtil.getSavedCandidatePreference(requireContext()))
-
         )
 
 

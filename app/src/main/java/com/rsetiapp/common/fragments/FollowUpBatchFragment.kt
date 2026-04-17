@@ -288,44 +288,6 @@ class FollowUpBatchFragment :
 
                         } ?: showSnackBar("Internal Server Error")
                     }
-//                    is Resource.Success -> {
-//                        hideProgressBar()
-//
-//                        resource.data?.let { response ->
-//
-//                            when (response.responseCode) {
-//
-//                                200 -> {
-//                                    NoDataHelper.hideNoData(binding.container)
-//                                    batchList.clear()
-//                                    batchList.addAll(response.wrappedList)
-//
-//                                    batchFilteredList.clear()
-//                                    batchFilteredList.addAll(batchList)
-//
-//                                    batchAdapter.update(batchFilteredList)
-//                                    //batchAdapter.notifyDataSetChanged()
-//
-//                                }
-//
-//                                301 -> showSnackBar("Please update the app from PlayStore")
-//
-//                                401 -> AppUtil.showSessionExpiredDialog(
-//                                    findNavController(),
-//                                    requireContext()
-//                                )
-//
-//                                else ->{ toastLong(response.responseDesc)
-//                                    NoDataHelper.showNoData(
-//                                        parent = binding.container,
-//                                        title =response.responseDesc,
-//                                        iconRes = R.drawable.no_data,
-//                                    )
-//                                }
-//                            }
-//
-//                        } ?: showSnackBar("Internal Server Error")
-//                    }
                 }
             }
         }
